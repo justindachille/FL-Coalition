@@ -842,7 +842,6 @@ def local_train_net_moon(nets, selected, args, net_dataidx_map, test_dl=None, gl
     return nets_list
 
 
-
 def get_partition_dict(dataset, partition, n_parties, init_seed=0, datadir='./data', logdir='./logs', beta=0.5):
     seed = init_seed
     np.random.seed(seed)
@@ -899,7 +898,6 @@ if __name__ == '__main__':
                                                                                         32)
 
     print("len train_dl_global:", len(train_ds_global))
-
 
     data_size = len(test_ds_global)
 

@@ -104,7 +104,6 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
 
     return test_acc
 
-
 if __name__ == '__main__':
     args = get_args()
     device = torch.device(args.device)
@@ -112,9 +111,10 @@ if __name__ == '__main__':
     np.random.seed(seed)
     torch.manual_seed(seed)
     random.seed(seed)
-    for net in range(args.net_num):
-        print(f'{args.alg}alg{net}')
-        with open(f'{args.alg}alg{net}.pickle', 'rb') as handle:
-            (net_id, net, train_dl_local, test_dl_local, ft_epochs, lr, optimizer, mu) = pickle.load(handle)
+    for c in args.abc:
+        filename = f'{args.abc}_{c}.pickle'
+        if os.path.exists(filename):
+            with open(filename, 'rb') as handle:
+                (net_id, net, train_dl_local, test_dl_local, ft_epochs, lr, optimizer, mu) = pickle.load(handle)
         
         train_net_scaffold_ft(net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.train_all_layers)
