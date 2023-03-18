@@ -9,6 +9,11 @@ __pycache__/
 # Pickle files
 *.pickle
 
+# Datasets
+data/
+'/
+'/
+
 # Distribution / packaging
 .Python
 build/
