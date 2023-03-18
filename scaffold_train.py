@@ -104,6 +104,84 @@ def init_nets(net_configs, dropout_p, n_parties, args):
         layer_type.append(k)
     return nets, model_meta_data, layer_type
 
+
+def train_net_scaffold(net_id, net, global_model, c_local, c_global, train_dataloader, test_dataloader, epochs, lr, args_optimizer, device="cpu"):
+    logger.info('Training network %s' % str(net_id))
+    train_acc = compute_accuracy(net, train_dataloader, device=device)
+    test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
+
+    logger.info('>> Pre-Training Training accuracy: {}'.format(train_acc))
+    logger.info('>> Pre-Training Test accuracy: {}'.format(test_acc))
+    loss_total = 0.0
+    if args_optimizer == 'adam':
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad, net.parameters()), lr=lr, weight_decay=args.reg)
+    elif args_optimizer == 'amsgrad':
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad, net.parameters()), lr=lr, weight_decay=args.reg,
+                               amsgrad=True)
+    elif args_optimizer == 'sgd':
+        optimizer = optim.SGD(filter(lambda p: p.requires_grad, net.parameters()), lr=lr, momentum=args.rho, weight_decay=args.reg)
+    criterion = nn.CrossEntropyLoss().to(device)
+
+    cnt = 0
+    if type(train_dataloader) == type([1]):
+        pass
+    else:
+        train_dataloader = [train_dataloader]
+
+    c_global_para = c_global.state_dict()
+    c_local_para = c_local.state_dict()
+
+    for epoch in range(epochs):
+        epoch_loss_collector = []
+        for tmp in train_dataloader:
+            for batch_idx, (x, target) in enumerate(tmp):
+                x, target = x.to(device), target.to(device)
+
+                optimizer.zero_grad()
+                x.requires_grad = True
+                target.requires_grad = False
+                target = target.long()
+
+                out = net(x)
+                loss = criterion(out, target)
+                loss_total += loss.item()
+
+                loss.backward()
+                optimizer.step()
+
+                net_para = net.state_dict()
+                for key in net_para:
+                    net_para[key] = net_para[key] - args.lr * (c_global_para[key] - c_local_para[key])
+                net.load_state_dict(net_para)
+
+                cnt += 1
+                epoch_loss_collector.append(loss.item())
+
+
+        epoch_loss = sum(epoch_loss_collector) / len(epoch_loss_collector)
+        logger.info('Epoch: %d Loss: %f' % (epoch, epoch_loss))
+
+    c_new_para = c_local.state_dict()
+    c_delta_para = copy.deepcopy(c_local.state_dict())
+    global_model_para = global_model.state_dict()
+    net_para = net.state_dict()
+    for key in net_para:
+        c_new_para[key] = c_new_para[key] - c_global_para[key] + (global_model_para[key] - net_para[key]) / (cnt * args.lr)
+        c_delta_para[key] = c_new_para[key] - c_local_para[key]
+    c_local.load_state_dict(c_new_para)
+
+
+    train_acc = compute_accuracy(net, train_dataloader, device=device)
+    test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
+
+    logger.info('>> Training accuracy: %f' % train_acc)
+    logger.info('>> Test accuracy: %f' % test_acc)
+
+
+    logger.info(' ** Training complete **')
+    return train_acc, test_acc, c_delta_para, loss_total
+
+
 def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, args, net_dataidx_map, test_dl = None, device="cpu"):
     avg_acc = 0.0
     loss_total = 0.0
@@ -163,6 +241,7 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
     nets_list = list(nets.values())
     return nets_list, loss_total
 
+
 def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split=[1000, 3000, 8000], beta=0.4):
     if dataset == 'cifar10':
         X_train, y_train, X_test, y_test = load_cifar10_data(datadir)
@@ -216,6 +295,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
     traindata_cls_counts = record_net_data_stats(y_train, net_dataidx_map, logdir)
     return (X_train, y_train, X_test, y_test, net_dataidx_map, traindata_cls_counts)
 
+
 def train_single(net_id, net, train_dataloader, test_dataloader, device="cpu"):
     if args.optimizer == 'adam':
         optimizer = optim.Adam(filter(lambda p: p.requires_grad, net.parameters()), lr=args.lr, weight_decay=args.reg)
@@ -267,8 +347,8 @@ def train_single(net_id, net, train_dataloader, test_dataloader, device="cpu"):
             with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
                 pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+
 if __name__ == '__main__':
-    # torch.set_printoptions(profile="full")
     args = get_args()
     mkdirs(args.logdir)
     mkdirs(args.modeldir)
@@ -279,8 +359,6 @@ if __name__ == '__main__':
     with open(os.path.join(args.logdir, argument_path), 'w') as f:
         json.dump(str(args), f)
     device = torch.device(args.device)
-    # logging.basicConfig(filename='test.log', level=logger.info, filemode='w')
-    # logging.info("test")
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
     if args.abc is None:
