@@ -182,6 +182,122 @@ def train_net_scaffold(net_id, net, global_model, c_local, c_global, train_datal
     return train_acc, test_acc, c_delta_para, loss_total
 
 
+def train_net(net_id, net, train_dataloader, test_dataloader, epochs, lr, args_optimizer, device="cpu"):
+    logger.info('Training network %s' % str(net_id))
+
+    train_acc = compute_accuracy(net, train_dataloader, device=device)
+    test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
+
+    logger.info('>> Pre-Training Training accuracy: {}'.format(train_acc))
+    logger.info('>> Pre-Training Test accuracy: {}'.format(test_acc))
+
+    if args_optimizer == 'adam':
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad, net.parameters()), lr=lr, weight_decay=args.reg)
+    elif args_optimizer == 'amsgrad':
+        optimizer = optim.Adam(filter(lambda p: p.requires_grad, net.parameters()), lr=lr, weight_decay=args.reg,
+                               amsgrad=True)
+    elif args_optimizer == 'sgd':
+        optimizer = optim.SGD(filter(lambda p: p.requires_grad, net.parameters()), lr=lr, momentum=args.rho, weight_decay=args.reg)
+    criterion = nn.CrossEntropyLoss().to(device)
+
+    cnt = 0
+    if type(train_dataloader) == type([1]):
+        pass
+    else:
+        train_dataloader = [train_dataloader]
+
+    #writer = SummaryWriter()
+    loss_total = 0
+    for epoch in range(epochs):
+        epoch_loss_collector = []
+        for tmp in train_dataloader:
+            for batch_idx, (x, target) in enumerate(tmp):
+                x, target = x.to(device), target.to(device)
+
+                optimizer.zero_grad()
+                x.requires_grad = True
+                target.requires_grad = False
+                target = target.long()
+
+                out = net(x)
+                loss = criterion(out, target)
+                loss_total += loss.item()
+
+                loss.backward()
+                optimizer.step()
+
+                cnt += 1
+                epoch_loss_collector.append(loss.item())
+
+        epoch_loss = sum(epoch_loss_collector) / len(epoch_loss_collector)
+        logger.info('Epoch: %d Loss: %f' % (epoch, epoch_loss))
+
+        #train_acc = compute_accuracy(net, train_dataloader, device=device)
+        #test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
+
+        #writer.add_scalar('Accuracy/train', train_acc, epoch)
+        #writer.add_scalar('Accuracy/test', test_acc, epoch)
+
+        # if epoch % 10 == 0:
+        #     logger.info('Epoch: %d Loss: %f' % (epoch, epoch_loss))
+        #     train_acc = compute_accuracy(net, train_dataloader, device=device)
+        #     test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
+        #
+        #     logger.info('>> Training accuracy: %f' % train_acc)
+        #     logger.info('>> Test accuracy: %f' % test_acc)
+
+    train_acc = compute_accuracy(net, train_dataloader, device=device)
+    test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
+
+    logger.info('>> Training accuracy: %f' % train_acc)
+    logger.info('>> Test accuracy: %f' % test_acc)
+
+
+    logger.info(' ** Training complete **')
+    return train_acc, test_acc, loss_total
+
+
+def local_train_net(nets, selected, args, net_dataidx_map, test_dl = None, device="cpu"):
+    avg_acc = 0.0
+    loss_total = 0
+
+    for net_id, net in nets.items():
+        if net_id not in selected:
+            continue
+        dataidxs = net_dataidx_map[net_id]
+
+        logger.info("Training network %s. n_training: %d" % (str(net_id), len(dataidxs)))
+        # move the model to cuda device:
+        net.to(device)
+
+        noise_level = args.noise
+        if net_id == args.n_parties - 1:
+            noise_level = 0
+
+        if args.noise_type == 'space':
+            train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, net_id, args.n_parties-1)
+        else:
+            noise_level = args.noise / (args.n_parties - 1) * net_id
+            train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
+        train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
+        n_epoch = args.epochs
+
+        trainacc, testacc, local_net_loss = train_net(net_id, net, train_dl_local, test_dl, n_epoch, args.lr, args.optimizer, device=device)
+        loss_total += local_net_loss
+        logger.info("net %d final test acc %f" % (net_id, testacc))
+        avg_acc += testacc
+        # saving the trained models here
+        # save_model(net, net_id, args)
+        # else:
+        #     load_model(net, net_id, device=device)
+    avg_acc /= len(selected)
+    if args.alg == 'local_training':
+        logger.info("avg test acc %f" % avg_acc)
+
+    nets_list = list(nets.values())
+    return nets_list, loss_total
+
+
 def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, args, net_dataidx_map, test_dl = None, device="cpu"):
     avg_acc = 0.0
     loss_total = 0.0
@@ -221,7 +337,7 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
         for key in total_delta:
             total_delta[key] += c_delta_para[key]
 
-        logger.info("net %d final test acc %f" % (net_id, testacc))
+        print("net %d final test acc %f" % (net_id, testacc))
         avg_acc += testacc
     for key in total_delta:
         total_delta[key] /= args.n_parties
@@ -241,7 +357,7 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
     nets_list = list(nets.values())
     return nets_list, loss_total
 
-
+#[4000, 12000, 33000]
 def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split=[1000, 3000, 8000], beta=0.4):
     if dataset == 'cifar10':
         X_train, y_train, X_test, y_test = load_cifar10_data(datadir)
@@ -422,103 +538,188 @@ if __name__ == '__main__':
     communication_round = []
     training_loss = []
     valid_accuracy = []
-    print("Initializing nets")
-    nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
-    global_models, global_model_meta_data, global_layer_type = init_nets(args.net_config, 0, 1, args)
-    global_model = global_models[0]
 
-    c_nets, _, _ = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
-    c_globals, _, _ = init_nets(args.net_config, 0, 1, args)
-    c_global = c_globals[0]
-    c_global_para = c_global.state_dict()
-    for net_id, net in c_nets.items():
-        net.load_state_dict(c_global_para)
+    if args.alg == 'fedavg':
+        print('Initializing nets')
+        logger.info("Initializing nets")
+        nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
+        global_models, global_model_meta_data, global_layer_type = init_nets(args.net_config, 0, 1, args)
+        global_model = global_models[0]
 
-    global_para = global_model.state_dict()
+        global_para = global_model.state_dict()
+        for round in range(args.comm_round):
+            communication_round += [round]
 
-    for round in range(args.comm_round):
-        communication_round += [round]
+            print("in comm round:" + str(round))
 
-        print("in comm round:" + str(round))
+            arr = np.arange(args.n_parties)
+            selected = arr[:int(args.n_parties * args.sample)]
 
-        arr = np.arange(args.n_parties)
-        selected = arr[:int(args.n_parties * args.sample)]
+            net_setup = args.abc.lower()
 
-        net_setup = args.abc.lower()
+            if net_setup == 'a':
+                selected = selected[0]
+            elif net_setup == 'b':
+                selected = selected[1]
+            elif net_setup == 'c':
+                selected = selected[2]
+            elif net_setup == 'ab':
+                selected = selected[0:2]
+            elif net_setup == 'bc':
+                selected = selected[1:3]
+            elif net_setup == 'ac':
+                selected = [selected[0], selected[2]]
+            if len(args.abc) == 1:
+                # Single client
+                net_id = selected
+                dataidxs = net_dataidx_map[net_id]
+                if args.noise_type == 'space':
+                    train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, args.n_parties-1)
+                else:
+                    noise_level = args.noise / (args.n_parties - 1) * net_id
+                    train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
+                train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
+                train_single(net_id, nets[net_id], train_dl_local, test_dl_global, device="cpu")
+                break
+            global_para = global_model.state_dict()
+            for idx in selected:
+                nets[idx].load_state_dict(global_para)
 
-        if net_setup == 'a':
-            selected = selected[0]
-        elif net_setup == 'b':
-            selected = selected[1]
-        elif net_setup == 'c':
-            selected = selected[2]
-        elif net_setup == 'ab':
-            selected = selected[0:2]
-        elif net_setup == 'bc':
-            selected = selected[1:3]
-        elif net_setup == 'ac':
-            selected = [selected[0], selected[2]]
-        if len(args.abc) == 1:
-            # Single client
-            net_id = selected
+            global_para = global_model.state_dict()
+            for idx in selected:
+                nets[idx].load_state_dict(global_para)
+
+            _, loss_total = local_train_net(nets, selected, args, net_dataidx_map, test_dl = test_dl_global, device=device)
+            # local_train_net(nets, args, net_dataidx_map, local_split=False, device=device)
+
+            # update global model
+            total_data_points = sum([len(net_dataidx_map[r]) for r in selected])
+            fed_avg_freqs = [len(net_dataidx_map[r]) / total_data_points for r in selected]
+
+            for idx in range(len(selected)):
+                net_para = nets[selected[idx]].cpu().state_dict()
+                if idx == 0:
+                    for key in net_para:
+                        global_para[key] = net_para[key] * fed_avg_freqs[idx]
+                else:
+                    for key in net_para:
+                        global_para[key] += net_para[key] * fed_avg_freqs[idx]
+            global_model.load_state_dict(global_para)
+
+            logger.info('global n_training: %d' % len(train_dl_global))
+            logger.info('global n_test: %d' % len(test_dl_global))
+
+            global_model.to(device)
+            train_acc = compute_accuracy(global_model, train_dl_global, device=device)
+            test_acc, conf_matrix = compute_accuracy(global_model, test_dl_global, get_confusion_matrix=True, device=device)
+
+            print('>> Global Model Train accuracy: %f' % train_acc)
+            print('>> Global Model Test accuracy: %f' % test_acc)
+            valid_accuracy += [test_acc]
+            training_loss += [loss_total]
+
+            logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
+            print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+        with open(f'{args.alg}beta{args.beta}.pickle', 'wb') as handle:
+            pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
+    elif args.alg == 'scaffold':
+        print("Initializing nets")
+        nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
+        global_models, global_model_meta_data, global_layer_type = init_nets(args.net_config, 0, 1, args)
+        global_model = global_models[0]
+
+        c_nets, _, _ = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
+        c_globals, _, _ = init_nets(args.net_config, 0, 1, args)
+        c_global = c_globals[0]
+        c_global_para = c_global.state_dict()
+        for net_id, net in c_nets.items():
+            net.load_state_dict(c_global_para)
+
+        global_para = global_model.state_dict()
+
+        for round in range(args.comm_round):
+            communication_round += [round]
+
+            print("in comm round:" + str(round))
+
+            arr = np.arange(args.n_parties)
+            selected = arr[:int(args.n_parties * args.sample)]
+
+            net_setup = args.abc.lower()
+
+            if net_setup == 'a':
+                selected = selected[0]
+            elif net_setup == 'b':
+                selected = selected[1]
+            elif net_setup == 'c':
+                selected = selected[2]
+            elif net_setup == 'ab':
+                selected = selected[0:2]
+            elif net_setup == 'bc':
+                selected = selected[1:3]
+            elif net_setup == 'ac':
+                selected = [selected[0], selected[2]]
+            if len(args.abc) == 1:
+                # Single client
+                net_id = selected
+                dataidxs = net_dataidx_map[net_id]
+                if args.noise_type == 'space':
+                    train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, args.n_parties-1)
+                else:
+                    noise_level = args.noise / (args.n_parties - 1) * net_id
+                    train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
+                train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
+                train_single(net_id, nets[net_id], train_dl_local, test_dl_global, device="cpu")
+                break
+            global_para = global_model.state_dict()
+            for idx in selected:
+                nets[idx].load_state_dict(global_para)
+
+            _, loss_total = local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, args, net_dataidx_map, test_dl = test_dl_global, device=device)
+            # local_train_net(nets, args, net_dataidx_map, local_split=False, device=device)
+
+            # update global model
+            total_data_points = sum([len(net_dataidx_map[r]) for r in selected])
+            fed_avg_freqs = [len(net_dataidx_map[r]) / total_data_points for r in selected]
+
+            for idx in range(len(selected)):
+                net_para = nets[selected[idx]].cpu().state_dict()
+                if idx == 0:
+                    for key in net_para:
+                        global_para[key] = net_para[key] * fed_avg_freqs[idx]
+                else:
+                    for key in net_para:
+                        global_para[key] += net_para[key] * fed_avg_freqs[idx]
+            global_model.load_state_dict(global_para)
+
+            print('global n_training: %d' % len(train_dl_global))
+            print('global n_test: %d' % len(test_dl_global))
+
+            global_model.to(device)
+            train_acc = compute_accuracy(global_model, train_dl_global, device=device)
+            test_acc, conf_matrix = compute_accuracy(global_model, test_dl_global, get_confusion_matrix=True, device=device)
+            valid_accuracy += [test_acc]
+            training_loss += [loss_total]
+
+            logger.info('>> Global Model Train accuracy: %f' % train_acc)
+            logger.info('>> Global Model Test accuracy: %f' % test_acc)
+            print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+        for net_id, net in nets.items():
             dataidxs = net_dataidx_map[net_id]
+
             if args.noise_type == 'space':
-                train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, args.n_parties-1)
+                train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, net_id, args.n_parties-1)
             else:
                 noise_level = args.noise / (args.n_parties - 1) * net_id
                 train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
             train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
-            train_single(net_id, nets[net_id], train_dl_local, test_dl_global, device="cpu")
-            break
-        global_para = global_model.state_dict()
-        for idx in selected:
-            nets[idx].load_state_dict(global_para)
+            if net_id in selected:
+                int_to_str = {0: 'a', 1: 'b', 2: 'c'}
+                with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
+                    pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
+            
+            # train_net_fedprox_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.mu)
 
-        _, loss_total = local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, args, net_dataidx_map, test_dl = test_dl_global, device=device)
-        # local_train_net(nets, args, net_dataidx_map, local_split=False, device=device)
-
-        # update global model
-        total_data_points = sum([len(net_dataidx_map[r]) for r in selected])
-        fed_avg_freqs = [len(net_dataidx_map[r]) / total_data_points for r in selected]
-
-        for idx in range(len(selected)):
-            net_para = nets[selected[idx]].cpu().state_dict()
-            if idx == 0:
-                for key in net_para:
-                    global_para[key] = net_para[key] * fed_avg_freqs[idx]
-            else:
-                for key in net_para:
-                    global_para[key] += net_para[key] * fed_avg_freqs[idx]
-        global_model.load_state_dict(global_para)
-
-        print('global n_training: %d' % len(train_dl_global))
-        print('global n_test: %d' % len(test_dl_global))
-
-        global_model.to(device)
-        train_acc = compute_accuracy(global_model, train_dl_global, device=device)
-        test_acc, conf_matrix = compute_accuracy(global_model, test_dl_global, get_confusion_matrix=True, device=device)
-        valid_accuracy += [test_acc]
-        training_loss += [loss_total]
-
-        logger.info('>> Global Model Train accuracy: %f' % train_acc)
-        logger.info('>> Global Model Test accuracy: %f' % test_acc)
-        print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
-    for net_id, net in nets.items():
-        dataidxs = net_dataidx_map[net_id]
-
-        if args.noise_type == 'space':
-            train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, net_id, args.n_parties-1)
-        else:
-            noise_level = args.noise / (args.n_parties - 1) * net_id
-            train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
-        train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
-        if net_id in selected:
-            int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-            with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
-                pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
-        
-        # train_net_fedprox_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.mu)
-
-    with open(f'{args.alg}beta{args.beta}.pickle', 'wb') as handle:
-        pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
+        with open(f'{args.alg}beta{args.beta}.pickle', 'wb') as handle:
+            pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
