@@ -29,6 +29,7 @@ def get_args():
     parser.add_argument('--reg', type=float, default=1e-5, help="L2 regularization strength")
     parser.add_argument('--rho', type=float, default=0, help='Parameter controlling the momentum SGD')
     parser.add_argument('--ft_epochs', type=int, default=5, help='number of fine tuning epochs')
+    parser.add_argument('--partition', type=str, default='noniid-labeldir', help='the data partitioning strategy')
     parser.add_argument('--init_seed', type=int, default=0, help="Random seed")
     parser.add_argument('--alg', type=str, default='scaffold',
                             help='fl algorithms: fedavg/fedprox/scaffold/fednova/moon')
@@ -95,11 +96,11 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
 
         epoch_loss = sum(epoch_loss_collector) / len(epoch_loss_collector)
         test_acc, conf_matrix = compute_accuracy_weighted(net, test_dataloader, train_dataloader, get_confusion_matrix=True, device=device)
-        print('Epoch: %d Loss: %f Valid: %f' % (epoch, epoch_loss, test_acc))
 
         valid_accuracies += [test_acc]
         losses += [epoch_loss]
-    with open(f'FineTunedNet{str(args.abc)}_{str(net_id)}allLayers{train_all_layers}.pickle', 'wb') as handle:
+        print('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
+    with open(f'FineTunedNet{args.partition}_{str(args.abc)}_{str(net_id)}allLayers{train_all_layers}.pickle', 'wb') as handle:
         pickle.dump((epochs_list, valid_accuracies, losses), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     return test_acc
@@ -112,7 +113,7 @@ if __name__ == '__main__':
     torch.manual_seed(seed)
     random.seed(seed)
     for c in args.abc:
-        filename = f'{args.alg}_{args.abc}_{c}.pickle'
+        filename = f'{args.partition}_{args.alg}_{args.abc}_{c}.pickle'
         if os.path.exists(filename):
             with open(filename, 'rb') as handle:
                 (net_id, net, train_dl_local, test_dl_local, ft_epochs, lr, optimizer, mu) = pickle.load(handle)

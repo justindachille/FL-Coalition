@@ -28,7 +28,7 @@ def get_args():
     parser.add_argument('--model', type=str, default='MLP', help='neural network used in training')
     parser.add_argument('--dataset', type=str, default='mnist', help='dataset used for training')
     parser.add_argument('--net_config', type=lambda x: list(map(int, x.split(', '))))
-    parser.add_argument('--partition', type=str, default='homo', help='the data partitioning strategy')
+    parser.add_argument('--partition', type=str, default='noniid-labeldir', help='the data partitioning strategy')
     parser.add_argument('--batch-size', type=int, default=64, help='input batch size for training (default: 64)')
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate (default: 0.01)')
     parser.add_argument('--epochs', type=int, default=5, help='number of local epochs')
@@ -358,7 +358,7 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
     return nets_list, loss_total
 
 #[4000, 12000, 33000]
-def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split=[1000, 3000, 8000], beta=0.4):
+def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split=[3000, 3000, 3000], beta=0.4):
     if dataset == 'cifar10':
         X_train, y_train, X_test, y_test = load_cifar10_data(datadir)
     n_train = y_train.shape[0]
@@ -368,11 +368,29 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
         K = 10
         N = y_train.shape[0]
         net_dataidx_map = {}
+        n_subsamples = sum(clients_split)
+        samples_per_label = n_subsamples // K
+
+        X_train_subsampled = []
+        y_train_subsampled = []
+
+        for k in range(K):
+            indices_k = np.where(y_train == k)[0]
+            indices_k_sampled = np.random.choice(indices_k, samples_per_label, replace=False)
+            X_train_subsampled.append(X_train[indices_k_sampled])
+            y_train_subsampled.append(y_train[indices_k_sampled])
+
+        # Combine the subsampled datasets for each label into a single dataset
+        X_train = np.concatenate(X_train_subsampled, axis=0)
+        y_train = np.concatenate(y_train_subsampled, axis=0)
+
+        print(f'X_train_subsampled shape {X_train.shape}, y_train_subsampled shape {y_train.shape}')
 
         while min_size < min_require_size:
             idx_batch = [[] for _ in range(n_parties)]
             for k in range(K):
                 idx_k = np.where(y_train == k)[0]
+                # print(f'count of k: {k} is {np.count_nonzero(y_train == k)}')
                 np.random.shuffle(idx_k)
                 proportions = np.random.dirichlet(np.repeat(beta, n_parties))
                 ## Balance
@@ -385,7 +403,8 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
         for j in range(n_parties):
             np.random.shuffle(idx_batch[j])
             net_dataidx_map[j] = idx_batch[j]
-            print('net', net_dataidx_map.values())
+            print(f'party {j} in map len {len(net_dataidx_map[j])}')
+            # print('net', net_dataidx_map.values())
 
     elif partition == "custom-quantity":
         min_size = 0
@@ -618,7 +637,7 @@ if __name__ == '__main__':
             valid_accuracy += [test_acc]
             training_loss += [loss_total]
             logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
-            print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+            print('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
         for net_id, net in nets.items():
             dataidxs = net_dataidx_map[net_id]
 
@@ -630,7 +649,7 @@ if __name__ == '__main__':
             train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
             if net_id in selected:
                 int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-                with open(f'{args.alg}_{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
+                with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
                     pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
             
         with open(f'{args.alg}_{args.abc}_commRounds.pickle', 'wb') as handle:
