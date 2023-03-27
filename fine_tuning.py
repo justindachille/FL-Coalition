@@ -37,7 +37,7 @@ def get_args():
     parser.add_argument('--optimizer', type=str, default='sgd', help='the optimizer')
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate (default: 0.01)')
     parser.add_argument('--device', type=str, default='cuda:0', help='The device to run the program')
-
+    parser.add_argument('--abc', type=str, default=None, help='Input as ABC, AB, AC, BC, A, B, or C')
     args = parser.parse_args()
     return args
 
@@ -95,11 +95,11 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
 
         epoch_loss = sum(epoch_loss_collector) / len(epoch_loss_collector)
         test_acc, conf_matrix = compute_accuracy_weighted(net, test_dataloader, train_dataloader, get_confusion_matrix=True, device=device)
-        logger.info('Epoch: %d Loss: %f Valid: %f' % (epoch, epoch_loss, test_acc))
+        print('Epoch: %d Loss: %f Valid: %f' % (epoch, epoch_loss, test_acc))
 
         valid_accuracies += [test_acc]
         losses += [epoch_loss]
-    with open(f'FineTunedNet{str(net_id)}allLayers{train_all_layers}.pickle', 'wb') as handle:
+    with open(f'FineTunedNet{str(args.abc)}_{str(net_id)}allLayers{train_all_layers}.pickle', 'wb') as handle:
         pickle.dump((epochs_list, valid_accuracies, losses), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     return test_acc
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     torch.manual_seed(seed)
     random.seed(seed)
     for c in args.abc:
-        filename = f'{args.abc}_{c}.pickle'
+        filename = f'{args.alg}_{args.abc}_{c}.pickle'
         if os.path.exists(filename):
             with open(filename, 'rb') as handle:
                 (net_id, net, train_dl_local, test_dl_local, ft_epochs, lr, optimizer, mu) = pickle.load(handle)

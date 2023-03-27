@@ -617,10 +617,23 @@ if __name__ == '__main__':
             print('>> Global Model Test accuracy: %f' % test_acc)
             valid_accuracy += [test_acc]
             training_loss += [loss_total]
-
             logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
             print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
-        with open(f'{args.alg}beta{args.beta}.pickle', 'wb') as handle:
+        for net_id, net in nets.items():
+            dataidxs = net_dataidx_map[net_id]
+
+            if args.noise_type == 'space':
+                train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, net_id, args.n_parties-1)
+            else:
+                noise_level = args.noise / (args.n_parties - 1) * net_id
+                train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
+            train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
+            if net_id in selected:
+                int_to_str = {0: 'a', 1: 'b', 2: 'c'}
+                with open(f'{args.alg}_{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
+                    pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
+            
+        with open(f'{args.alg}_{args.abc}_commRounds.pickle', 'wb') as handle:
             pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
     elif args.alg == 'scaffold':
         print("Initializing nets")
