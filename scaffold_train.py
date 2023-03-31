@@ -10,6 +10,7 @@ import torch.utils.data as data
 import argparse
 import logging
 import os
+import sys
 import copy
 from math import *
 import random
@@ -363,6 +364,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
         X_train, y_train, X_test, y_test = load_cifar10_data(datadir)
     n_train = y_train.shape[0]
     if partition == "noniid-labeldir":
+        clients_split = [3000, 3000, 3000]
         min_size = 0
         min_require_size = 10
         K = 10
@@ -407,6 +409,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
             # print('net', net_dataidx_map.values())
 
     elif partition == "custom-quantity":
+        clients_split = [1000, 3000, 8000]
         min_size = 0
         K = 10
         N = y_train.shape[0]
@@ -441,6 +444,9 @@ def train_single(net_id, net, train_dataloader, test_dataloader, device="cpu"):
         optimizer = optim.SGD(filter(lambda p: p.requires_grad, net.parameters()), lr=args.lr, momentum=args.rho, weight_decay=args.reg)
 
     criterion = nn.CrossEntropyLoss().to(device)
+    print('Training network %s' % str(net_id))
+    print('n_training: %d' % len(train_dataloader))
+    print('n_test: %d' % len(test_dataloader))
 
     epochs_list = []
     losses = []
@@ -477,10 +483,9 @@ def train_single(net_id, net, train_dataloader, test_dataloader, device="cpu"):
             noise_level = args.noise / (args.n_parties - 1) * net_id
             train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
         train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
-        if net_id in selected:
-            int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-            with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
-                pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
+        int_to_str = {0: 'a', 1: 'b', 2: 'c'}
+        with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
+            pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 if __name__ == '__main__':
@@ -638,6 +643,9 @@ if __name__ == '__main__':
             training_loss += [loss_total]
             logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
             print('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+        if len(selected) == 1:
+            print('Done with single processing')
+            sys.exit(1)
         for net_id, net in nets.items():
             dataidxs = net_dataidx_map[net_id]
 

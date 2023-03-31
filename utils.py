@@ -173,7 +173,7 @@ def record_net_data_stats(y_train, net_dataidx_map, logdir):
         tmp = {unq[i]: unq_cnt[i] for i in range(len(unq))}
         net_cls_counts[net_i] = tmp
 
-    logger.info('Data statistics: %s' % str(net_cls_counts))
+    print('Data statistics: %s' % str(net_cls_counts))
 
     return net_cls_counts
 
