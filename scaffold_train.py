@@ -24,6 +24,8 @@ from utils import *
 from vggmodel import *
 from resnetcifar import *
 
+MAX_EPOCHS_BEFORE_STOPPING = 10
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str, default='MLP', help='neural network used in training')
@@ -451,6 +453,8 @@ def train_single(net_id, net, train_dataloader, test_dataloader, device="cpu"):
     epochs_list = []
     losses = []
     valid_accuracies = []
+    best_valid_acc = 0.0
+    epochs_since_improvement = 0
 
     for epoch in range(args.epochs):
         epoch_loss_collector = []
@@ -470,10 +474,20 @@ def train_single(net_id, net, train_dataloader, test_dataloader, device="cpu"):
 
         epoch_loss = sum(epoch_loss_collector) / len(epoch_loss_collector)
         test_acc, conf_matrix = compute_accuracy_weighted(net, test_dataloader, train_dataloader, get_confusion_matrix=True, device=device)
-        print('Epoch: %d Loss: %f Valid: %f' % (epoch, epoch_loss, test_acc))
 
         valid_accuracies += [test_acc]
         losses += [epoch_loss]
+        print('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
+
+        if test_acc > best_valid_acc:
+            best_valid_acc = test_acc
+            epochs_since_improvement = 0
+        else:
+            epochs_since_improvement += 1
+
+        if epochs_since_improvement >= MAX_EPOCHS_BEFORE_STOPPING:
+            print(f'Validation accuracy hasn\'t improved in {MAX_EPOCHS_BEFORE_STOPPING} epochs. Stopping training.')
+            break
     for net_id, net in nets.items():
         dataidxs = net_dataidx_map[net_id]
 
@@ -643,7 +657,7 @@ if __name__ == '__main__':
             training_loss += [loss_total]
             logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
             print('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
-        if len(selected) == 1:
+        if len(args.abc) == 1:
             print('Done with single processing')
             sys.exit(1)
         for net_id, net in nets.items():
