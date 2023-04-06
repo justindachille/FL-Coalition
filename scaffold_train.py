@@ -599,6 +599,7 @@ if __name__ == '__main__':
                         train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, batch_size, 32, dataidxs, noise_level)
                     train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, batch_size, 32)
                     best_valid_from_run, net_id, net = train_single(net_id, nets[net_id], train_dl_local, test_dl_global, optimizer, lr, device="cpu")
+                    print(f'Done training, best score: {best_valid_from_run} found with params {current_params}')
                     if best_valid_from_run > best_valid_acc:
                         print(f'New best score: {best_valid_from_run} found with params {current_params}')
                         logger.info(f'New best score: {best_valid_from_run} found with params {current_params}')                
