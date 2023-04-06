@@ -84,20 +84,20 @@ def init_nets(net_configs, dropout_p, n_parties, args):
             if args.dataset in ("mnist", 'femnist'):
                 net = ModerateCNNMNIST()
             elif args.dataset in ("cifar10", "cinic10", "svhn"):
-                # print("in moderate cnn")
+                # logger.info("in moderate cnn")
                 net = ModerateCNN()
             elif args.dataset == 'celeba':
                 net = ModerateCNN(output_dim=2)
         elif args.model == "resnet":
-            print('using complex net')
+            logger.info('using complex net')
             net = ResNet50_cifar10(num_classes=10)
         elif args.model == "resnet18":
-            print('using simple net')
+            logger.info('using simple net')
             net = ResNet18_cifar10(num_classes=10)
         elif args.model == "vgg16":
             net = vgg16()
         else:
-            print("not supported yet")
+            logger.info("not supported yet")
             exit(1)
         nets[net_i] = net
 
@@ -342,6 +342,7 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
             total_delta[key] += c_delta_para[key]
 
         print("net %d final test acc %f" % (net_id, testacc))
+        logger.info("net %d final test acc %f" % (net_id, testacc))
         avg_acc += testacc
     for key in total_delta:
         total_delta[key] /= args.n_parties
@@ -352,7 +353,7 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
         elif c_global_para[key].type() == 'torch.cuda.LongTensor':
             c_global_para[key] += total_delta[key].type(torch.cuda.LongTensor)
         else:
-            #print(c_global_para[key].type())
+            #logger.info(c_global_para[key].type())
             c_global_para[key] += total_delta[key]
     c_global.load_state_dict(c_global_para)
 
@@ -385,11 +386,8 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
             X_train_subsampled.append(X_train[indices_k_sampled])
             y_train_subsampled.append(y_train[indices_k_sampled])
 
-        # Combine the subsampled datasets for each label into a single dataset
         X_train = np.concatenate(X_train_subsampled, axis=0)
         y_train = np.concatenate(y_train_subsampled, axis=0)
-
-        print(f'X_train_subsampled shape {X_train.shape}, y_train_subsampled shape {y_train.shape}')
 
         while min_size < min_require_size:
             idx_batch = [[] for _ in range(n_parties)]
@@ -408,7 +406,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
         for j in range(n_parties):
             np.random.shuffle(idx_batch[j])
             net_dataidx_map[j] = idx_batch[j]
-            print(f'party {j} in map len {len(net_dataidx_map[j])}')
+            # print(f'party {j} in map len {len(net_dataidx_map[j])}')
             # print('net', net_dataidx_map.values())
 
     elif partition == "custom-quantity":
@@ -447,9 +445,9 @@ def train_single(net_id, net, train_dataloader, test_dataloader, arg_optimizer, 
         optimizer = optim.SGD(filter(lambda p: p.requires_grad, net.parameters()), lr=arg_lr, momentum=args.rho, weight_decay=args.reg)
 
     criterion = nn.CrossEntropyLoss().to(device)
-    print('Training network %s' % str(net_id))
-    print('n_training: %d' % len(train_dataloader))
-    print('n_test: %d' % len(test_dataloader))
+    logger.info('Training network %s' % str(net_id))
+    logger.info('n_training: %d' % len(train_dataloader))
+    logger.info('n_test: %d' % len(test_dataloader))
 
     epochs_list = []
     losses = []
@@ -476,7 +474,7 @@ def train_single(net_id, net, train_dataloader, test_dataloader, arg_optimizer, 
 
         valid_accuracies += [test_acc]
         losses += [epoch_loss]
-        print('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
+        logger.info('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
     return max(valid_accuracies), net_id, net
 
 
@@ -484,30 +482,24 @@ if __name__ == '__main__':
     args = get_args()
     mkdirs(args.logdir)
     mkdirs(args.modeldir)
-    if args.log_file_name is None:
-        argument_path='experiment_arguments-%s.json' % datetime.datetime.now().strftime("%Y-%m-%d-%H:%M-%S")
-    else:
-        argument_path=args.log_file_name+'.json'
-    with open(os.path.join(args.logdir, argument_path), 'w') as f:
-        json.dump(str(args), f)
     device = torch.device(args.device)
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
     if args.abc is None:
         raise ValueError('No setup specified: choose ABC, AB, AC, BC, A, B, C')
     if args.log_file_name is None:
-        args.log_file_name = 'experiment_log-%s' % (datetime.datetime.now().strftime("%Y-%m-%d-%H:%M-%S"))
+        args.log_file_name = 'experiment_log-%s' % (datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S"))
     log_path=args.log_file_name+'.log'
     logging.basicConfig(
         filename=os.path.join(args.logdir, log_path),
-        # filename='/home/qinbin/test.log',
         format='%(asctime)s %(levelname)-8s %(message)s',
-        datefmt='%m-%d %H:%M', level=logging.DEBUG, filemode='w')
-
+        datefmt='%m-%d %H:%M',
+        level=logging.DEBUG,
+        filemode='w')
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     logger.info(device)
-
+    logger.info(f'args: {str(args)}')
     seed = args.init_seed
     logger.info("#" * 100)
     np.random.seed(seed)
@@ -523,7 +515,7 @@ if __name__ == '__main__':
                                                                                         args.batch_size,
                                                                                         32)
 
-    print("len train_dl_global:", len(train_ds_global))
+    logger.info("len train_dl_global:", len(train_ds_global))
 
     data_size = len(test_ds_global)
 
@@ -563,12 +555,12 @@ if __name__ == '__main__':
     if args.alg == 'fedavg':
         for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
             current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
-            print(f'Testing {current_params}')
+            logger.info(f'Testing {current_params}')
             # Do grid search here
             communication_round = []
             training_loss = []
             valid_accuracy = []
-            print('Initializing nets')
+            logger.info('Initializing nets')
             nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
             global_models, global_model_meta_data, global_layer_type = init_nets(args.net_config, 0, 1, args)
             global_model = global_models[0]
@@ -577,7 +569,7 @@ if __name__ == '__main__':
             for round in range(args.comm_round):
                 communication_round += [round]
 
-                print("in comm round:" + str(round))
+                logger.info("in comm round:" + str(round))
 
                 arr = np.arange(args.n_parties)
                 selected = arr[:int(args.n_parties * args.sample)]
@@ -609,6 +601,7 @@ if __name__ == '__main__':
                     best_valid_from_run, net_id, net = train_single(net_id, nets[net_id], train_dl_local, test_dl_global, optimizer, lr, device="cpu")
                     if best_valid_from_run > best_valid_acc:
                         print(f'New best score: {best_valid_from_run} found with params {current_params}')
+                        logger.info(f'New best score: {best_valid_from_run} found with params {current_params}')                
                         best_valid_acc = best_valid_from_run
                         for net_id, net in nets.items():
                             dataidxs = net_dataidx_map[net_id]
@@ -656,12 +649,12 @@ if __name__ == '__main__':
                 train_acc = compute_accuracy(global_model, train_dl_global, device=device)
                 test_acc, conf_matrix = compute_accuracy(global_model, test_dl_global, get_confusion_matrix=True, device=device)
 
-                print('>> Global Model Train accuracy: %f' % train_acc)
-                print('>> Global Model Test accuracy: %f' % test_acc)
+                logger.info('>> Global Model Train accuracy: %f' % train_acc)
+                logger.info('>> Global Model Test accuracy: %f' % test_acc)
                 valid_accuracy += [test_acc]
                 training_loss += [loss_total]
                 logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
-                print('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+                logger.info('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
             if len(args.abc) == 1:
                 continue
             if max(valid_accuracy) > best_valid_acc:
@@ -683,7 +676,7 @@ if __name__ == '__main__':
                 with open(f'{args.partition}_{args.alg}_{args.abc}.pickle', 'wb') as handle:
                     pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
     elif args.alg == 'scaffold':
-        print("Initializing nets")
+        logger.info("Initializing nets")
         nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
         global_models, global_model_meta_data, global_layer_type = init_nets(args.net_config, 0, 1, args)
         global_model = global_models[0]
@@ -700,7 +693,7 @@ if __name__ == '__main__':
         for round in range(args.comm_round):
             communication_round += [round]
 
-            print("in comm round:" + str(round))
+            logger.info("in comm round:" + str(round))
 
             arr = np.arange(args.n_parties)
             selected = arr[:int(args.n_parties * args.sample)]
@@ -752,8 +745,8 @@ if __name__ == '__main__':
                         global_para[key] += net_para[key] * fed_avg_freqs[idx]
             global_model.load_state_dict(global_para)
 
-            print('global n_training: %d' % len(train_dl_global))
-            print('global n_test: %d' % len(test_dl_global))
+            logger.info('global n_training: %d' % len(train_dl_global))
+            logger.info('global n_test: %d' % len(test_dl_global))
 
             global_model.to(device)
             train_acc = compute_accuracy(global_model, train_dl_global, device=device)
@@ -763,7 +756,7 @@ if __name__ == '__main__':
 
             logger.info('>> Global Model Train accuracy: %f' % train_acc)
             logger.info('>> Global Model Test accuracy: %f' % test_acc)
-            print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+            logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
             if test_acc > best_valid_acc:
                 best_valid_acc = test_acc
                 epochs_since_improvement = 0
@@ -772,7 +765,7 @@ if __name__ == '__main__':
 
             # If validation accuracy hasn't improved in 5 epochs, stop training
             if epochs_since_improvement >= 5:
-                print("Validation accuracy hasn't improved in 5 epochs. Stopping training.")
+                logger.info("Validation accuracy hasn't improved in 5 epochs. Stopping training.")
                 break
         for net_id, net in nets.items():
             dataidxs = net_dataidx_map[net_id]

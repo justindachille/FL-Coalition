@@ -35,6 +35,7 @@ def get_args():
     parser.add_argument('--init_seed', type=int, default=0, help="Random seed")
     parser.add_argument('--alg', type=str, default='scaffold',
                             help='fl algorithms: fedavg/fedprox/scaffold/fednova/moon')
+    parser.add_argument('--logdir', type=str, required=False, default="./logs_ft/", help='Log directory path')
     parser.add_argument('--net_num', type=int, default=0, help="Number of nets to load")
     parser.add_argument('--train_all_layers', default=False, required=False, action='store_true', help="Trains all layers or last two")
     parser.add_argument('--optimizer', type=str, default='sgd', help='the optimizer')
@@ -121,7 +122,20 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
     return test_acc
 
 if __name__ == '__main__':
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)    
     args = get_args()
+    if args.log_file_name is None:
+        args.log_file_name = 'experiment_log-%s' % (datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S"))
+    log_path=args.log_file_name+'.log'
+    logging.basicConfig(
+        filename=os.path.join(args.logdir, log_path),
+        format='%(asctime)s %(levelname)-8s %(message)s',
+        datefmt='%m-%d %H:%M',
+        level=logging.DEBUG,
+        filemode='w')
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
     device = torch.device(args.device)
     seed = args.init_seed
     np.random.seed(seed)
