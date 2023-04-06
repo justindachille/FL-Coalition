@@ -24,6 +24,8 @@ from vggmodel import *
 from resnetcifar import *
 
 
+MAX_EPOCHS_BEFORE_STOPPING = 10
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--reg', type=float, default=1e-5, help="L2 regularization strength")
@@ -61,6 +63,7 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
         for param in net.parameters():
             param.requires_grad = True
     else:
+        print('Dont train all layers')
         # Freeze all parameters
         for param in net.parameters():
             param.requires_grad = False
@@ -74,6 +77,8 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
     epochs_list = []
     losses = []
     valid_accuracies = []
+    best_valid_acc = 0.0
+    epochs_since_improvement = 0
 
     for epoch in range(epochs):
         epoch_loss_collector = []
@@ -95,11 +100,21 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
             epoch_loss_collector.append(loss.item())
 
         epoch_loss = sum(epoch_loss_collector) / len(epoch_loss_collector)
-        test_acc, conf_matrix = compute_accuracy_weighted(net, test_dataloader, train_dataloader, get_confusion_matrix=True, device=device)
+        test_acc, conf_matrix = compute_accuracy(net, test_dataloader, get_confusion_matrix=True, device=device)
 
         valid_accuracies += [test_acc]
         losses += [epoch_loss]
         print('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
+        if test_acc > best_valid_acc:
+            best_valid_acc = test_acc
+            epochs_since_improvement = 0
+        else:
+            epochs_since_improvement += 1
+
+        # If validation accuracy hasn't improved in 5 epochs, stop training
+        if epochs_since_improvement >= MAX_EPOCHS_BEFORE_STOPPING:
+            print(f'Validation accuracy hasn\'t improved in {MAX_EPOCHS_BEFORE_STOPPING} epochs. Stopping training.')
+            break
     with open(f'FineTunedNet{args.partition}_{str(args.abc)}_{str(net_id)}allLayers{train_all_layers}.pickle', 'wb') as handle:
         pickle.dump((epochs_list, valid_accuracies, losses), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -116,6 +131,7 @@ if __name__ == '__main__':
         filename = f'{args.partition}_{args.alg}_{args.abc}_{c}.pickle'
         if os.path.exists(filename):
             with open(filename, 'rb') as handle:
-                (net_id, net, train_dl_local, test_dl_local, ft_epochs, lr, optimizer, mu) = pickle.load(handle)
-        
-        train_net_scaffold_ft(net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.train_all_layers)
+               (net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
+        else:
+            raise ValueError(f'Inappropriate filename argument {filename}')
+        train_net_scaffold_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.train_all_layers)
