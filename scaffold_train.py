@@ -488,8 +488,8 @@ if __name__ == '__main__':
     if args.abc is None:
         raise ValueError('No setup specified: choose ABC, AB, AC, BC, A, B, C')
     if args.log_file_name is None:
-        args.log_file_name = 'experiment_log-%s' % (datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S"))
-    log_path=args.log_file_name+'.log'
+        args.log_file_name = f'{args.abc}-{args.partition}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
+    log_path=f'{args.log_file_name}.log'
     logging.basicConfig(
         filename=os.path.join(args.logdir, log_path),
         format='%(asctime)s %(levelname)-8s %(message)s',
@@ -515,7 +515,7 @@ if __name__ == '__main__':
                                                                                         args.batch_size,
                                                                                         32)
 
-    logger.info("len train_dl_global:", len(train_ds_global))
+    # print("len train_dl_global:", len(train_ds_global))
 
     data_size = len(test_ds_global)
 
