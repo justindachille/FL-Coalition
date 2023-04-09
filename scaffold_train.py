@@ -545,9 +545,9 @@ if __name__ == '__main__':
 
 
     best_valid_acc = 0.0
-    learning_rates = [0.001, 0.01, 0.1]
-    optimizers = ['adam', 'sgd']
-    batch_sizes = [32, 64, 128]
+    learning_rates = [0.001, 0.01]
+    optimizers = ['sgd']
+    batch_sizes = [64, 128]
     communication_round = []
     training_loss = []
     valid_accuracy = []

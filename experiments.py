@@ -228,7 +228,6 @@ def train_net(net_id, net, train_dataloader, test_dataloader, epochs, lr, args_o
     return train_acc, test_acc, loss_total
 
 
-
 def train_net_fedprox(net_id, net, global_net, train_dataloader, test_dataloader, epochs, lr, args_optimizer, mu, device="cpu"):
     logger.info('Training network %s' % str(net_id))
     logger.info('n_training: %d' % len(train_dataloader))
