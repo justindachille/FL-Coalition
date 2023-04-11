@@ -660,6 +660,8 @@ if __name__ == '__main__':
                 continue
             if max(valid_accuracy) > best_valid_acc:
                 best_valid_acc = max(valid_accuracy)
+                print(f'New best score: {best_valid_from_run} found with params {current_params}')
+                logger.info(f'New best score: {best_valid_from_run} found with params {current_params}')                
                 for net_id, net in nets.items():
                     dataidxs = net_dataidx_map[net_id]
 
