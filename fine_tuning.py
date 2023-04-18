@@ -14,6 +14,7 @@ import copy
 from math import *
 import random
 import dill as pickle
+from itertools import product
 
 import datetime
 #from torch.utils.tensorboard import SummaryWriter
@@ -64,7 +65,6 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
         for param in net.parameters():
             param.requires_grad = True
     else:
-        print('Dont train all layers')
         # Freeze all parameters
         for param in net.parameters():
             param.requires_grad = False
@@ -87,9 +87,6 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
         for batch_idx, (x, target) in enumerate(train_dataloader):
             x, target = x.to(device), target.to(device)
 
-            # optimizer.zero_grad()
-            # x.requires_grad = True
-            # target.requires_grad = False
             target = target.long()
 
             out = net(x)
@@ -105,29 +102,31 @@ def train_net_scaffold_ft(net_id, net, train_dataloader, test_dataloader, epochs
 
         valid_accuracies += [test_acc]
         losses += [epoch_loss]
-        print('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
+        if epoch % 5 == 0:
+            print('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
+        logger.info('Epoch: %d Loss: %f Best Valid seen: %f Valid: %f' % (epoch, epoch_loss, max(valid_accuracies), test_acc))
         if test_acc > best_valid_acc:
             best_valid_acc = test_acc
             epochs_since_improvement = 0
         else:
             epochs_since_improvement += 1
 
-        # If validation accuracy hasn't improved in 5 epochs, stop training
+        # If validation accuracy hasn't improved in x epochs, stop training
         if epochs_since_improvement >= MAX_EPOCHS_BEFORE_STOPPING:
             print(f'Validation accuracy hasn\'t improved in {MAX_EPOCHS_BEFORE_STOPPING} epochs. Stopping training.')
+            logger.info(f'Validation accuracy hasn\'t improved in {MAX_EPOCHS_BEFORE_STOPPING} epochs. Stopping training.')
             break
-    with open(f'FineTunedNet{args.partition}_{str(args.abc)}_{str(net_id)}allLayers{train_all_layers}.pickle', 'wb') as handle:
-        pickle.dump((epochs_list, valid_accuracies, losses), handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-    return test_acc
+    pickle_str = f'FineTunedNet{args.partition}_{str(args.abc)}_{str(net_id)}allLayers{train_all_layers}.pickle'
+    pickle_data = (epochs_list, valid_accuracies, losses)
+    return max(valid_accuracies), net_id, net, pickle_str, pickle_data
 
 if __name__ == '__main__':
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)    
     args = get_args()
-    if args.log_file_name is None:
-        args.log_file_name = 'experiment_log-%s' % (datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S"))
-    log_path=args.log_file_name+'.log'
+    log_file_name = f'{args.abc}-{args.partition}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
+    log_path=log_file_name+'.log'
+    print(args.logdir, 'path', log_path)
     logging.basicConfig(
         filename=os.path.join(args.logdir, log_path),
         format='%(asctime)s %(levelname)-8s %(message)s',
@@ -141,11 +140,28 @@ if __name__ == '__main__':
     np.random.seed(seed)
     torch.manual_seed(seed)
     random.seed(seed)
+
+    learning_rates = [0.001, 0.01, 0.1]
+    optimizers = ['sgd']
+    batch_sizes = [32, 64]
     for c in args.abc:
-        filename = f'{args.partition}_{args.alg}_{args.abc}_{c}.pickle'
-        if os.path.exists(filename):
-            with open(filename, 'rb') as handle:
-               (net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
-        else:
-            raise ValueError(f'Inappropriate filename argument {filename}')
-        train_net_scaffold_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.train_all_layers)
+        best_valid_acc = 0.0
+        for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
+            current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
+            logger.info(f'Testing {current_params}')
+
+            filename = f'{args.partition}_{args.alg}_{args.abc}_{c}.pickle'
+            if os.path.exists(filename):
+                with open(filename, 'rb') as handle:
+                    (net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
+                    # Ensure net is using global model parameters
+                    net.load_state_dict(global_model.state_dict())
+            else:
+                raise ValueError(f'Inappropriate filename argument {filename}')
+            best_valid_from_run, net_id, net, pickle_str, pickle_data = train_net_scaffold_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.train_all_layers)
+            if best_valid_from_run > best_valid_acc:
+                print(f'New best score: {best_valid_from_run} found with params {current_params}')
+                logger.info(f'New best score: {best_valid_from_run} found with params {current_params}')                
+                best_valid_acc = best_valid_from_run
+                with open(pickle_str, 'wb') as handle:
+                    pickle.dump(pickle_data, handle, protocol=pickle.HIGHEST_PROTOCOL)

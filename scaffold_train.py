@@ -545,9 +545,9 @@ if __name__ == '__main__':
 
 
     best_valid_acc = 0.0
-    learning_rates = [0.001, 0.01]
+    learning_rates = [0.001]
     optimizers = ['sgd']
-    batch_sizes = [64, 128]
+    batch_sizes = [64]
     communication_round = []
     training_loss = []
     valid_accuracy = []
@@ -618,16 +618,12 @@ if __name__ == '__main__':
                                 pickle.dump((net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                 if len(args.abc) == 1:
                     break
-                global_para = global_model.state_dict()
-                for idx in selected:
-                    nets[idx].load_state_dict(global_para)
 
                 global_para = global_model.state_dict()
                 for idx in selected:
                     nets[idx].load_state_dict(global_para)
 
                 _, loss_total = local_train_net(nets, selected, args, net_dataidx_map, test_dl = test_dl_global, device=device)
-                # local_train_net(nets, args, net_dataidx_map, local_split=False, device=device)
 
                 # update global model
                 total_data_points = sum([len(net_dataidx_map[r]) for r in selected])
@@ -660,8 +656,8 @@ if __name__ == '__main__':
                 continue
             if max(valid_accuracy) > best_valid_acc:
                 best_valid_acc = max(valid_accuracy)
-                print(f'New best score: {best_valid_from_run} found with params {current_params}')
-                logger.info(f'New best score: {best_valid_from_run} found with params {current_params}')                
+                print(f'New best score: {best_valid_acc} found with params {current_params}')
+                logger.info(f'New best score: {best_valid_acc} found with params {current_params}')                
                 for net_id, net in nets.items():
                     dataidxs = net_dataidx_map[net_id]
 
@@ -674,7 +670,7 @@ if __name__ == '__main__':
                     if net_id in selected:
                         int_to_str = {0: 'a', 1: 'b', 2: 'c'}
                         with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
-                            pickle.dump((net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
+                            pickle.dump((net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                     
                 with open(f'{args.partition}_{args.alg}_{args.abc}.pickle', 'wb') as handle:
                     pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
