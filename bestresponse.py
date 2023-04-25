@@ -1,7 +1,7 @@
 import argparse
 
-import jax.numpy as jnp
-from jax import grad
+# import jax.numpy as jnp
+# from jax import grad
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import minimize
@@ -106,16 +106,16 @@ def optimize(j, partition):
         for i in range(3):
             p_new = update_price(float(i), p_new, scores)
             # print(f'i: {i}, pnew: {p_new}')
-        if jnp.allclose(jnp.array(p_init), jnp.array(p_new), rtol=1e-6):
+        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-6):
             break
         p_init = p_new.copy()
 
     print(f'Optimal prices: {p_new} with order {ordering} for partition {text_name[j]}')
     profits = []
-    for order_num in ordering:
-        profits.append(get_profit(order_num, p_new, scores))
+    for i in range(3):
+        profits.append(get_profit(i, p_new, scores))
     print(f'Profits: {profits}')
-    return p_new, ordering, j
+    return profits, ordering, j
 
     
 if __name__ == '__main__':
@@ -157,13 +157,13 @@ if __name__ == '__main__':
             table.append(prices_by_ordering)
 
         return table
-
+    np.set_printoptions(precision=8, suppress=True)
     final_custom_table = np.array(get_final_table(custom_array))
     final_non_iid_table = np.array(get_final_table(non_iid_array))
     # text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
 
+    print(f'Final profit table for iid case:\n {final_custom_table}')
     print(f'Final profit table for non-iid case:\n {final_non_iid_table}')
-    print(f'Final profit table for custom case:\n {final_custom_table}')
     tdict = {text_name[i]: i for i in range(len(text_name))}
     cdict = {'A': 0, 'B': 1, 'C': 2}
     def test_ABC_stability(table):
@@ -186,11 +186,11 @@ if __name__ == '__main__':
             return (False, 'Not stable due to A in A_B_C_')
         
         # Check coalition {B}
-        if table[tdict['A_B_C_']][cdict['B']] < B_current:
+        if table[tdict['A_B_C_']][cdict['B']] > B_current:
             return (False, 'Not stable due to B in A_B_C_')
         
         # Check coalition {C}
-        if table[tdict['A_B_C_']][cdict['C']] < C_current:
+        if table[tdict['A_B_C_']][cdict['C']] > C_current:
             return (False, 'Not stable due to C in A_B_C_')
         
         return (True, 'Core stable')
@@ -244,7 +244,7 @@ if __name__ == '__main__':
             return (False, 'Not stable due to A in A_B_C_')
         
         # Check coalition {C}
-        if table[tdict['A_B_C_']][cdict['C']] < C_current:
+        if table[tdict['A_B_C_']][cdict['C']] > C_current:
             return (False, 'Not stable due to C in A_B_C_')
         
         return (True, 'Core stable')
@@ -271,11 +271,11 @@ if __name__ == '__main__':
             return (False, 'Not stable due to A in A_B_C_')
         
         # Check coalition {B}
-        if table[tdict['A_B_C_']][cdict['B']] < B_current:
+        if table[tdict['A_B_C_']][cdict['B']] > B_current:
             return (False, 'Not stable due to B in A_B_C_')
         
         # Check coalition {C}
-        if table[tdict['A_B_C_']][cdict['C']] < C_current:
+        if table[tdict['A_B_C_']][cdict['C']] > C_current:
             return (False, 'Not stable due to C in A_B_C_')
         
         return (True, 'Core stable')
@@ -322,4 +322,15 @@ if __name__ == '__main__':
     check_stability(final_custom_table)
     print('--- Non-IID Label stability ---')
     check_stability(final_non_iid_table)
+    # quantity_arrays = [ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity]
+    # dirichlet_arrays = [ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet]
+
+    print('--- IID Accuracy Testing ---')
+    quantity_arrays = np.array([[x[1] for x in row] for row in quantity_arrays])
+    check_stability(quantity_arrays)
+
+    dirichlet_arrays = np.array([[x[1] for x in row] for row in dirichlet_arrays])
+    print('--- NON IID Accuracy Testing ---')
+    check_stability(dirichlet_arrays)
+    
 
