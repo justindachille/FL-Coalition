@@ -1,10 +1,20 @@
+import argparse
+
 import jax.numpy as jnp
 from jax import grad
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.optimize import minimize
 from scipy.optimize import basinhopping
+import dill as pickle
 
-theta_max = 10
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--calculate', default=False, required=False, action='store_true', help='whether to calculate price values instead of loading from pickle')
+    args = parser.parse_args()
+    return args
+
+theta_max = 10000
 A = [0.9, 0.8, 0.7]
 # Custom Quantity
 SOLO_QUANTITY_A = (0, .5004)
@@ -68,9 +78,9 @@ def update_price(i, p, A):
         res = basinhopping(lambda x: W2Obj([p[0], p[1], x], A), x0=p[2], minimizer_kwargs={'method': 'BFGS'})
         return [p[0], p[1], res.x[0]]
 
-text_name = ['A_B_C_', 'AB_C_', 'A_BC', 'AC_B', 'ABC']
-quantity_arrays = [A_B_C_Quantity, AB_C_Quantity, A_BC_Quantity, AC_B_Quantity, ABC_Quantity]
-dirichlet_arrays = [A_B_C_Dirichlet, AB_C_Dirichlet, A_BC_Dirichlet, AC_B_Dirichlet, ABC_Dirichlet]
+text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
+quantity_arrays = [ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity]
+dirichlet_arrays = [ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet]
 
 def get_profit(i, price, scores):
     if i == 0:
@@ -107,10 +117,209 @@ def optimize(j, partition):
     print(f'Profits: {profits}')
     return p_new, ordering, j
 
-print('----- Custom Quantity: A=1000, B=2000, C=8000 -----')
-for i, partition in enumerate(quantity_arrays):
-    p_new, ordering, j = optimize(i, partition)
+    
+if __name__ == '__main__':
+    args = get_args()
+    CUSTOM_ARRAY_PICKLE_NAME = 'custom_array_prices'
+    NON_IID_ARRAY_PICKLE_NAME = 'non_iid_array_prices'
+    custom_array = []
+    non_iid_array = []
+    print(args.calculate)        
+    if args.calculate:
+        print('----- Custom Quantity: A=1000, B=2000, C=8000 -----')
+        for i, partition in enumerate(quantity_arrays):
+            p_new, ordering, j = optimize(i, partition)
+            custom_array.append((p_new, ordering, j))
+        with open(f'f{CUSTOM_ARRAY_PICKLE_NAME}.pickle', 'wb') as handle:
+            pickle.dump((custom_array), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-print('----- Non-iid Label Dirichlet: A=3491, B=3029, C=2480 -----')
-for i, partition in enumerate(dirichlet_arrays):
-    p_new, ordering, j = optimize(i, partition)
+        print('----- Non-iid Label Dirichlet: A=3491, B=3029, C=2480 -----')
+        for i, partition in enumerate(dirichlet_arrays):
+            p_new, ordering, j = optimize(i, partition)
+            non_iid_array.append((p_new, ordering, j))
+        with open(f'f{NON_IID_ARRAY_PICKLE_NAME}.pickle', 'wb') as handle:
+            pickle.dump((non_iid_array), handle, protocol=pickle.HIGHEST_PROTOCOL)
+    else:
+        with open(f'f{NON_IID_ARRAY_PICKLE_NAME}.pickle', 'rb') as handle:
+            non_iid_array = pickle.load(handle)
+        with open(f'f{CUSTOM_ARRAY_PICKLE_NAME}.pickle', 'rb') as handle:
+            custom_array = pickle.load(handle)
+
+    # print('custom_array:', custom_array)
+    # print('nonidd_array:', non_iid_array)
+
+    def get_final_table(custom_array):
+        table = []
+        for i, partition in enumerate(text_name):
+            prices, ordering, _ = custom_array[i]
+            prices = np.array(prices)
+            prices_by_ordering = prices[ordering]
+            table.append(prices_by_ordering)
+
+        return table
+
+    final_custom_table = np.array(get_final_table(custom_array))
+    final_non_iid_table = np.array(get_final_table(non_iid_array))
+    # text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
+
+    print(f'Final profit table for non-iid case:\n {final_non_iid_table}')
+    print(f'Final profit table for custom case:\n {final_custom_table}')
+    tdict = {text_name[i]: i for i in range(len(text_name))}
+    cdict = {'A': 0, 'B': 1, 'C': 2}
+    def test_ABC_stability(table):
+        A_current = table[tdict['ABC']][cdict['A']]
+        B_current = table[tdict['ABC']][cdict['B']]
+        C_current = table[tdict['ABC']][cdict['C']]
+        if table[tdict['AB_C']][cdict['A']] > A_current and table[tdict['AB_C']][cdict['B']] > B_current:
+            return (False, 'Not stable due to AB_C')
+        
+        # Check coalition {A,B}{C}
+        if table[tdict['A_BC']][cdict['B']] > B_current and table[tdict['A_BC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to AB_C')
+        
+        # Check coalition {A,C}{B}
+        if table[tdict['AC_B']][cdict['A']] > A_current and table[tdict['AC_B']][cdict['C']] > C_current:
+            return (False, 'Not stable due to AB_C')
+        
+        # Check coalition {A}
+        if table[tdict['A_B_C_']][cdict['A']] > A_current:
+            return (False, 'Not stable due to A in A_B_C_')
+        
+        # Check coalition {B}
+        if table[tdict['A_B_C_']][cdict['B']] < B_current:
+            return (False, 'Not stable due to B in A_B_C_')
+        
+        # Check coalition {C}
+        if table[tdict['A_B_C_']][cdict['C']] < C_current:
+            return (False, 'Not stable due to C in A_B_C_')
+        
+        return (True, 'Core stable')
+
+    def test_AB_C_stability(table):
+        A_current = table[tdict['AB_C']][cdict['A']]
+        B_current = table[tdict['AB_C']][cdict['B']]
+        C_current = table[tdict['AB_C']][cdict['C']]
+        
+        # Check coalition {A,B,C}
+        if table[tdict['ABC']][cdict['A']] > A_current and table[tdict['ABC']][cdict['B']] > B_current and table[tdict['ABC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to ABC')
+        
+        # Check coalition {A,C}{B}
+        if table[tdict['AC_B']][cdict['A']] > A_current and table[tdict['AC_B']][cdict['C']] > C_current:
+            return (False, 'Not stable due to AC_B')
+        
+        # Check coalition {A}{B,C}
+        if table[tdict['A_BC']][cdict['B']] > B_current and table[tdict['A_BC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to B in A_BC')
+        
+        # Check coalition {A}
+        if table[tdict['A_B_C_']][cdict['A']] > A_current:
+            return (False, 'Not stable due to A in A_B_C_')
+        
+        # Check coalition {B}
+        if table[tdict['A_B_C_']][cdict['B']] > B_current:
+            return (False, 'Not stable due to B in A_B_C_')
+        
+        return (True, 'Core stable')
+
+    def test_AC_B_stability(table):
+        A_current = table[tdict['AC_B']][cdict['A']]
+        B_current = table[tdict['AC_B']][cdict['B']]
+        C_current = table[tdict['AC_B']][cdict['C']]
+        
+        # Check coalition {A,B,C}
+        if table[tdict['ABC']][cdict['A']] > A_current and table[tdict['ABC']][cdict['B']] > B_current and table[tdict['ABC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to ABC')
+
+        # Check coalition {A,B}
+        if table[tdict['AB_C']][cdict['A']] > A_current and table[tdict['AB_C']][cdict['B']] > B_current:
+            return (False, 'Not stable due to AB_C')
+        
+        # Check coalition {A,C}
+        if table[tdict['A_BC']][cdict['B']] > B_current and table[tdict['A_BC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to A_BC')
+        
+        # Check coalition {A}
+        if table[tdict['A_B_C_']][cdict['A']] > A_current:
+            return (False, 'Not stable due to A in A_B_C_')
+        
+        # Check coalition {C}
+        if table[tdict['A_B_C_']][cdict['C']] < C_current:
+            return (False, 'Not stable due to C in A_B_C_')
+        
+        return (True, 'Core stable')
+
+    def test_A_BC_stability(table):
+        A_current = table[tdict['A_BC']][cdict['A']]
+        B_current = table[tdict['A_BC']][cdict['B']]
+        C_current = table[tdict['A_BC']][cdict['C']]
+        
+        # Check coalition {A,B,C}
+        if table[tdict['ABC']][cdict['A']] > A_current and table[tdict['ABC']][cdict['B']] > B_current and table[tdict['ABC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to ABC')
+        
+        # Check coalition {A,B}
+        if table[tdict['AB_C']][cdict['A']] > A_current and table[tdict['AB_C']][cdict['B']] > B_current:
+            return (False, 'Not stable due to AB_C')
+        
+        # Check coalition {A,C}
+        if table[tdict['AC_B']][cdict['A']] > A_current and table[tdict['AC_B']][cdict['C']] > C_current:
+            return (False, 'Not stable due to AC_B')
+        
+        # Check coalition {A}
+        if table[tdict['A_B_C_']][cdict['A']] > A_current:
+            return (False, 'Not stable due to A in A_B_C_')
+        
+        # Check coalition {B}
+        if table[tdict['A_B_C_']][cdict['B']] < B_current:
+            return (False, 'Not stable due to B in A_B_C_')
+        
+        # Check coalition {C}
+        if table[tdict['A_B_C_']][cdict['C']] < C_current:
+            return (False, 'Not stable due to C in A_B_C_')
+        
+        return (True, 'Core stable')
+    
+    def test_A_B_C__stability(table):
+        A_current = table[tdict['A_B_C_']][cdict['A']]
+        B_current = table[tdict['A_B_C_']][cdict['B']]
+        C_current = table[tdict['A_B_C_']][cdict['C']]
+        
+        # Check coalition {A,B,C}
+        if table[tdict['ABC']][cdict['A']] > A_current and table[tdict['ABC']][cdict['B']] > B_current and table[tdict['ABC']][cdict['C']] > C_current:
+            return (False, 'Not stable due to ABC')
+        
+        # Check coalition {A,B}
+        if table[tdict['AB_C']][cdict['A']] > A_current and table[tdict['AB_C']][cdict['B']] > B_current:
+            return (False, 'Not stable due to AB_C')
+        
+        # Check coalition {B,C}
+        if table[tdict['AC_B']][cdict['B']] > B_current and table[tdict['AC_B']][cdict['C']] > C_current:
+            return (False, 'Not stable due to AC_B')
+                
+        # Check coalition {A,C}
+        if table[tdict['AC_B']][cdict['A']] > A_current and table[tdict['AC_B']][cdict['C']] > C_current:
+            return (False, 'Not stable due to AC_B')
+
+        return (True, 'Core stable')
+
+    def check_stability(final_table):
+        for i, partition in enumerate(text_name):
+            if partition == 'ABC':
+                print('stable ABC?:', test_ABC_stability(final_table))
+            elif partition == 'AB_C':
+                print('stable AB_C?:', test_AB_C_stability(final_table))
+            elif partition == 'AC_B':
+                print('stable AC_B?:', test_AC_B_stability(final_table))
+            elif partition == 'A_BC':
+                print('stable A_BC?:', test_A_BC_stability(final_table))
+            elif partition == 'A_B_C_':
+                print('stable A_B_C_?:', test_A_B_C__stability(final_table))
+            else:
+                print('Error: Invalid partition name')
+
+    print('--- IID Quantity stability ---')
+    check_stability(final_custom_table)
+    print('--- Non-IID Label stability ---')
+    check_stability(final_non_iid_table)
+
