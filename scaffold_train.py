@@ -61,6 +61,7 @@ def get_args():
     parser.add_argument('--rho', type=float, default=0, help='Parameter controlling the momentum SGD')
     parser.add_argument('--sample', type=float, default=1, help='Sample ratio for each communication round')
     parser.add_argument('--abc', type=str, default=None, help='Input as ABC, AB, AC, BC, A, B, or C')
+    parser.add_argument('--C_size', type=int, default=8000, help='Data points that C has')
     args = parser.parse_args()
     return args
 
@@ -410,7 +411,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
             # print('net', net_dataidx_map.values())
 
     elif partition == "custom-quantity":
-        clients_split = [1000, 3000, 8000]
+        clients_split = [1000, 3000, args.C_size]
         min_size = 0
         K = 10
         N = y_train.shape[0]
@@ -432,7 +433,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
         for i in range(n_parties):
             print('party i:', i, 'length:', len(net_dataidx_map[i]))
     traindata_cls_counts = record_net_data_stats(y_train, net_dataidx_map, logdir)
-    return (X_train, y_train, X_test, y_test, net_dataidx_map, traindata_cls_counts)
+    return (X_train, y_train, X_test, y_test, net_dataidx_map, traindata_cls_counts, )
 
 
 def train_single(net_id, net, train_dataloader, test_dataloader, arg_optimizer, arg_lr, device="cpu"):
