@@ -149,8 +149,9 @@ if __name__ == '__main__':
         for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
             current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
             logger.info(f'Testing {current_params}')
-
-            filename = f'{args.partition}_{args.alg}_{args.abc}_{c}.pickle'
+            if args.partition is 'custom-quantity':
+                args.beta = 0.1
+            filename = f'{args.partition}_{args.alg}_{args.abc}_{c}_{args.C_size}_{args.beta}.pickle'
             if os.path.exists(filename):
                 with open(filename, 'rb') as handle:
                     (net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
