@@ -1,10 +1,13 @@
 import argparse
+import os
 
 # import jax.numpy as jnp
 # from jax import grad
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import minimize
+from scipy.stats import truncnorm
+
 from scipy.optimize import basinhopping
 import dill as pickle
 
@@ -14,7 +17,6 @@ def get_args():
     args = parser.parse_args()
     return args
 
-theta_max = 10000
 A = [0.9, 0.8, 0.7]
 # Custom Quantity
 SOLO_QUANTITY_A = (0, .5004)
@@ -41,22 +43,43 @@ C_pri = [0.5, 0.3, 0.1]
 def sigma(m, n, p, A):
     return (p[m] - p[n]) / (A[m] - A[n])
 
-def H(theta):
-    if theta < 0:
-        return 0
-    elif theta <= theta_max:
-        return theta / theta_max
+def N(theta, mean, sd, is_uniform=False):
+    if is_uniform:
+        if theta < 0:
+            return 0
+        elif theta <= theta_max:
+            return theta / theta_max
+        else:
+            return 1  
     else:
-        return 1
+        a, b = (0 - mean) / sd, (theta_max - mean) / sd
+        return truncnorm.pdf(theta, a, b, loc=mean, scale=sd) / (truncnorm.cdf(theta_max, a, b, loc=mean, scale=sd) - truncnorm.cdf(0, a, b, loc=mean, scale=sd))
+# # create an array of theta values to plot
+# theta_max = 15
+# mean = 5
+# sd = 5
+# theta_vals = np.linspace(-10, theta_max+10, 1000)
+
+# # calculate the corresponding PDF values
+# pdf_vals = [N(theta, mean, sd) for theta in theta_vals]
+
+# # create the plot
+# fig, ax = plt.subplots()
+# ax.plot(theta_vals, pdf_vals, label='Truncated normal distribution')
+# ax.set_xlabel('Theta')
+# ax.set_ylabel('PDF')
+# ax.legend()
+# plt.show()
 
 def W0(p, A):
-    return p[0] * (1 - H(max(sigma(0, 1, p, A), sigma(0, 2, p, A))))# - C_pri[0]
+    print(p[0], (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd)))
+    return p[0] * (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd))# - C_pri[0]
 
 def W1(p, A):
-    return p[1] * H(sigma(0, 1, p, A) - sigma(1, 2, p, A))# - C_pri[1]
+    return p[1] * N(sigma(0, 1, p, A) - sigma(1, 2, p, A), mean, sd)# - C_pri[1]
 
 def W2(p, A):
-    return p[2] * H(min(sigma(1, 2, p, A), sigma(0, 2, p, A))) #- C_pri[2]
+    return p[2] * N(min(sigma(1, 2, p, A), sigma(0, 2, p, A)), mean, sd) #- C_pri[2]
 
 def W0Obj(p, A):
     return -W0(p, A)
@@ -120,12 +143,14 @@ def optimize(j, partition):
     
 if __name__ == '__main__':
     args = get_args()
-    CUSTOM_ARRAY_PICKLE_NAME = 'custom_array_prices'
-    NON_IID_ARRAY_PICKLE_NAME = 'non_iid_array_prices'
     custom_array = []
     non_iid_array = []
-    print(args.calculate)        
-    if args.calculate:
+    theta_max = 10
+    mean = 5
+    sd = 1
+    CUSTOM_ARRAY_PICKLE_NAME = f'custom_array_prices_{theta_max}_{mean}_{sd}'
+    NON_IID_ARRAY_PICKLE_NAME = f'non_iid_array_prices_{theta_max}_{mean}_{sd}'
+    if not os.path.exists(CUSTOM_ARRAY_PICKLE_NAME):
         print('----- Custom Quantity: A=1000, B=2000, C=8000 -----')
         for i, partition in enumerate(quantity_arrays):
             p_new, ordering, j = optimize(i, partition)
