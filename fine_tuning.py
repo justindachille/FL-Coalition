@@ -149,7 +149,7 @@ if __name__ == '__main__':
         for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
             current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
             logger.info(f'Testing {current_params}')
-            if args.partition is 'custom-quantity':
+            if args.partition == 'custom-quantity':
                 args.beta = 0.1
             filename = f'{args.partition}_{args.alg}_{args.abc}_{c}_{args.C_size}_{args.beta}.pickle'
             if os.path.exists(filename):
