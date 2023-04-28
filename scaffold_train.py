@@ -670,12 +670,10 @@ if __name__ == '__main__':
                     train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
                     if net_id in selected:
                         int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-                        if args.partition == 'custom-quantity':
-                            args.beta = 0.1
-                        with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{args.beta}.pickle', 'wb') as handle:
+                        with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{args.beta.replace('.', '')}.pickle', 'wb') as handle:
                             pickle.dump((net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                     
-                with open(f'{args.partition}_{args.alg}_{args.abc}_{args.C_size}.pickle', 'wb') as handle:
+                with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{args.beta.replace('.', '')}.pickle', 'wb') as handle:
                     pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
     elif args.alg == 'scaffold':
         logger.info("Initializing nets")

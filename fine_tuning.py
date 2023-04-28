@@ -42,6 +42,7 @@ def get_args():
     parser.add_argument('--optimizer', type=str, default='sgd', help='the optimizer')
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate (default: 0.01)')
     parser.add_argument('--device', type=str, default='cuda:0', help='The device to run the program')
+    parser.add_argument('--C_size', type=int, default=8000, help='Data points that C has')
     parser.add_argument('--abc', type=str, default=None, help='Input as ABC, AB, AC, BC, A, B, or C')
     args = parser.parse_args()
     return args
