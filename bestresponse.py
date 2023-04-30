@@ -44,35 +44,34 @@ def sigma(m, n, p, A):
     return (p[m] - p[n]) / (A[m] - A[n])
 
 def N(theta, mean, sd, is_uniform=False):
+    if theta < 0:
+        return 0
+    if theta >= theta_max:
+        return 1
     if is_uniform:
-        if theta < 0:
-            return 0
-        elif theta <= theta_max:
-            return theta / theta_max
-        else:
-            return 1  
+        return theta / theta_max
     else:
         a, b = (0 - mean) / sd, (theta_max - mean) / sd
-        return truncnorm.pdf(theta, a, b, loc=mean, scale=sd) / (truncnorm.cdf(theta_max, a, b, loc=mean, scale=sd) - truncnorm.cdf(0, a, b, loc=mean, scale=sd))
+        return truncnorm.cdf(theta, a, b, loc=mean, scale=sd)# / (truncnorm.cdf(theta_max, a, b, loc=mean, scale=sd) - truncnorm.cdf(0, a, b, loc=mean, scale=sd))
 # # create an array of theta values to plot
-# theta_max = 15
-# mean = 5
-# sd = 5
-# theta_vals = np.linspace(-10, theta_max+10, 1000)
+theta_max = 10000
+mean = 5000
+sd = 500
+theta_vals = np.linspace(-10, theta_max+10, 1000)
 
-# # calculate the corresponding PDF values
-# pdf_vals = [N(theta, mean, sd) for theta in theta_vals]
+# calculate the corresponding PDF values
+pdf_vals = [N(theta, mean, sd, is_uniform=True) for theta in theta_vals]
 
-# # create the plot
-# fig, ax = plt.subplots()
-# ax.plot(theta_vals, pdf_vals, label='Truncated normal distribution')
-# ax.set_xlabel('Theta')
-# ax.set_ylabel('PDF')
-# ax.legend()
-# plt.show()
+# create the plot
+fig, ax = plt.subplots()
+ax.plot(theta_vals, pdf_vals, label='Truncated normal distribution')
+ax.set_xlabel('Theta')
+ax.set_ylabel('PDF')
+ax.legend()
+plt.show()
 
 def W0(p, A):
-    print(p[0], (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd)))
+    # print(p[0], (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd)))
     return p[0] * (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd))# - C_pri[0]
 
 def W1(p, A):
@@ -145,9 +144,9 @@ if __name__ == '__main__':
     args = get_args()
     custom_array = []
     non_iid_array = []
-    theta_max = 10
-    mean = 5
-    sd = 1
+    theta_max = 10000
+    mean = 5000
+    sd = 100000
     CUSTOM_ARRAY_PICKLE_NAME = f'custom_array_prices_{theta_max}_{mean}_{sd}'
     NON_IID_ARRAY_PICKLE_NAME = f'non_iid_array_prices_{theta_max}_{mean}_{sd}'
     if not os.path.exists(CUSTOM_ARRAY_PICKLE_NAME):
