@@ -43,6 +43,7 @@ def get_args():
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate (default: 0.01)')
     parser.add_argument('--device', type=str, default='cuda:0', help='The device to run the program')
     parser.add_argument('--C_size', type=int, default=8000, help='Data points that C has')
+    parser.add_argument('--beta', type=float, default=0.1, help='The parameter for the dirichlet distribution for data partitioning')
     parser.add_argument('--abc', type=str, default=None, help='Input as ABC, AB, AC, BC, A, B, or C')
     args = parser.parse_args()
     return args
@@ -125,7 +126,8 @@ if __name__ == '__main__':
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)    
     args = get_args()
-    log_file_name = f'{args.abc}-{args.partition}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
+    beta_string = str(args.beta).replace('.', '')
+    log_file_name = f'{args.abc}-{args.partition}-{args.C_size}-{beta_string}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
     log_path=log_file_name+'.log'
     print(args.logdir, 'path', log_path)
     logging.basicConfig(
@@ -150,9 +152,7 @@ if __name__ == '__main__':
         for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
             current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
             logger.info(f'Testing {current_params}')
-            if args.partition == 'custom-quantity':
-                args.beta = 0.1
-            filename = f'{args.partition}_{args.alg}_{args.abc}_{c}_{args.C_size}_{args.beta}.pickle'
+            filename = f'{args.partition}_{args.alg}_{args.abc}_{c}_{args.C_size}_{beta_string}.pickle'
             if os.path.exists(filename):
                 with open(filename, 'rb') as handle:
                     (net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
