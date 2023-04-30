@@ -148,6 +148,7 @@ if __name__ == '__main__':
     optimizers = ['sgd']
     batch_sizes = [32, 64]
     for c in args.abc:
+        c = c.lower()
         best_valid_acc = 0.0
         for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
             current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
