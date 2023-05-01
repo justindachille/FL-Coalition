@@ -24,9 +24,9 @@ SOLO_QUANTITY_B = (1, .6116)
 SOLO_QUANTITY_C = (2, .7091)
 A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
 AB_C_Quantity = [(0, .7976), (1, .8007), SOLO_QUANTITY_C]
-A_BC_Quantity = [SOLO_QUANTITY_A, (1, .8762), (2, .8732)]
+A_BC_Quantity = [SOLO_QUANTITY_A, (1, .8732), (2, .8762)]
 AC_B_Quantity = [(0, 0.8550), SOLO_QUANTITY_B, (2, .8608)]
-ABC_Quantity = [(0, .8810), (1, .8821), (2, .8817)]
+ABC_Quantity = [(0, .8803), (1, .8821), (2, .8817)]
 
 # Non-iid
 SOLO_DIRICHLET_A = (0, .6085)
@@ -54,31 +54,31 @@ def N(theta, mean, sd, is_uniform=False):
         a, b = (0 - mean) / sd, (theta_max - mean) / sd
         return truncnorm.cdf(theta, a, b, loc=mean, scale=sd)# / (truncnorm.cdf(theta_max, a, b, loc=mean, scale=sd) - truncnorm.cdf(0, a, b, loc=mean, scale=sd))
 # # create an array of theta values to plot
-theta_max = 10000
-mean = 5000
-sd = 500
-theta_vals = np.linspace(-10, theta_max+10, 1000)
+# theta_max = 10000
+# mean = 5000
+# sd = 500
+# theta_vals = np.linspace(-10, theta_max+10, 1000)
 
-# calculate the corresponding PDF values
-pdf_vals = [N(theta, mean, sd, is_uniform=True) for theta in theta_vals]
+# # calculate the corresponding PDF values
+# pdf_vals = [N(theta, mean, sd, is_uniform=True) for theta in theta_vals]
 
-# create the plot
-fig, ax = plt.subplots()
-ax.plot(theta_vals, pdf_vals, label='Truncated normal distribution')
-ax.set_xlabel('Theta')
-ax.set_ylabel('PDF')
-ax.legend()
-plt.show()
+# # create the plot
+# fig, ax = plt.subplots()
+# ax.plot(theta_vals, pdf_vals, label='Truncated normal distribution')
+# ax.set_xlabel('Theta')
+# ax.set_ylabel('PDF')
+# ax.legend()
+# plt.show()
 
 def W0(p, A):
     # print(p[0], (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd)))
-    return p[0] * (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd))# - C_pri[0]
+    return p[0] * (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd, is_uniform))# - C_pri[0]
 
 def W1(p, A):
-    return p[1] * N(sigma(0, 1, p, A) - sigma(1, 2, p, A), mean, sd)# - C_pri[1]
+    return p[1] * N(sigma(0, 1, p, A) - sigma(1, 2, p, A), mean, sd, is_uniform)# - C_pri[1]
 
 def W2(p, A):
-    return p[2] * N(min(sigma(1, 2, p, A), sigma(0, 2, p, A)), mean, sd) #- C_pri[2]
+    return p[2] * N(min(sigma(1, 2, p, A), sigma(0, 2, p, A)), mean, sd, is_uniform) #- C_pri[2]
 
 def W0Obj(p, A):
     return -W0(p, A)
@@ -144,9 +144,13 @@ if __name__ == '__main__':
     args = get_args()
     custom_array = []
     non_iid_array = []
+    is_uniform = True
     theta_max = 10000
     mean = 5000
-    sd = 100000
+    sd = 234
+    if is_uniform:
+        mean = 1
+        sd = 1
     CUSTOM_ARRAY_PICKLE_NAME = f'custom_array_prices_{theta_max}_{mean}_{sd}'
     NON_IID_ARRAY_PICKLE_NAME = f'non_iid_array_prices_{theta_max}_{mean}_{sd}'
     if not os.path.exists(CUSTOM_ARRAY_PICKLE_NAME):
@@ -177,7 +181,11 @@ if __name__ == '__main__':
         for i, partition in enumerate(text_name):
             prices, ordering, _ = custom_array[i]
             prices = np.array(prices)
-            prices_by_ordering = prices[ordering]
+            print(f'prices before: {prices} ordering: {ordering}')
+            prices_by_ordering = [0] * 3
+            for i, order in enumerate(ordering):
+                prices_by_ordering[order] = prices[i]
+            print(f'prices after: {prices_by_ordering}')
             table.append(prices_by_ordering)
 
         return table
