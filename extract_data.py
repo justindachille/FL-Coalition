@@ -40,7 +40,7 @@ def parse_logs():
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                # print(f'reading {fname}')
+                print(f'reading {fname}')
                 lines = f.readlines()
                 second_line = lines[1]
                 last_line = lines[-1]
@@ -54,15 +54,16 @@ def parse_logs():
 
                 # extract the score value using regular expressions
                 match = re.search(r"New best score: ([\d.]+)", last_line)
+                score = None
                 if match:
                     score = float(match.group(1))
                     # print(f"C_size={C_size}, abc={abc}, score={score}")
 
-                if C_size is None:
+                if C_size is None or score is None:
                     raise ValueError("Improper format of log file")
                 key = (C_size, beta)
                 value = [score] * 3
-                # print(key, value)
+                print(key, value)
                 if key not in coalitions:
                     # create a new coalition object with the updated property
                     if abc.upper() == "ABC":
@@ -73,7 +74,19 @@ def parse_logs():
                         coalition = Coalition(C_size, [], [], value, [], [0]*3, beta)
                     elif abc.upper() == 'BC':
                         coalition = Coalition(C_size, [], [], [], value, [0]*3, beta)
-                    elif abc.upper() == 'A' or abc.upper() == 'B' or abc.upper() == 'C':
+                    elif abc.upper() == 'A':
+                        # In these single client cases, set values that aren't read
+                        # to be 0, so they are overriden later with max() function
+                        value[1] = 0
+                        value[2] = 0
+                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                    elif abc.upper() == 'B':
+                        value[0] = 0
+                        value[2] = 0
+                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                    elif abc.upper() == 'C':
+                        value[0] = 0
+                        value[1] = 0
                         coalition = Coalition(C_size, [], [], [], [], value, beta)
                     else:
                         continue
@@ -107,12 +120,13 @@ def parse_ft_logs(coalitions):
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                # print(f'reading {fname}')
                 parts = fname.split('-')
                 abc = parts[0].upper()
                 abc = abc.split('/')[-1]
                 C_size = int(parts[3])
                 beta = parts[4].replace("1", ".1", 1)
+                if C_size == 4000:
+                    print(f'reading {fname}')
                 networks = {}
                 for line in f:
                     if 'Training network' in line:
@@ -129,6 +143,7 @@ def parse_ft_logs(coalitions):
                 key = (C_size, beta)
                 values = [network['best_valid_seen'] for network in networks.values()]
                 if C_size == 4000:
+                    print('Networks:', networks)
                     print('values:', values)
                     print('before:', coalitions[key])
                 coalition = coalitions[key]
