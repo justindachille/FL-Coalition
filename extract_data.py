@@ -40,7 +40,7 @@ def parse_logs():
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                print(f'reading {fname}')
+                # print(f'Reading: {fname}')
                 lines = f.readlines()
                 second_line = lines[1]
                 last_line = lines[-1]
@@ -63,7 +63,7 @@ def parse_logs():
                     raise ValueError("Improper format of log file")
                 key = (C_size, beta)
                 value = [score] * 3
-                print(key, value)
+                # print(key, value)
                 if key not in coalitions:
                     # create a new coalition object with the updated property
                     if abc.upper() == "ABC":
@@ -120,13 +120,12 @@ def parse_ft_logs(coalitions):
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
+                print(f'Reading: {fname}')
                 parts = fname.split('-')
                 abc = parts[0].upper()
                 abc = abc.split('/')[-1]
                 C_size = int(parts[3])
                 beta = parts[4].replace("1", ".1", 1)
-                if C_size == 4000:
-                    print(f'reading {fname}')
                 networks = {}
                 for line in f:
                     if 'Training network' in line:
@@ -142,10 +141,10 @@ def parse_ft_logs(coalitions):
                     raise ValueError("Improper format of log file")
                 key = (C_size, beta)
                 values = [network['best_valid_seen'] for network in networks.values()]
-                if C_size == 4000:
+                if C_size == 10000:
                     print('Networks:', networks)
                     print('values:', values)
-                    print('before:', coalitions[key])
+                #     print('before:', coalitions[key])
                 coalition = coalitions[key]
                 if abc.upper() == 'ABC':
                     coalition.ABC = [max(x) for x in zip(coalition.ABC, values)]
@@ -160,8 +159,8 @@ def parse_ft_logs(coalitions):
                     coalition.A_BC = [max(x) for x in zip(coalition.A_BC, values)]
                 else:
                     continue
-                if C_size == 4000:
-                    print('after:', coalitions[key])
+                # if C_size == 4000:
+                #     print('after:', coalitions[key])
     return coalitions
 
 if __name__ == '__main__':
@@ -170,12 +169,15 @@ if __name__ == '__main__':
     coalitions = parse_logs()
 
     coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
-    print(coalition_str_dict)
+    print('After parsing logs:')
+    for k, v in coalition_str_dict.items():
+        print(k, v)
 
     print('--- Parsing FT Logs ---')
     coalitions = parse_ft_logs(coalitions)
 
     coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
-    print(coalition_str_dict)
+    print('After parsing FT logs:')
+    for k, v in coalition_str_dict.items():
+        print(k, v)
     
-    # return coalitions
