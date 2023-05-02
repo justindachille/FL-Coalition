@@ -41,7 +41,7 @@ ABC_Dirichlet = [(0, .8681), (1, .8668), (2, .8655)]
 C_pri = [0.5, 0.3, 0.1]
 
 def sigma(m, n, p, A):
-    return (p[m] - p[n]) / (A[m] - A[n])
+    return (p[m] - p[n]) / (A[m] - A[n]) # Change to A^2 - A^2
 
 def N(theta, mean, sd, is_uniform=False):
     if theta < 0:
@@ -137,8 +137,7 @@ def optimize(j, partition):
     for i in range(3):
         profits.append(get_profit(i, p_new, scores))
     print(f'Profits: {profits}')
-    return profits, ordering, j
-
+    return p_new, profits, ordering, j
     
 if __name__ == '__main__':
     args = get_args()
@@ -156,15 +155,15 @@ if __name__ == '__main__':
     if not os.path.exists(CUSTOM_ARRAY_PICKLE_NAME):
         print('----- Custom Quantity: A=1000, B=2000, C=8000 -----')
         for i, partition in enumerate(quantity_arrays):
-            p_new, ordering, j = optimize(i, partition)
-            custom_array.append((p_new, ordering, j))
+            p_new, profits, ordering, j = optimize(i, partition)
+            custom_array.append((p_new, profits, ordering, j))
         with open(f'f{CUSTOM_ARRAY_PICKLE_NAME}.pickle', 'wb') as handle:
             pickle.dump((custom_array), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         print('----- Non-iid Label Dirichlet: A=3491, B=3029, C=2480 -----')
         for i, partition in enumerate(dirichlet_arrays):
-            p_new, ordering, j = optimize(i, partition)
-            non_iid_array.append((p_new, ordering, j))
+            p_new, profits, ordering, j = optimize(i, partition)
+            non_iid_array.append((p_new, profits, ordering, j))
         with open(f'f{NON_IID_ARRAY_PICKLE_NAME}.pickle', 'wb') as handle:
             pickle.dump((non_iid_array), handle, protocol=pickle.HIGHEST_PROTOCOL)
     else:
@@ -179,14 +178,19 @@ if __name__ == '__main__':
     def get_final_table(custom_array):
         table = []
         for i, partition in enumerate(text_name):
-            prices, ordering, _ = custom_array[i]
-            prices = np.array(prices)
+            prices, profits, ordering, _ = custom_array[i]
+            profits = np.array(profits)
+            print(f'profits before: {profits} ordering: {ordering}')
+            profits_by_ordering = [0] * 3
+            for i, order in enumerate(ordering):
+                profits_by_ordering[order] = profits[i]
+            print(f'profits after: {profits_by_ordering}')
             print(f'prices before: {prices} ordering: {ordering}')
             prices_by_ordering = [0] * 3
             for i, order in enumerate(ordering):
                 prices_by_ordering[order] = prices[i]
             print(f'prices after: {prices_by_ordering}')
-            table.append(prices_by_ordering)
+            table.append(profits_by_ordering)
 
         return table
     np.set_printoptions(precision=8, suppress=True)
