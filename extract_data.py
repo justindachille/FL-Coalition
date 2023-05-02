@@ -127,7 +127,6 @@ def parse_ft_logs(coalitions):
                         valid_seen = float(line.strip().split()[-1])
                         if valid_seen > networks[network]['best_valid_seen']:
                             networks[network]['best_valid_seen'] = valid_seen
-                coalition_str_dict = {k: str(v) for k, v in networks.items()}
 
                 if C_size is None:
                     raise ValueError("Improper format of log file")
@@ -140,10 +139,10 @@ def parse_ft_logs(coalitions):
                 if abc.upper() == 'ABC':
                     coalition.ABC = [max(x) for x in zip(coalition.ABC, values)]
                 elif abc.upper() == 'AB':
-                    values.append(0)
+                    values.insert(2, 0)
                     coalition.AB_C = [max(x) for x in zip(coalition.AB_C, values)]
                 elif abc.upper() == 'AC':
-                    values.insert(0, 1)
+                    values.insert(1, 0)
                     coalition.AC_B = [max(x) for x in zip(coalition.AC_B, values)]
                 elif abc.upper() == 'BC':
                     values.insert(0, 0)
@@ -157,7 +156,7 @@ if __name__ == '__main__':
     args = get_args()
     coalitions = parse_logs()
     print('coalitions:', coalitions)
-    parse_ft_logs(coalitions)
+    coalitions = parse_ft_logs(coalitions)
 
     # coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
     # print(coalition_str_dict)
