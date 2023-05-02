@@ -1,0 +1,4 @@
+04-28 16:20 INFO     Testing lr=0.001, optimizer=sgd, batch_size=32
+04-28 16:20 INFO     Training network 0
+04-28 16:20 INFO     n_training: 16
+04-28 16:20 INFO     n_test: 313

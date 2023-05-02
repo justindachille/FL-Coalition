@@ -1,0 +1,30 @@
+04-28 02:44 INFO     cuda:0
+04-28 02:44 INFO     args: Namespace(model='resnet18', dataset='cifar10', net_config=None, partition='custom-quantity', batch_size=64, lr=0.001, epochs=10, ft_epochs=10, n_parties=3, alg='fedavg', use_projection_head=False, out_dim=256, loss='contrastive', temperature=0.5, comm_round=50, init_seed=2, dropout_p=0.0, datadir='./data/', reg=1e-05, logdir='./logs/', modeldir='./models/', beta=0.1, device='cuda:0', log_file_name='ABC-custom-quantity-2023-04-28-02_44-19', optimizer='adam', mu=1, noise=0, noise_type='level', rho=0, sample=1, abc='ABC', C_size=10000)
+04-28 02:44 INFO     ####################################################################################################
+04-28 02:44 INFO     Partitioning data
+04-28 02:44 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+04-28 02:44 INFO     Initializing nets
+04-28 02:44 INFO     using simple net
+04-28 02:44 INFO     using simple net
+04-28 02:44 INFO     using simple net
+04-28 02:44 INFO     using simple net
+04-28 02:44 INFO     in comm round:0
+04-28 02:44 INFO     Training network 0. n_training: 1000
+04-28 02:44 INFO     Training network 0
+04-28 02:44 INFO     >> Pre-Training Training accuracy: 0.099
+04-28 02:44 INFO     >> Pre-Training Test accuracy: 0.1035
+04-28 02:44 INFO     Epoch: 0 Loss: 2.264866
+04-28 02:44 INFO     Epoch: 1 Loss: 1.865119
+04-28 02:44 INFO     Epoch: 2 Loss: 1.745366
+04-28 02:44 INFO     Epoch: 3 Loss: 1.603752
+04-28 02:44 INFO     Epoch: 4 Loss: 1.505928
+04-28 02:44 INFO     Epoch: 5 Loss: 1.518443
+04-28 02:44 INFO     Epoch: 6 Loss: 1.385127
+04-28 02:44 INFO     Epoch: 7 Loss: 1.323202
+04-28 02:44 INFO     Epoch: 8 Loss: 1.261143
+04-28 02:44 INFO     Epoch: 9 Loss: 1.214908
+04-28 02:44 INFO     >> Training accuracy: 0.520000
+04-28 02:44 INFO     >> Test accuracy: 0.440400
+04-28 02:44 INFO      ** Training complete **
+04-28 02:44 INFO     net 0 final test acc 0.440400
+04-28 02:44 INFO     Training network 1. n_training: 3000

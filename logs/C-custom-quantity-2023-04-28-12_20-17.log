@@ -1,0 +1,25 @@
+04-28 12:20 INFO     cuda:0
+04-28 12:20 INFO     args: Namespace(model='resnet18', dataset='cifar10', net_config=None, partition='custom-quantity', batch_size=64, lr=0.001, epochs=10, ft_epochs=10, n_parties=3, alg='fedavg', use_projection_head=False, out_dim=256, loss='contrastive', temperature=0.5, comm_round=50, init_seed=2, dropout_p=0.0, datadir='./data/', reg=1e-05, logdir='./logs/', modeldir='./models/', beta=0.1, device='cuda:0', log_file_name='C-custom-quantity-2023-04-28-12_20-17', optimizer='adam', mu=1, noise=0, noise_type='level', rho=0, sample=1, abc='C', C_size=10000)
+04-28 12:20 INFO     ####################################################################################################
+04-28 12:20 INFO     Partitioning data
+04-28 12:20 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+04-28 12:20 INFO     Initializing nets
+04-28 12:20 INFO     using simple net
+04-28 12:20 INFO     using simple net
+04-28 12:20 INFO     using simple net
+04-28 12:20 INFO     using simple net
+04-28 12:20 INFO     in comm round:0
+04-28 12:20 INFO     Training network 2
+04-28 12:20 INFO     n_training: 157
+04-28 12:20 INFO     n_test: 313
+04-28 12:22 INFO     Epoch: 0 Loss: 2.081160 Best Valid seen: 0.325200 Valid: 0.325200
+04-28 12:25 INFO     Epoch: 1 Loss: 1.844045 Best Valid seen: 0.325200 Valid: 0.295800
+04-28 12:27 INFO     Epoch: 2 Loss: 1.771797 Best Valid seen: 0.366700 Valid: 0.366700
+04-28 12:30 INFO     Epoch: 3 Loss: 1.737030 Best Valid seen: 0.447700 Valid: 0.447700
+04-28 12:32 INFO     Epoch: 4 Loss: 1.662790 Best Valid seen: 0.447700 Valid: 0.432000
+04-28 12:35 INFO     Epoch: 5 Loss: 1.594240 Best Valid seen: 0.470000 Valid: 0.470000
+04-28 12:37 INFO     Epoch: 6 Loss: 1.521783 Best Valid seen: 0.470000 Valid: 0.459900
+04-28 12:40 INFO     Epoch: 7 Loss: 1.485421 Best Valid seen: 0.484600 Valid: 0.484600
+04-28 12:42 INFO     Epoch: 8 Loss: 1.454900 Best Valid seen: 0.487000 Valid: 0.487000
+04-28 12:44 INFO     Epoch: 9 Loss: 1.423932 Best Valid seen: 0.502600 Valid: 0.502600
+04-28 12:44 INFO     New best score: 0.5026 found with params lr=0.001, optimizer=sgd, batch_size=64
