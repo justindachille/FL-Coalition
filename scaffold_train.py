@@ -674,8 +674,8 @@ if __name__ == '__main__':
                         with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
                             pickle.dump((net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                     
-                with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
-                    pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
+                # with open(f'TrainingInfo{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
+                    # pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
     elif args.alg == 'scaffold':
         logger.info("Initializing nets")
         nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
