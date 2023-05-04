@@ -166,5 +166,5 @@ if __name__ == '__main__':
                 print(f'New best score: {best_valid_from_run} found with params {current_params}')
                 logger.info(f'New best score: {best_valid_from_run} found with params {current_params}')                
                 best_valid_acc = best_valid_from_run
-                with open(pickle_str, 'wb') as handle:
-                    pickle.dump(pickle_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                # with open(pickle_str, 'wb') as handle:
+                    # pickle.dump(pickle_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
