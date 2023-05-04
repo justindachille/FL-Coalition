@@ -127,7 +127,7 @@ if __name__ == '__main__':
         logging.root.removeHandler(handler)    
     args = get_args()
     beta_string = str(args.beta).replace('.', '')
-    log_file_name = f'{args.abc}-{args.partition}-{args.C_size}-{beta_string}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
+    log_file_name = f'{args.abc.upper()}-{args.partition}-{args.C_size}-{beta_string}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
     log_path=log_file_name+'.log'
     print(args.logdir, 'path', log_path)
     logging.basicConfig(
