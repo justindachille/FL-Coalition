@@ -153,3 +153,4 @@
 05-01 17:28 INFO     Epoch: 138 Loss: 0.355655 Best Valid seen: 0.606900 Valid: 0.606900
 05-01 17:28 INFO     Epoch: 139 Loss: 0.366674 Best Valid seen: 0.606900 Valid: 0.605000
 05-01 17:28 INFO     Epoch: 140 Loss: 0.371311 Best Valid seen: 0.606900 Valid: 0.606400
+05-01 21:17 INFO     New best score: 0.6069 found with params lr=0.001, optimizer=sgd, batch_size=64
