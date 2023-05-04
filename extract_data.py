@@ -10,7 +10,7 @@ from itertools import product
 
 LOGS_PATH = './logs/'
 LOGS_FT_PATH = './logs_ft/'
-PARAMETER_PATTERN = r"C_size=(\d+).*abc='([^']+)'.*beta=([\d.]+)"
+PARAMETER_PATTERN = r"(?=.*C_size=(\d+))(?=.*abc='([^']+)')(?=.*beta=([\d.]+))"
 
 
 class Coalition:
@@ -40,7 +40,7 @@ def parse_logs():
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                print(f'reading {fname}')
+                # print(f'Reading: {fname}')
                 lines = f.readlines()
                 second_line = lines[1]
                 last_line = lines[-1]
@@ -54,26 +54,39 @@ def parse_logs():
 
                 # extract the score value using regular expressions
                 match = re.search(r"New best score: ([\d.]+)", last_line)
+                score = None
                 if match:
                     score = float(match.group(1))
                     # print(f"C_size={C_size}, abc={abc}, score={score}")
 
-                if C_size is None:
+                if C_size is None or score is None:
                     raise ValueError("Improper format of log file")
                 key = (C_size, beta)
                 value = [score] * 3
-                print(key, value)
+                # print(key, value)
                 if key not in coalitions:
                     # create a new coalition object with the updated property
                     if abc.upper() == "ABC":
-                        coalition = Coalition(C_size, value, [], [], [], [], beta)
+                        coalition = Coalition(C_size, value, [], [], [], [0]*3, beta)
                     elif abc.upper() == 'AB':
-                        coalition = Coalition(C_size, [], value, [], [], [], beta)
+                        coalition = Coalition(C_size, [], value, [], [], [0]*3, beta)
                     elif abc.upper() == 'AC':
-                        coalition = Coalition(C_size, [], [], value, [], [], beta)
+                        coalition = Coalition(C_size, [], [], value, [], [0]*3, beta)
                     elif abc.upper() == 'BC':
-                        coalition = Coalition(C_size, [], [], [], value, [], beta)
-                    elif abc.upper() == 'A' or abc.upper() == 'B' or abc.upper() == 'C':
+                        coalition = Coalition(C_size, [], [], [], value, [0]*3, beta)
+                    elif abc.upper() == 'A':
+                        # In these single client cases, set values that aren't read
+                        # to be 0, so they are overriden later with max() function
+                        value[1] = 0
+                        value[2] = 0
+                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                    elif abc.upper() == 'B':
+                        value[0] = 0
+                        value[2] = 0
+                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                    elif abc.upper() == 'C':
+                        value[0] = 0
+                        value[1] = 0
                         coalition = Coalition(C_size, [], [], [], [], value, beta)
                     else:
                         continue
@@ -96,6 +109,7 @@ def parse_logs():
                     elif abc.upper() == 'C':
                         coalition.A_B_C_ = [coalition.A_B_C_[0], coalition.A_B_C_[1], max(coalition.A_B_C_[2], score)]
                     else:
+                        print('Invalid input')
                         continue
     return coalitions
 
@@ -106,17 +120,12 @@ def parse_ft_logs(coalitions):
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                print(f'reading {fname}')
+                print(f'Reading: {fname}')
                 parts = fname.split('-')
                 abc = parts[0].upper()
                 abc = abc.split('/')[-1]
-                if parts[1] == 'custom':
-                    C_size = int(parts[3])
-                    beta = parts[4]
-                else:
-                    C_size = int(parts[2])
-                    beta = parts[3]
-                beta = beta.replace("1", ".1", 1)
+                C_size = int(parts[3])
+                beta = parts[4].replace("1", ".1", 1)
                 networks = {}
                 for line in f:
                     if 'Training network' in line:
@@ -132,10 +141,11 @@ def parse_ft_logs(coalitions):
                     raise ValueError("Improper format of log file")
                 key = (C_size, beta)
                 values = [network['best_valid_seen'] for network in networks.values()]
-                print('values:', values)
-                print('before:', coalitions[key])
+                if C_size == 10000:
+                    print('Networks:', networks)
+                    print('values:', values)
+                #     print('before:', coalitions[key])
                 coalition = coalitions[key]
-                print(abc.upper())
                 if abc.upper() == 'ABC':
                     coalition.ABC = [max(x) for x in zip(coalition.ABC, values)]
                 elif abc.upper() == 'AB':
@@ -149,16 +159,25 @@ def parse_ft_logs(coalitions):
                     coalition.A_BC = [max(x) for x in zip(coalition.A_BC, values)]
                 else:
                     continue
-                print('after:', coalitions[key])
+                # if C_size == 4000:
+                #     print('after:', coalitions[key])
     return coalitions
 
 if __name__ == '__main__':
     args = get_args()
+    print('--- Parsing Logs ---')
     coalitions = parse_logs()
-    print('coalitions:', coalitions)
+
+    coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
+    print('After parsing logs:')
+    for k, v in coalition_str_dict.items():
+        print(k, v)
+
+    print('--- Parsing FT Logs ---')
     coalitions = parse_ft_logs(coalitions)
 
-    # coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
-    # print(coalition_str_dict)
+    coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
+    print('After parsing FT logs:')
+    for k, v in coalition_str_dict.items():
+        print(k, v)
     
-    # return coalitions

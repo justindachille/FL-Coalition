@@ -8,7 +8,8 @@ def get_args():
     parser.add_argument('--C_size', type=int, default=8000, help='Data points that C has')
     parser.add_argument('--beta', type=float, default=0.5, help='The parameter for the dirichlet distribution for data partitioning')
     parser.add_argument('--partition', type=str, default='noniid-labeldir', help='the data partitioning strategy')
-    parser.add_argument('--coalitions', nargs='+', type=str, default=['ABC', 'BC', 'AC', 'A', 'B', 'C'])
+    parser.add_argument('--coalitions', nargs='+', type=str, default=['ABC', 'AB', 'BC', 'AC', 'A', 'B', 'C'])
+    parser.add_argument('--python_ver', type=str, default=None, help='If 3, append 3 to python')
     args = parser.parse_args()
     return args
 
@@ -36,7 +37,10 @@ if __name__ == '__main__':
         '--abc': runtime_settings.coalitions,
     }
 
+        
     cmd_base = 'python scaffold_train.py'
+    if runtime_settings.python_ver == '3':
+        cmd_base = 'python3 scaffold_train.py'
     cmds = ['']
     for arg, values in args_dict.items():
         new_cmds = []

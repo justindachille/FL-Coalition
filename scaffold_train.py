@@ -482,6 +482,8 @@ def train_single(net_id, net, train_dataloader, test_dataloader, arg_optimizer, 
 if __name__ == '__main__':
     args = get_args()
     beta_string = str(args.beta).replace('.', '')
+    if len(args.abc) == 1:
+        args.epochs = 200
     mkdirs(args.logdir)
     mkdirs(args.modeldir)
     device = torch.device(args.device)
@@ -490,7 +492,7 @@ if __name__ == '__main__':
     if args.abc is None:
         raise ValueError('No setup specified: choose ABC, AB, AC, BC, A, B, C')
     if args.log_file_name is None:
-        args.log_file_name = f'{args.abc}-{args.partition}-{args.C_size}-{beta_string}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
+        args.log_file_name = f'{args.abc.upper()}-{args.partition}-{args.C_size}-{beta_string}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
     log_path=f'{args.log_file_name}.log'
     logging.basicConfig(
         filename=os.path.join(args.logdir, log_path),
@@ -671,7 +673,7 @@ if __name__ == '__main__':
                     train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
                     if net_id in selected:
                         int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-                        with open(f'{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
+                        with open(f'{args.partition}_{args.alg}_{args.abc.lower()}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
                             pickle.dump((net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                     
                 # with open(f'TrainingInfo{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
