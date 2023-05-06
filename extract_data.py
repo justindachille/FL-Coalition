@@ -40,7 +40,7 @@ def parse_logs():
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                # print(f'Reading: {fname}')
+                print(f'Reading: {fname}')
                 lines = f.readlines()
                 second_line = lines[1]
                 last_line = lines[-1]
