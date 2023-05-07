@@ -1,0 +1,19 @@
+05-06 19:08 INFO     cuda:0
+05-06 19:08 INFO     args: Namespace(C_size=8000, abc='AB', alg='fedavg', batch_size=64, beta=0.1, comm_round=50, datadir='./data/', dataset='cifar10', device='cuda:0', dropout_p=0.0, epochs=10, ft_epochs=10, init_seed=2, log_file_name='AB-custom-quantity-8000-01-2023-05-06-19_08-13', logdir='./logs/', loss='contrastive', lr=0.001, model='resnet18', modeldir='./models/', mu=1, n_parties=3, net_config=None, noise=0, noise_type='level', optimizer='adam', out_dim=256, partition='custom-quantity', reg=1e-05, rho=0, sample=1, temperature=0.5, use_projection_head=False)
+05-06 19:08 INFO     ####################################################################################################
+05-06 19:08 INFO     Partitioning data
+05-06 19:08 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+05-06 19:08 INFO     Initializing nets
+05-06 19:08 INFO     using simple net
+05-06 19:08 INFO     using simple net
+05-06 19:08 INFO     using simple net
+05-06 19:08 INFO     using simple net
+05-06 19:08 INFO     in comm round:0
+05-06 19:08 INFO     Training network 0. n_training: 1000
+05-06 19:08 INFO     Training network 0
+05-06 19:08 INFO     >> Pre-Training Training accuracy: 0.099
+05-06 19:08 INFO     >> Pre-Training Test accuracy: 0.1035
+05-06 19:08 INFO     Epoch: 0 Loss: 2.266160
+05-06 19:08 INFO     Epoch: 1 Loss: 1.900493
+05-06 19:08 INFO     Epoch: 2 Loss: 1.729377
+05-06 19:08 INFO     Epoch: 3 Loss: 1.614695
