@@ -8,23 +8,13 @@ from math import *
 import dill as pickle
 from itertools import product
 
+from bestresponse import createTableFromCoalition, Coalition
+
 LOGS_PATH = './logs/'
 LOGS_FT_PATH = './logs_ft/'
 PARAMETER_PATTERN = r"(?=.*C_size=(\d+))(?=.*abc='([^']+)')(?=.*beta=([\d.]+))"
 
 
-class Coalition:
-    def __init__(self, C_size, ABC, AB_C, AC_B, A_BC, A_B_C_, beta):
-        self.C_size = C_size
-        self.ABC = ABC
-        self.AB_C = AB_C
-        self.AC_B = AC_B
-        self.A_BC = A_BC
-        self.A_B_C_ = A_B_C_
-        self.beta = beta
-
-    def __str__(self):
-        return f"Coalition(C_size={self.C_size}, ABC={self.ABC}, AB_C={self.AB_C}, AC_B={self.AC_B}, A_BC={self.A_BC}, A_B_C_={self.A_B_C_}, beta={self.beta})"
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -141,22 +131,35 @@ def parse_ft_logs(coalitions):
                     raise ValueError("Improper format of log file")
                 key = (C_size, beta)
                 values = [network['best_valid_seen'] for network in networks.values()]
-                if C_size == 10000:
-                    print('Networks:', networks)
-                    print('values:', values)
+                # if C_size == 10000:
+                    # print('Networks:', networks)
+                    # print('values:', values)
                 #     print('before:', coalitions[key])
                 coalition = coalitions[key]
+                print('values:', networks)
                 if abc.upper() == 'ABC':
-                    coalition.ABC = [max(x) for x in zip(coalition.ABC, values)]
+                    if '0' in networks:
+                        coalition.ABC[0] = max(coalition.ABC[0], networks['0']['best_valid_seen'])
+                    if '1' in networks:
+                        coalition.ABC[1] = max(coalition.ABC[1], networks['1']['best_valid_seen'])
+                    if '2' in networks:
+                        coalition.ABC[2] = max(coalition.ABC[2], networks['2']['best_valid_seen'])
                 elif abc.upper() == 'AB':
-                    values.insert(2, 0)
-                    coalition.AB_C = [max(x) for x in zip(coalition.AB_C, values)]
+                        if '0' in networks:
+                            coalition.AB_C[0] = max(coalition.AB_C[0], networks['0']['best_valid_seen'])
+                        if '1' in networks:
+                            coalition.AB_C[1] = max(coalition.AB_C[1], networks['1']['best_valid_seen'])
                 elif abc.upper() == 'AC':
-                    values.insert(1, 0)
-                    coalition.AC_B = [max(x) for x in zip(coalition.AC_B, values)]
+                        if '0' in networks:
+                            coalition.AC_B[0] = max(coalition.AC_B[0], networks['0']['best_valid_seen'])
+                        if '2' in networks:
+                            coalition.AC_B[2] = max(coalition.AC_B[2], networks['2']['best_valid_seen'])
                 elif abc.upper() == 'BC':
-                    values.insert(0, 0)
-                    coalition.A_BC = [max(x) for x in zip(coalition.A_BC, values)]
+                        if '1' in networks:
+                            coalition.A_BC[1] = max(coalition.A_BC[1], networks['1']['best_valid_seen'])
+                        if '2' in networks:
+                            coalition.A_BC[2] = max(coalition.A_BC[2], networks['2']['best_valid_seen'])
+
                 else:
                     continue
                 # if C_size == 4000:
@@ -180,4 +183,7 @@ if __name__ == '__main__':
     print('After parsing FT logs:')
     for k, v in coalition_str_dict.items():
         print(k, v)
-    
+
+    single_coalition = coalitions[(2000, '0.1')]
+    print('single: ', single_coalition)
+    accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(single_coalition, 10000, True)
