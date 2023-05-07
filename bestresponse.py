@@ -140,6 +140,11 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform):
     else:
         # partition is a list of single values, convert to a list of tuples
         partition = [(i, x) for i, x in enumerate(partition)]
+
+    # TODO(justin): Find a better solution to what happens when all three values are the same
+    if partition[0][1] == partition[1][1] or partition[0][1] == partition[2][1] or partition[1][1] == partition[2][1]:
+        partition[0] = (partition[0][0], partition[0][1] + 0.05)
+        partition[2] = (partition[2][0], partition[2][1] - 0.05)
     partition = sorted(partition, key=lambda x: x[1], reverse=True)
     print(partition)
     p_init = [5] * 3
@@ -349,7 +354,7 @@ def createTableFromCoalition(coalition, theta_max, is_uniform=True, mean=1, sd=1
     for i, partition in enumerate(accuracies_as_table):
         p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform)
         prices_array.append((p_new, profits, ordering, j))
-    reordered_profits, reordered_prices = get_final_table(custom_array)
+    reordered_profits, reordered_prices = get_final_table(prices_array)
 
     # For no competition, check stability with pure accuracy of each model
     profit_stability_dict = check_stability(reordered_profits)

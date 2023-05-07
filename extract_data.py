@@ -166,6 +166,56 @@ def parse_ft_logs(coalitions):
                 #     print('after:', coalitions[key])
     return coalitions
 
+def generate_coalition_table(coalition, filename):
+    table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
+    accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(single_coalition, 10000, True)
+    table_data = [
+        (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.2f}\\%", f"{coalition.ABC[1]*100:.2f}\\%", f"{coalition.ABC[2]*100:.2f}\\%"),
+        (r"$\{A,B\}, \{C\}$", f"{coalition.AB_C[0]*100:.2f}\\%", f"{coalition.AB_C[1]*100:.2f}\\%", f"{coalition.AB_C[2]*100:.2f}\\%"),
+        (r"$\{A,C\}, \{B\}$", f"{coalition.AC_B[0]*100:.2f}\\%", f"{coalition.AC_B[1]*100:.2f}\\%", f"{coalition.AC_B[2]*100:.2f}\\%"),
+        (r"$\{B,C\}, \{A\}$", f"{coalition.A_BC[0]*100:.2f}\\%", f"{coalition.A_BC[1]*100:.2f}\\%", f"{coalition.A_BC[2]*100:.2f}\\%"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.2f}\\%", f"{coalition.A_B_C_[1]*100:.2f}\\%", f"{coalition.A_B_C_[2]*100:.2f}\\%")
+    ]
+    table = "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    for row in table_data:
+        table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
+    table += '\\end{tabular}\n\\end{table}\n'
+
+    print(reordered_prices)
+    table_header = ['Coalition structure', "Client A's price", "Client B's price", "Client C's price"]
+    table_data = [
+        (r"$\{A,B,C\}$", f"{reordered_prices[0][0]:.2f}", f"{reordered_prices[0][1]:.2f}", f"{reordered_prices[0][2]:.2f}"),
+        (r"$\{A,B\}, \{C\}$", f"{reordered_prices[1][0]:.2f}", f"{reordered_prices[1][1]:.2f}", f"{reordered_prices[1][2]:.2f}"),
+        (r"$\{A,C\}, \{B\}$", f"{reordered_prices[2][0]:.2f}", f"{reordered_prices[2][1]:.2f}", f"{reordered_prices[2][2]:.2f}"),
+        (r"$\{B,C\}, \{A\}$", f"{reordered_prices[3][0]:.2f}", f"{reordered_prices[3][1]:.2f}", f"{reordered_prices[3][2]:.2f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_prices[4][0]:.2f}", f"{reordered_prices[4][1]:.2f}", f"{reordered_prices[4][2]:.2f}")
+    ]
+    table += '\n\n'
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    for row in table_data:
+        table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
+    table += '\\end{tabular}\n\\end{table}\n'
+
+    table_header = ['Coalition structure', "Client A's profit", "Client B's price", "Client C's price"]
+    table_data = [
+        (r"$\{A,B,C\}$", f"{reordered_profits[0][0]:.2f}", f"{reordered_prices[0][1]:.2f}", f"{reordered_prices[0][2]:.2f}"),
+        (r"$\{A,B\}, \{C\}$", f"{reordered_profits[1][0]:.2f}", f"{reordered_prices[1][1]:.2f}", f"{reordered_prices[1][2]:.2f}"),
+        (r"$\{A,C\}, \{B\}$", f"{reordered_profits[2][0]:.2f}", f"{reordered_prices[2][1]:.2f}", f"{reordered_prices[2][2]:.2f}"),
+        (r"$\{B,C\}, \{A\}$", f"{reordered_profits[3][0]:.2f}", f"{reordered_prices[3][1]:.2f}", f"{reordered_prices[3][2]:.2f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_profits[4][0]:.2f}", f"{reordered_prices[4][1]:.2f}", f"{reordered_prices[4][2]:.2f}")
+    ]
+    table += '\n\n'
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    for row in table_data:
+        table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
+    table += '\\end{tabular}\n\\end{table}\n'
+
+    with open(filename, 'w') as f:
+        f.write(table)
+
 if __name__ == '__main__':
     args = get_args()
     print('--- Parsing Logs ---')
@@ -186,4 +236,4 @@ if __name__ == '__main__':
 
     single_coalition = coalitions[(2000, '0.1')]
     print('single: ', single_coalition)
-    accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(single_coalition, 10000, True)
+    generate_coalition_table(single_coalition, '2000Coalition.txt')
