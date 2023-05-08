@@ -15,7 +15,6 @@ LOGS_FT_PATH = './logs_ft/'
 PARAMETER_PATTERN = r"(?=.*C_size=(\d+))(?=.*abc='([^']+)')(?=.*beta=([\d.]+))"
 
 
-
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--calculate', default=False, required=False, action='store_true', help='whether to calculate price values instead of loading from pickle')

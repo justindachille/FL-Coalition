@@ -622,6 +622,10 @@ if __name__ == '__main__':
                                 pickle.dump((net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                 if len(args.abc) == 1:
                     break
+                for net_id, net in nets.items():
+                    if net_id in selected:
+                        print('net_id:', net_id)
+                        int_to_str = {0: 'a', 1: 'b', 2: 'c'}
 
                 global_para = global_model.state_dict()
                 for idx in selected:
@@ -673,6 +677,8 @@ if __name__ == '__main__':
                     train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
                     if net_id in selected:
                         int_to_str = {0: 'a', 1: 'b', 2: 'c'}
+                        print('creating pickle with net_id:', net_id)
+                        print(f'{args.partition}_{args.alg}_{args.abc.lower()}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle')
                         with open(f'{args.partition}_{args.alg}_{args.abc.lower()}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
                             pickle.dump((net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                     
