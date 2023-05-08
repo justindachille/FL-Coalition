@@ -60,8 +60,11 @@ dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirich
 
 C_pri = [0.5, 0.3, 0.1]
 
-def sigma(m, n, p, A):
-    return (p[m] - p[n]) / (A[m] - A[n]) # Change to A^2 - A^2
+def sigma(m, n, p, A, is_squared):
+    if is_squared:
+        return (p[m] - p[n]) / (A[m]**2 - A[n]**2)
+    return (p[m] - p[n]) / (A[m] - A[n])
+    
 
 def N(theta, mean, sd, theta_max, is_uniform=False):
     if theta < 0:
@@ -90,49 +93,49 @@ def N(theta, mean, sd, theta_max, is_uniform=False):
 # ax.legend()
 # plt.show()
 
-def W0(p, A, mean, sd, theta_max, is_uniform):
+def W0(p, A, mean, sd, theta_max, is_uniform, is_squared):
     # print(p[0], (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd)))
-    return p[0] * (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd, theta_max, is_uniform))# - C_pri[0]
+    return p[0] * (1 - N(max(sigma(0, 1, p, A, is_squared), sigma(0, 2, p, A, is_squared)), mean, sd, theta_max, is_uniform))# - C_pri[0]
 
-def W1(p, A, mean, sd, theta_max, is_uniform):
-    return p[1] * N(sigma(0, 1, p, A) - sigma(1, 2, p, A), mean, sd, theta_max, is_uniform)# - C_pri[1]
+def W1(p, A, mean, sd, theta_max, is_uniform, is_squared):
+    return p[1] * N(sigma(0, 1, p, A, is_squared) - sigma(1, 2, p, A, is_squared), mean, sd, theta_max, is_uniform)# - C_pri[1]
 
-def W2(p, A, mean, sd, theta_max, is_uniform):
-    return p[2] * N(min(sigma(1, 2, p, A), sigma(0, 2, p, A)), mean, sd, theta_max, is_uniform) #- C_pri[2]
+def W2(p, A, mean, sd, theta_max, is_uniform, is_squared):
+    return p[2] * N(min(sigma(1, 2, p, A, is_squared), sigma(0, 2, p, A, is_squared)), mean, sd, theta_max, is_uniform) #- C_pri[2]
 
-def W0Obj(p, A, mean, sd, theta_max, is_uniform):
-    return -W0(p, A, mean, sd, theta_max, is_uniform)
+def W0Obj(p, A, mean, sd, theta_max, is_uniform, is_squared):
+    return -W0(p, A, mean, sd, theta_max, is_uniform, is_squared)
 
-def W1Obj(p, A, mean, sd, theta_max, is_uniform):
-    return -W1(p, A, mean, sd, theta_max, is_uniform)
+def W1Obj(p, A, mean, sd, theta_max, is_uniform, is_squared):
+    return -W1(p, A, mean, sd, theta_max, is_uniform, is_squared)
 
-def W2Obj(p, A, mean, sd, theta_max, is_uniform):
-    return -W2(p, A, mean, sd, theta_max, is_uniform)
+def W2Obj(p, A, mean, sd, theta_max, is_uniform, is_squared):
+    return -W2(p, A, mean, sd, theta_max, is_uniform, is_squared)
 
-def update_price(i, p, A, mean, sd, theta_max, is_uniform):
+def update_price(i, p, A, mean, sd, theta_max, is_uniform, is_squared):
     if i == 0:
-        res = basinhopping(lambda x: W0Obj([x, p[1], p[2]], A, mean, sd, theta_max, is_uniform), x0=p[0], minimizer_kwargs={'method': 'BFGS'})
+        res = basinhopping(lambda x: W0Obj([x, p[1], p[2]], A, mean, sd, theta_max, is_uniform, is_squared), x0=p[0], minimizer_kwargs={'method': 'BFGS'})
         return [res.x[0], p[1], p[2]]
     elif i == 1:
-        res = basinhopping(lambda x: W1Obj([p[0], x, p[2]], A, mean, sd, theta_max, is_uniform), x0=p[1], minimizer_kwargs={'method': 'BFGS'})
+        res = basinhopping(lambda x: W1Obj([p[0], x, p[2]], A, mean, sd, theta_max, is_uniform, is_squared), x0=p[1], minimizer_kwargs={'method': 'BFGS'})
         return [p[0], res.x[0], p[2]]
     elif i == 2:
-        res = basinhopping(lambda x: W2Obj([p[0], p[1], x], A, mean, sd, theta_max, is_uniform), x0=p[2], minimizer_kwargs={'method': 'BFGS'})
+        res = basinhopping(lambda x: W2Obj([p[0], p[1], x], A, mean, sd, theta_max, is_uniform, is_squared), x0=p[2], minimizer_kwargs={'method': 'BFGS'})
         return [p[0], p[1], res.x[0]]
 
 text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
 quantity_arrays = [ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity]
 dirichlet_arrays = [ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet]
 
-def get_profit(i, price, scores, mean, sd, theta_max, is_uniform):
+def get_profit(i, price, scores, mean, sd, theta_max, is_uniform, is_squared):
     if i == 0:
-        return W0(price, scores, mean, sd, theta_max, is_uniform)
+        return W0(price, scores, mean, sd, theta_max, is_uniform, is_squared)
     elif i == 1:
-        return W1(price, scores, mean, sd, theta_max, is_uniform)
+        return W1(price, scores, mean, sd, theta_max, is_uniform, is_squared)
     elif i == 2:
-        return W2(price, scores, mean, sd, theta_max, is_uniform)
+        return W2(price, scores, mean, sd, theta_max, is_uniform, is_squared)
 
-def optimize(j, partition, mean, sd, theta_max, is_uniform):
+def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
     print(partition)
     if isinstance(partition[0], tuple):
         # partition is already a list of tuples
@@ -141,7 +144,7 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform):
         # partition is a list of single values, convert to a list of tuples
         partition = [(i, x) for i, x in enumerate(partition)]
 
-    # TODO(justin): Find a better solution to what happens when all three values are the same
+    # TODO(justin): Set price to be 0 if they are same
     if partition[0][1] == partition[1][1] or partition[0][1] == partition[2][1] or partition[1][1] == partition[2][1]:
         partition[0] = (partition[0][0], partition[0][1] + 0.0005)
         partition[2] = (partition[2][0], partition[2][1] - 0.0005)
@@ -157,7 +160,7 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform):
 
     while True:
         for i in range(3):
-            p_new = update_price(float(i), p_new, scores, mean, sd, theta_max, is_uniform)
+            p_new = update_price(float(i), p_new, scores, mean, sd, theta_max, is_uniform, is_squared)
             # print(f'i: {i}, pnew: {p_new}')
         if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-6):
             break
@@ -166,7 +169,7 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform):
     print(f'Optimal prices: {p_new} with order {ordering} for partition {text_name[j]}')
     profits = []
     for i in range(3):
-        profits.append(get_profit(i, p_new, scores, mean, sd, theta_max, is_uniform))
+        profits.append(get_profit(i, p_new, scores, mean, sd, theta_max, is_uniform, is_squared))
     print(f'Profits: {profits}')
     return p_new, profits, ordering, j
 
@@ -347,12 +350,12 @@ def check_stability(final_table):
             result_dict[partition] = 'Error: Invalid partition name'
     return result_dict
 
-def createTableFromCoalition(coalition, theta_max, is_uniform=True, mean=1, sd=1):
+def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
     prices_array = []
     accuracies_as_table = [coalition.ABC, coalition.AB_C, coalition.AC_B, coalition.A_BC, coalition.A_B_C_]
 
     for i, partition in enumerate(accuracies_as_table):
-        p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform)
+        p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
         prices_array.append((p_new, profits, ordering, j))
     reordered_profits, reordered_prices = get_final_table(prices_array)
 
@@ -367,6 +370,7 @@ if __name__ == '__main__':
     custom_array = []
     non_iid_array = []
     is_uniform = True
+    is_squared = True
     theta_max = 10000
     mean = 5000
     sd = 234
@@ -378,14 +382,14 @@ if __name__ == '__main__':
     if not os.path.exists(CUSTOM_ARRAY_PICKLE_NAME):
         print('----- Custom Quantity: A=1000, B=2000, C=8000 -----')
         for i, partition in enumerate([quantity_coalition.ABC, quantity_coalition.AB_C, quantity_coalition.AC_B, quantity_coalition.A_BC, quantity_coalition.A_B_C_]):
-            p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform)
+            p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
             custom_array.append((p_new, profits, ordering, j))
         with open(f'f{CUSTOM_ARRAY_PICKLE_NAME}.pickle', 'wb') as handle:
             pickle.dump((custom_array), handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         print('----- Non-iid Label Dirichlet: A=3491, B=3029, C=2480 -----')
         for i, partition in enumerate([dirichlet_coalition.ABC, dirichlet_coalition.AB_C, dirichlet_coalition.AC_B, dirichlet_coalition.A_BC, dirichlet_coalition.A_B_C_]):
-            p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform)
+            p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
             non_iid_array.append((p_new, profits, ordering, j))
         with open(f'f{NON_IID_ARRAY_PICKLE_NAME}.pickle', 'wb') as handle:
             pickle.dump((non_iid_array), handle, protocol=pickle.HIGHEST_PROTOCOL)

@@ -178,7 +178,7 @@ def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True,
     uniform_str = "True" if is_uniform else "False"
     table = (r"\subsection{Scenario " + str(i+1) + "}\n\n"
              r"\textbf{Simulation Setup}: \n"
-             r"C Dataset Size: {" + str(coalition.C_size) + "}\n"
+             r"\nC Dataset Size: {" + str(coalition.C_size) + "}\n"
              r"Dirichlet Beta Parameter: {" + str(coalition.beta) + "}\n"
              r"Theta Max: {" + str(theta_max) + "}\n"
              r"Is Uniform: {" + uniform_str + "}\n"
