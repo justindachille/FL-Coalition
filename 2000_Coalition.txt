@@ -1,0 +1,52 @@
+\subsection{Scenario 1}
+
+\textbf{Simulation Setup}: \nC Dataset Size: {2000}
+Dirichlet Beta Parameter: {0.1}
+Theta Max: {10000}
+Is Uniform: {True}
+Mean: {1}
+SD: {1}
+
+\textbf{Numerical results}: \n\n\begin{table}[h]
+\centering
+\caption{Training results.}
+\label{training-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
+$\{A,B,C\}$ & 83.81\% & 84.17\% & 83.60\%\\ \hline
+$\{A,B\}, \{C\}$ & 79.53\% & 79.53\% & 79.53\%\\ \hline
+$\{A,C\}, \{B\}$ & 76.84\% & 76.35\% & 76.35\%\\ \hline
+$\{B,C\}, \{A\}$ & 82.41\% & 82.60\% & 82.41\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 49.58\% & 41.26\% & 56.99\%\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Training results.}
+\label{training-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 4.42 & 20.21 & 2.21\\ \hline
+$\{A,B\}, \{C\}$ & 2.92 & 0.83 & 0.42\\ \hline
+$\{A,C\}, \{B\}$ & 27.76 & 1.53 & 0.76\\ \hline
+$\{B,C\}, \{A\}$ & 1.94 & 7.97 & 0.97\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 130.64 & 65.32 & 435.82\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Training results.}
+\label{training-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's profit & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 1.47 & 20.21 & 2.21\\ \hline
+$\{A,B\}, \{C\}$ & 1.70 & 0.83 & 0.42\\ \hline
+$\{A,C\}, \{B\}$ & 14.27 & 1.53 & 0.76\\ \hline
+$\{B,C\}, \{A\}$ & 0.65 & 7.97 & 0.97\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 43.55 & 65.32 & 435.82\\ \hline
+\end{tabular}
+\end{table}

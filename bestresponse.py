@@ -143,8 +143,8 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform):
 
     # TODO(justin): Find a better solution to what happens when all three values are the same
     if partition[0][1] == partition[1][1] or partition[0][1] == partition[2][1] or partition[1][1] == partition[2][1]:
-        partition[0] = (partition[0][0], partition[0][1] + 0.05)
-        partition[2] = (partition[2][0], partition[2][1] - 0.05)
+        partition[0] = (partition[0][0], partition[0][1] + 0.0005)
+        partition[2] = (partition[2][0], partition[2][1] - 0.0005)
     partition = sorted(partition, key=lambda x: x[1], reverse=True)
     print(partition)
     p_init = [5] * 3
