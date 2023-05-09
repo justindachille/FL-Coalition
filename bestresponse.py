@@ -12,7 +12,7 @@ from scipy.optimize import basinhopping
 import dill as pickle
 
 class Coalition:
-    def __init__(self, C_size, ABC, AB_C, AC_B, A_BC, A_B_C_, beta):
+    def __init__(self, C_size, ABC, AB_C, AC_B, A_BC, A_B_C_, beta, partition='custom-quantity'):
         self.C_size = C_size
         self.ABC = ABC
         self.AB_C = AB_C
@@ -20,6 +20,7 @@ class Coalition:
         self.A_BC = A_BC
         self.A_B_C_ = A_B_C_
         self.beta = beta
+        self.partition = partition
 
     def __str__(self):
         return f"Coalition(C_size={self.C_size}, ABC={self.ABC}, AB_C={self.AB_C}, AC_B={self.AC_B}, A_BC={self.A_BC}, A_B_C_={self.A_B_C_}, beta={self.beta})"
