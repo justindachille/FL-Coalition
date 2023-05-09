@@ -1,7 +1,7 @@
 \subsection{Scenario 4}
 
-\textbf{Simulation Setup}: \nC Dataset Size: {6000}
-Dirichlet Beta Parameter: {0.1}
+\textbf{Simulation Setup}:
+C Dataset Size: {6000}
 Theta Max: {10000}
 Is Uniform: {True}
 Mean: {1}
@@ -14,39 +14,44 @@ SD: {1}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
 $\{A,B,C\}$ & 87.41\% & 87.41\% & 87.41\%\\ \hline
-$\{A,B\}, \{C\}$ & 79.69\% & 79.69\% & 79.69\%\\ \hline
-$\{A,C\}, \{B\}$ & 84.00\% & 84.00\% & 84.00\%\\ \hline
-$\{B,C\}, \{A\}$ & 86.52\% & 86.52\% & 86.52\%\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.00\% & 0.00\% & 0.00\%\\ \hline
+$\{A,B\}, \{C\}$ & 79.69\% & 79.69\% & 70.91\%\\ \hline
+$\{A,C\}, \{B\}$ & 84.00\% & 61.16\% & 84.00\%\\ \hline
+$\{B,C\}, \{A\}$ & 50.04\% & 86.52\% & 86.52\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 0.00\%\\ \hline
 \end{tabular}
 \end{table}
 
 
 \begin{table}[h]
 \centering
-\caption{Training results.}
-\label{training-results}
+\caption{Price results.}
+\label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 2.92 & 0.83 & 0.42\\ \hline
-$\{A,B\}, \{C\}$ & 2.92 & 0.83 & 0.42\\ \hline
-$\{A,C\}, \{B\}$ & 2.92 & 0.83 & 0.42\\ \hline
-$\{B,C\}, \{A\}$ & 2.92 & 0.83 & 0.42\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 2.92 & 0.83 & 0.42\\ \hline
+$\{A,B,C\}$ & 5.10 & 1.46 & 0.73\\ \hline
+$\{A,B\}, \{C\}$ & 5.31 & 2.64 & 1.32\\ \hline
+$\{A,C\}, \{B\}$ & 11.19 & 2.79 & 5.57\\ \hline
+$\{B,C\}, \{A\}$ & 1.44 & 5.76 & 2.88\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 275.92 & 756.23 & 137.96\\ \hline
 \end{tabular}
 \end{table}
 
 
 \begin{table}[h]
 \centering
-\caption{Training results.}
-\label{training-results}
+\caption{Profit results.}
+\label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 1.70 & 0.83 & 0.42\\ \hline
-$\{A,B\}, \{C\}$ & 1.70 & 0.83 & 0.42\\ \hline
-$\{A,C\}, \{B\}$ & 1.70 & 0.83 & 0.42\\ \hline
-$\{B,C\}, \{A\}$ & 1.70 & 0.83 & 0.42\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 1.70 & 0.83 & 0.42\\ \hline
+$\{A,B,C\}$ & 2.97 & 1.46 & 0.73\\ \hline
+$\{A,B\}, \{C\}$ & 3.53 & 2.64 & 1.32\\ \hline
+$\{A,C\}, \{B\}$ & 7.45 & 2.79 & 5.57\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 5.76 & 2.88\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 91.97 & 756.23 & 137.96\\ \hline
 \end{tabular}
 \end{table}
+\textbf{Core stable coalition structures}:
+\begin{itemize}
+\item Competitive: $\{A\}, \{B\}, \{C\}$
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}
