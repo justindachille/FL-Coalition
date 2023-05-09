@@ -12,7 +12,7 @@ from scipy.optimize import basinhopping
 import dill as pickle
 
 class Coalition:
-    def __init__(self, C_size, ABC, AB_C, AC_B, A_BC, A_B_C_, beta):
+    def __init__(self, C_size, ABC, AB_C, AC_B, A_BC, A_B_C_, beta, partition='custom-quantity'):
         self.C_size = C_size
         self.ABC = ABC
         self.AB_C = AB_C
@@ -20,6 +20,7 @@ class Coalition:
         self.A_BC = A_BC
         self.A_B_C_ = A_B_C_
         self.beta = beta
+        self.partition = partition
 
     def __str__(self):
         return f"Coalition(C_size={self.C_size}, ABC={self.ABC}, AB_C={self.AB_C}, AC_B={self.AC_B}, A_BC={self.A_BC}, A_B_C_={self.A_B_C_}, beta={self.beta})"
@@ -33,7 +34,6 @@ def get_args():
 
 A = [0.9, 0.8, 0.7]
 # Custom Quantity
-
 
 SOLO_QUANTITY_A = (0, .5004)
 SOLO_QUANTITY_B = (1, .6116)
@@ -56,7 +56,7 @@ AC_B_Dirichlet = [(0, 0.8301), SOLO_DIRICHLET_B, (2, .8359)]
 A_BC_Dirichlet = [SOLO_DIRICHLET_A, (1, .8347), (2, .8320)]
 A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
 
-dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1)
+dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
 
 C_pri = [0.5, 0.3, 0.1]
 

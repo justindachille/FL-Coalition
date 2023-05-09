@@ -165,9 +165,21 @@ def parse_ft_logs(coalitions):
                 #     print('after:', coalitions[key])
     return coalitions
 
-def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True, mean=1, sd=1):
+def fix_solo_accuracies(coalition):
+    SOLO_QUANTITY_A = .5004
+    SOLO_QUANTITY_B = .6116
+    SOLO_QUANTITY_C = .7091
+    if coalition.partition == 'custom-quantity':
+        coalition.A_BC[0] = SOLO_QUANTITY_A
+        coalition.AC_B[1] = SOLO_QUANTITY_B
+        coalition.AB_C[2] = SOLO_QUANTITY_C
+        coalition.A_B_C_[0] = SOLO_QUANTITY_A
+        coalition.A_B_C_[1] = SOLO_QUANTITY_B
+    return coalition
+
+def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
     table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
-    accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, mean=mean, sd=sd)
+    accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
     table_data = [
         (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.2f}\\%", f"{coalition.ABC[1]*100:.2f}\\%", f"{coalition.ABC[2]*100:.2f}\\%"),
         (r"$\{A,B\}, \{C\}$", f"{coalition.AB_C[0]*100:.2f}\\%", f"{coalition.AB_C[1]*100:.2f}\\%", f"{coalition.AB_C[2]*100:.2f}\\%"),
@@ -177,14 +189,18 @@ def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True,
     ]
     uniform_str = "True" if is_uniform else "False"
     table = (r"\subsection{Scenario " + str(i+1) + "}\n\n"
-             r"\textbf{Simulation Setup}: \n"
-             r"\nC Dataset Size: {" + str(coalition.C_size) + "}\n"
-             r"Dirichlet Beta Parameter: {" + str(coalition.beta) + "}\n"
+             r"\textbf{Simulation Setup}:" + "\n"
+             r"C Dataset Size: {" + str(coalition.C_size) + "}\n"
              r"Theta Max: {" + str(theta_max) + "}\n"
-             r"Is Uniform: {" + uniform_str + "}\n"
-             r"Mean: {" + str(mean) + "}\n"
-             r"SD: {" + str(sd) + "}\n\n"
-             r"\textbf{Numerical results}: \n\n")
+             r"Is Uniform: {" + uniform_str + "}\n")
+
+    if not is_uniform:
+        table += r"Mean: {" + str(mean) + "}\n"
+        table += r"SD: {" + str(sd) + "}\n\n"
+    if coalition.partition == 'noniid-labeldir':
+        table += r"Dirichlet Beta Parameter: {" + str(coalition.beta) + "}\n"
+
+    table += r"\textbf{Numerical results}: \n\n"
     table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
     table += ' & '.join(table_header) + '\\\\ \\hline\n'
     for row in table_data:
@@ -201,7 +217,7 @@ def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True,
         (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_prices[4][0]:.2f}", f"{reordered_prices[4][1]:.2f}", f"{reordered_prices[4][2]:.2f}")
     ]
     table += '\n\n'
-    table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Price results.}\n\\label{price-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
     table += ' & '.join(table_header) + '\\\\ \\hline\n'
     for row in table_data:
         table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
@@ -216,11 +232,52 @@ def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True,
         (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_profits[4][0]:.2f}", f"{reordered_prices[4][1]:.2f}", f"{reordered_prices[4][2]:.2f}")
     ]
     table += '\n\n'
-    table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Profit results.}\n\\label{profit-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
     table += ' & '.join(table_header) + '\\\\ \\hline\n'
     for row in table_data:
         table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
     table += '\\end{tabular}\n\\end{table}\n'
+
+    table += r"\textbf{Core stable coalition structures}:" + "\n"
+    table += r"\begin{itemize}" + "\n"
+
+    # Competitive coalition structures
+    coalitions = []
+    for key, value in profit_stability_dict.items():
+        if 'True' in value:
+            if key == 'A_BC':
+                coalitions.append(r'$\{B,C\}, \{A\}$')
+            elif key == 'AB_C':
+                coalitions.append(r'$\{A,B\}, \{C\}$')
+            elif key == 'AC_B':
+                coalitions.append(r'$\{A,C\}, \{B\}$')
+            elif key == 'A_B_C_':
+                coalitions.append(r'$\{A\}, \{B\}, \{C\}$')
+            else:  # key is ABC
+                coalitions.append(r'$\{A,B,C\}$')
+    coalitions_str = ', '.join(coalitions)
+    result_str = r'\item Competitive: ' + coalitions_str
+    table += result_str + "\n"
+
+    # Non-competitive coalition structures
+    coalitions = []
+    for key, value in accuracy_stability_dict.items():
+        if 'True' in value:
+            if key == 'A_BC':
+                coalitions.append(r'$\{B,C\}, \{A\}$')
+            elif key == 'AB_C':
+                coalitions.append(r'$\{A,B\}, \{C\}$')
+            elif key == 'AC_B':
+                coalitions.append(r'$\{A,C\}, \{B\}$')
+            elif key == 'A_B_C_':
+                coalitions.append(r'$\{A\}, \{B\}, \{C\}$')
+            else:  # key is ABC
+                coalitions.append(r'$\{A,B,C\}$')
+    coalitions_str = ', '.join(coalitions)
+    result_str = r'\item Non-competitive: ' + coalitions_str
+    table += result_str + "\n"
+
+    table += r"\end{itemize}" + "\n"
 
     with open(filename, 'w') as f:
         f.write(table)
@@ -237,18 +294,67 @@ if __name__ == '__main__':
 
     print('--- Parsing FT Logs ---')
     coalitions = parse_ft_logs(coalitions)
+    for coalition in coalitions:
+        coalitions[coalition] = fix_solo_accuracies(coalitions[coalition])
 
     coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
     print('After parsing FT logs:')
     for k, v in coalition_str_dict.items():
         print(k, v)
 
+    THETA_MAX = 10000
+    IS_UNIFORM = False
+    IS_SQUARED = True
+    MEAN = 5000
+    SD = 1000
     for i, coalition in enumerate(coalitions):
+        # continue
         generate_coalition_table(
             i,
             coalitions[coalition],
             f'{coalition[0]}_Coalition.txt',
-            theta_max = 10000,
-            is_uniform=True,
-            mean=1,
-            sd=1,)
+            theta_max = THETA_MAX,
+            is_uniform=IS_UNIFORM,
+            is_squared=IS_SQUARED,
+            mean=MEAN,
+            sd=SD,)
+        
+
+    SOLO_QUANTITY_A = .5004
+    SOLO_QUANTITY_B = .6116
+    SOLO_QUANTITY_C = .7091
+    ABC_Quantity = [.8803, .8821, .8817]
+    AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
+    AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
+    A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]
+    A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
+
+    quantity_coalition = Coalition(8000, ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity, 0.1)
+    generate_coalition_table(10, 
+                            quantity_coalition,
+                            '8000_Coalition_Proper',
+                            theta_max = THETA_MAX,
+                            is_uniform=IS_UNIFORM,
+                            is_squared=IS_SQUARED,
+                            mean=MEAN,
+                            sd=SD,)
+    # Non-iid
+    SOLO_DIRICHLET_A = .6085
+    SOLO_DIRICHLET_B = .6394
+    SOLO_DIRICHLET_C = .5932
+    ABC_Dirichlet = [.8681, .8668, .8655]
+    AB_C_Dirichlet = [.8440, .8453, SOLO_DIRICHLET_C]
+    AC_B_Dirichlet = [0.8301, SOLO_DIRICHLET_B, .8359]
+    A_BC_Dirichlet = [SOLO_DIRICHLET_A, .8347, .8320]
+    A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
+
+    dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
+
+    generate_coalition_table(10, 
+                            dirichlet_coalition, 
+                            '2480_Dirichlet',
+                            theta_max = THETA_MAX,
+                            is_uniform=IS_UNIFORM,
+                            is_squared=IS_SQUARED,
+                            mean=MEAN,
+                            sd=SD,)
