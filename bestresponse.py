@@ -35,7 +35,6 @@ def get_args():
 A = [0.9, 0.8, 0.7]
 # Custom Quantity
 
-
 SOLO_QUANTITY_A = (0, .5004)
 SOLO_QUANTITY_B = (1, .6116)
 SOLO_QUANTITY_C = (2, .7091)
@@ -57,7 +56,7 @@ AC_B_Dirichlet = [(0, 0.8301), SOLO_DIRICHLET_B, (2, .8359)]
 A_BC_Dirichlet = [SOLO_DIRICHLET_A, (1, .8347), (2, .8320)]
 A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
 
-dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1)
+dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
 
 C_pri = [0.5, 0.3, 0.1]
 
