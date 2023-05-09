@@ -153,14 +153,20 @@ if __name__ == '__main__':
         for lr, optimizer, batch_size in product(learning_rates, optimizers, batch_sizes):
             current_params = f'lr={lr}, optimizer={optimizer}, batch_size={batch_size}'
             logger.info(f'Testing {current_params}')
-            filename = f'{args.partition}_{args.alg}_{args.abc}_{c}_{args.C_size}_{beta_string}.pickle'
+            filename = f'{args.partition}_{args.alg}_{args.abc.lower()}_{c}_{args.C_size}_{beta_string}.pickle'
             if os.path.exists(filename):
                 with open(filename, 'rb') as handle:
                     (net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
                     # Ensure net is using global model parameters
                     net.load_state_dict(global_model.state_dict())
             else:
-                raise ValueError(f'Inappropriate filename argument {filename}')
+                filename = f'{args.partition}_{args.alg}_{args.abc}_{c}_{args.C_size}_{beta_string}.pickle'
+                if os.path.exists(filename):
+                    with open(filename, 'rb') as handle:
+                        (net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size) = pickle.load(handle)
+                        net.load_state_dict(global_model.state_dict())
+                else:
+                    raise ValueError(f'Inappropriate filename argument {filename}')
             best_valid_from_run, net_id, net, pickle_str, pickle_data = train_net_scaffold_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.train_all_layers)
             if best_valid_from_run > best_valid_acc:
                 print(f'New best score: {best_valid_from_run} found with params {current_params}')
