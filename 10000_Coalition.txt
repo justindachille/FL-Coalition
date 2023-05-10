@@ -4,9 +4,6 @@
 C Dataset Size: {10000}
 Theta Max: {10000}
 Is Uniform: {True}
-Mean: {1}
-SD: {1}
-
 \textbf{Numerical results}: \n\n\begin{table}[h]
 \centering
 \caption{Training results.}
