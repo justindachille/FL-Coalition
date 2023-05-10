@@ -1,0 +1,9 @@
+05-09 13:38 INFO     Testing lr=0.001, optimizer=sgd, batch_size=32
+05-09 13:38 INFO     Training network 0
+05-09 13:38 INFO     n_training: 16
+05-09 13:38 INFO     n_test: 313
+05-09 13:38 INFO     Epoch: 0 Loss: 0.145060 Best Valid seen: 0.780500 Valid: 0.780500
+05-09 13:38 INFO     Epoch: 1 Loss: 0.089932 Best Valid seen: 0.785800 Valid: 0.785800
+05-09 13:38 INFO     Epoch: 2 Loss: 0.087607 Best Valid seen: 0.787800 Valid: 0.787800
+05-09 13:39 INFO     Epoch: 3 Loss: 0.072974 Best Valid seen: 0.787800 Valid: 0.787100
+05-09 13:42 INFO     Epoch: 4 Loss: 0.071310 Best Valid seen: 0.787800 Valid: 0.785600
