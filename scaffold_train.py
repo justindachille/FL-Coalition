@@ -407,7 +407,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
         for j in range(n_parties):
             np.random.shuffle(idx_batch[j])
             net_dataidx_map[j] = idx_batch[j]
-            # print(f'party {j} in map len {len(net_dataidx_map[j])}')
+            print(f'party {j} in map len {len(net_dataidx_map[j])}')
             # print('net', net_dataidx_map.values())
 
     elif partition == "custom-quantity":
