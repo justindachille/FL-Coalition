@@ -177,8 +177,12 @@ def fix_solo_accuracies(coalition):
         coalition.A_B_C_[1] = SOLO_QUANTITY_B
     return coalition
 
-def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
+def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=True, is_squared=True, mean=1, sd=1):
     table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
+    if filename is None:
+        beta_string = str(coalition.beta).replace('.', '')
+        filename = f'partition-{coalition.partition}_beta-{beta_string}_csize-{coalition.C_size}_thetamax-{theta_max}_mean-{mean}_sd-{sd}.txt'
+
     accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
     table_data = [
         (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.2f}\\%", f"{coalition.ABC[1]*100:.2f}\\%", f"{coalition.ABC[2]*100:.2f}\\%"),
@@ -279,7 +283,7 @@ def generate_coalition_table(i, coalition, filename, theta_max, is_uniform=True,
 
     table += r"\end{itemize}" + "\n"
 
-    with open(filename, 'w') as f:
+    with open(f'./latex/{filename}', 'w') as f:
         f.write(table)
 
 if __name__ == '__main__':
@@ -312,7 +316,6 @@ if __name__ == '__main__':
         generate_coalition_table(
             i,
             coalitions[coalition],
-            f'{coalition[0]}_Coalition.txt',
             theta_max = THETA_MAX,
             is_uniform=IS_UNIFORM,
             is_squared=IS_SQUARED,

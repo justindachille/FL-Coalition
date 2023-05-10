@@ -53,7 +53,6 @@ if __name__ == '__main__':
 
     # Run the commands
     for cmd in cmds:
-        continue
         full_cmd = f'{cmd_base}{cmd}'
         subprocess.call(full_cmd, shell=True)
         time.sleep(1)
