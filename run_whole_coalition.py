@@ -49,7 +49,7 @@ if __name__ == '__main__':
             for cmd in cmds:
                 new_cmds.append(cmd + f' {arg} {value}')
         cmds = new_cmds
-    [print(cmd, '\n') for cmd in cmds]
+    #[print(cmd, '\n') for cmd in cmds]
 
     # Run the commands
     for cmd in cmds:
