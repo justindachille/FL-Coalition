@@ -1,0 +1,29 @@
+05-11 02:19 INFO     Testing lr=0.001, optimizer=sgd, batch_size=32
+05-11 02:19 INFO     Training network 1
+05-11 02:19 INFO     n_training: 56
+05-11 02:19 INFO     n_test: 313
+05-11 02:21 INFO     Epoch: 0 Loss: 0.004517 Best Valid seen: 0.823900 Valid: 0.823900
+05-11 02:23 INFO     Epoch: 1 Loss: 0.002949 Best Valid seen: 0.824000 Valid: 0.824000
+05-11 02:24 INFO     Epoch: 2 Loss: 0.001914 Best Valid seen: 0.824100 Valid: 0.824100
+05-11 02:26 INFO     Epoch: 3 Loss: 0.002433 Best Valid seen: 0.824100 Valid: 0.817300
+05-11 02:28 INFO     Epoch: 4 Loss: 0.002914 Best Valid seen: 0.824100 Valid: 0.816900
+05-11 02:30 INFO     Epoch: 5 Loss: 0.003268 Best Valid seen: 0.824100 Valid: 0.814800
+05-11 02:31 INFO     Epoch: 6 Loss: 0.004986 Best Valid seen: 0.824100 Valid: 0.815200
+05-11 02:33 INFO     Epoch: 7 Loss: 0.004848 Best Valid seen: 0.824100 Valid: 0.813900
+05-11 02:35 INFO     Epoch: 8 Loss: 0.002454 Best Valid seen: 0.824100 Valid: 0.811100
+05-11 02:36 INFO     Epoch: 9 Loss: 0.003708 Best Valid seen: 0.824100 Valid: 0.806600
+05-11 02:38 INFO     Epoch: 10 Loss: 0.004505 Best Valid seen: 0.824100 Valid: 0.805300
+05-11 02:39 INFO     Epoch: 11 Loss: 0.005156 Best Valid seen: 0.824100 Valid: 0.805100
+05-11 02:41 INFO     Epoch: 12 Loss: 0.005702 Best Valid seen: 0.824100 Valid: 0.804300
+05-11 02:41 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-11 02:41 INFO     New best score: 0.8241 found with params lr=0.001, optimizer=sgd, batch_size=64
+05-11 02:41 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+05-11 02:41 INFO     Training network 1
+05-11 02:41 INFO     n_training: 56
+05-11 02:41 INFO     n_test: 313
+05-11 02:43 INFO     Epoch: 0 Loss: 0.004925 Best Valid seen: 0.821500 Valid: 0.821500
+05-11 02:44 INFO     Epoch: 1 Loss: 0.003519 Best Valid seen: 0.824600 Valid: 0.824600
+05-11 02:46 INFO     Epoch: 2 Loss: 0.002490 Best Valid seen: 0.824600 Valid: 0.824600
+05-11 02:48 INFO     Epoch: 3 Loss: 0.001874 Best Valid seen: 0.824600 Valid: 0.818100
+05-11 02:49 INFO     Epoch: 4 Loss: 0.002343 Best Valid seen: 0.824600 Valid: 0.816200
+05-11 03:37 INFO     Epoch: 5 Loss: 0.002107 Best Valid seen: 0.824600 Valid: 0.810600
