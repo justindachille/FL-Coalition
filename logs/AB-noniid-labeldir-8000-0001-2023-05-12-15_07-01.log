@@ -1,4 +1,0 @@
-05-12 15:07 INFO     cuda:0
-05-12 15:07 INFO     args: Namespace(model='resnet18', dataset='cifar10', net_config=None, partition='noniid-labeldir', batch_size=64, lr=0.001, epochs=10, ft_epochs=10, n_parties=3, alg='fedavg', use_projection_head=False, out_dim=256, loss='contrastive', temperature=0.5, comm_round=50, init_seed=2, dropout_p=0.0, datadir='./data/', reg=1e-05, logdir='./logs/', modeldir='./models/', beta=0.001, device='cuda:0', log_file_name='AB-noniid-labeldir-8000-0001-2023-05-12-15_07-01', optimizer='adam', mu=1, noise=0, noise_type='level', rho=0, sample=1, abc='AB', C_size=8000)
-05-12 15:07 INFO     ####################################################################################################
-05-12 15:07 INFO     Partitioning data

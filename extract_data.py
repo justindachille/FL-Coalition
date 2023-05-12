@@ -12,8 +12,14 @@ from bestresponse import createTableFromCoalition, Coalition
 
 LOGS_PATH = './logs/'
 LOGS_FT_PATH = './logs_ft/'
-PARAMETER_PATTERN = r"(?=.*C_size=(\d+))(?=.*abc='([^']+)')(?=.*beta=([\d.]+))"
+PARAMETER_PATTERN = r"(?=.*C_size=(\d+))(?=.*abc='([^']+)')(?=.*beta=([\d.]+))(?=.*\spartition='([^']+)')"
 
+BETA_MAP = {
+    "001": "0.01",
+    "01": "0.1",
+    "10": "1.0",
+    "100": "10.0"
+}
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -40,7 +46,7 @@ def parse_logs():
                     C_size = int(match.group(1))
                     abc = match.group(2)
                     beta = match.group(3)
-
+                    partition = match.group(4)
                 # extract the score value using regular expressions
                 match = re.search(r"New best score: ([\d.]+)", last_line)
                 score = None
@@ -50,33 +56,33 @@ def parse_logs():
 
                 if C_size is None or score is None:
                     raise ValueError("Improper format of log file")
-                key = (C_size, beta)
+                key = (partition, C_size, beta)
                 value = [score] * 3
                 # print(key, value)
                 if key not in coalitions:
                     # create a new coalition object with the updated property
                     if abc.upper() == "ABC":
-                        coalition = Coalition(C_size, value, [], [], [], [0]*3, beta)
+                        coalition = Coalition(C_size, value, [], [], [], [0]*3, beta, partition=partition)
                     elif abc.upper() == 'AB':
-                        coalition = Coalition(C_size, [], value, [], [], [0]*3, beta)
+                        coalition = Coalition(C_size, [], value, [], [], [0]*3, beta, partition=partition)
                     elif abc.upper() == 'AC':
-                        coalition = Coalition(C_size, [], [], value, [], [0]*3, beta)
+                        coalition = Coalition(C_size, [], [], value, [], [0]*3, beta, partition=partition)
                     elif abc.upper() == 'BC':
-                        coalition = Coalition(C_size, [], [], [], value, [0]*3, beta)
+                        coalition = Coalition(C_size, [], [], [], value, [0]*3, beta, partition=partition)
                     elif abc.upper() == 'A':
                         # In these single client cases, set values that aren't read
                         # to be 0, so they are overriden later with max() function
                         value[1] = 0
                         value[2] = 0
-                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                        coalition = Coalition(C_size, [], [], [], [], value, beta, partition=partition)
                     elif abc.upper() == 'B':
                         value[0] = 0
                         value[2] = 0
-                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                        coalition = Coalition(C_size, [], [], [], [], value, beta, partition=partition)
                     elif abc.upper() == 'C':
                         value[0] = 0
                         value[1] = 0
-                        coalition = Coalition(C_size, [], [], [], [], value, beta)
+                        coalition = Coalition(C_size, [], [], [], [], value, beta, partition=partition)
                     else:
                         continue
                     coalitions[key] = coalition
@@ -113,8 +119,10 @@ def parse_ft_logs(coalitions):
                 parts = fname.split('-')
                 abc = parts[0].upper()
                 abc = abc.split('/')[-1]
+                partition = str(parts[1] + '-' + parts[2])
                 C_size = int(parts[3])
-                beta = parts[4].replace("1", ".1", 1)
+                beta = parts[4]
+                beta = BETA_MAP[beta]
                 networks = {}
                 for line in f:
                     if 'Training network' in line:
@@ -128,7 +136,7 @@ def parse_ft_logs(coalitions):
 
                 if C_size is None:
                     raise ValueError("Improper format of log file")
-                key = (C_size, beta)
+                key = (partition, C_size, beta)
                 values = [network['best_valid_seen'] for network in networks.values()]
                 # if C_size == 10000:
                     # print('Networks:', networks)
@@ -168,7 +176,10 @@ def parse_ft_logs(coalitions):
 def fix_solo_accuracies(coalition):
     SOLO_QUANTITY_A = .5004
     SOLO_QUANTITY_B = .6116
-    SOLO_QUANTITY_C = .7091
+    if coalition.C_size == 8000:
+        SOLO_QUANTITY_C = .7091
+    else:
+        SOLO_QUANTITY_C = coalition.A_B_C_[2]
     if coalition.partition == 'custom-quantity':
         coalition.A_BC[0] = SOLO_QUANTITY_A
         coalition.AC_B[1] = SOLO_QUANTITY_B
