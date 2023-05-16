@@ -1,0 +1,2161 @@
+05-16 01:29 INFO     cuda:0
+05-16 01:29 INFO     args: Namespace(model='resnet18', dataset='cifar10', net_config=None, partition='noniid-labeldir', batch_size=64, lr=0.001, epochs=10, ft_epochs=10, n_parties=3, alg='fedavg', use_projection_head=False, out_dim=256, loss='contrastive', temperature=0.5, comm_round=50, init_seed=2, dropout_p=0.0, datadir='./data/', reg=1e-05, logdir='./logs/', modeldir='./models/', beta=100.0, device='cuda:0', log_file_name='AB-noniid-labeldir-8000-1000-2023-05-16-01_29-00', optimizer='adam', mu=1, noise=0, noise_type='level', rho=0, sample=1, abc='AB', C_size=8000)
+05-16 01:29 INFO     ####################################################################################################
+05-16 01:29 INFO     Partitioning data
+05-16 01:29 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+05-16 01:29 INFO     Initializing nets
+05-16 01:29 INFO     using simple net
+05-16 01:29 INFO     using simple net
+05-16 01:29 INFO     using simple net
+05-16 01:29 INFO     using simple net
+05-16 01:29 INFO     in comm round:0
+05-16 01:29 INFO     Training network 0. n_training: 3017
+05-16 01:29 INFO     Training network 0
+05-16 01:29 INFO     >> Pre-Training Training accuracy: 0.10407689758037786
+05-16 01:29 INFO     >> Pre-Training Test accuracy: 0.1035
+05-16 01:29 INFO     Epoch: 0 Loss: 1.984487
+05-16 01:29 INFO     Epoch: 1 Loss: 1.684116
+05-16 01:29 INFO     Epoch: 2 Loss: 1.580058
+05-16 01:29 INFO     Epoch: 3 Loss: 1.492295
+05-16 01:29 INFO     Epoch: 4 Loss: 1.404887
+05-16 01:29 INFO     Epoch: 5 Loss: 1.341968
+05-16 01:29 INFO     Epoch: 6 Loss: 1.258004
+05-16 01:29 INFO     Epoch: 7 Loss: 1.236658
+05-16 01:29 INFO     Epoch: 8 Loss: 1.206497
+05-16 01:29 INFO     Epoch: 9 Loss: 1.109509
+05-16 01:29 INFO     >> Training accuracy: 0.603911
+05-16 01:29 INFO     >> Test accuracy: 0.544500
+05-16 01:29 INFO      ** Training complete **
+05-16 01:29 INFO     net 0 final test acc 0.544500
+05-16 01:29 INFO     Training network 1. n_training: 2994
+05-16 01:29 INFO     Training network 1
+05-16 01:30 INFO     >> Pre-Training Training accuracy: 0.10187040748162993
+05-16 01:30 INFO     >> Pre-Training Test accuracy: 0.1035
+05-16 01:30 INFO     Epoch: 0 Loss: 1.939287
+05-16 01:30 INFO     Epoch: 1 Loss: 1.652786
+05-16 01:30 INFO     Epoch: 2 Loss: 1.551635
+05-16 01:30 INFO     Epoch: 3 Loss: 1.482796
+05-16 01:30 INFO     Epoch: 4 Loss: 1.379922
+05-16 01:30 INFO     Epoch: 5 Loss: 1.348503
+05-16 01:30 INFO     Epoch: 6 Loss: 1.291511
+05-16 01:30 INFO     Epoch: 7 Loss: 1.230777
+05-16 01:30 INFO     Epoch: 8 Loss: 1.161591
+05-16 01:30 INFO     Epoch: 9 Loss: 1.063486
+05-16 01:30 INFO     >> Training accuracy: 0.570474
+05-16 01:30 INFO     >> Test accuracy: 0.518700
+05-16 01:30 INFO      ** Training complete **
+05-16 01:30 INFO     net 1 final test acc 0.518700
+05-16 01:30 INFO     global n_training: 782
+05-16 01:30 INFO     global n_test: 313
+05-16 01:31 INFO     >> Global Model Train accuracy: 0.242120
+05-16 01:31 INFO     >> Global Model Test accuracy: 0.244700
+05-16 01:31 INFO      -- comm_round0: valid : 0.2447
+05-16 01:31 INFO     best valid so far0.2447 -- comm_round0: valid : 0.2447: loss : 1349.1347784996033
+05-16 01:31 INFO     in comm round:1
+05-16 01:31 INFO     Training network 0. n_training: 3017
+05-16 01:31 INFO     Training network 0
+05-16 01:31 INFO     >> Pre-Training Training accuracy: 0.24163075903215114
+05-16 01:31 INFO     >> Pre-Training Test accuracy: 0.2447
+05-16 01:31 INFO     Epoch: 0 Loss: 1.380118
+05-16 01:31 INFO     Epoch: 1 Loss: 1.185691
+05-16 01:31 INFO     Epoch: 2 Loss: 1.077264
+05-16 01:31 INFO     Epoch: 3 Loss: 1.024144
+05-16 01:31 INFO     Epoch: 4 Loss: 0.978522
+05-16 01:31 INFO     Epoch: 5 Loss: 0.940802
+05-16 01:31 INFO     Epoch: 6 Loss: 0.868651
+05-16 01:31 INFO     Epoch: 7 Loss: 0.875064
+05-16 01:31 INFO     Epoch: 8 Loss: 0.867271
+05-16 01:32 INFO     Epoch: 9 Loss: 0.866679
+05-16 01:32 INFO     >> Training accuracy: 0.707657
+05-16 01:32 INFO     >> Test accuracy: 0.618200
+05-16 01:32 INFO      ** Training complete **
+05-16 01:32 INFO     net 0 final test acc 0.618200
+05-16 01:32 INFO     Training network 1. n_training: 2994
+05-16 01:32 INFO     Training network 1
+05-16 01:32 INFO     >> Pre-Training Training accuracy: 0.24883099532398129
+05-16 01:32 INFO     >> Pre-Training Test accuracy: 0.2447
+05-16 01:32 INFO     Epoch: 0 Loss: 1.384041
+05-16 01:32 INFO     Epoch: 1 Loss: 1.193725
+05-16 01:32 INFO     Epoch: 2 Loss: 1.138238
+05-16 01:32 INFO     Epoch: 3 Loss: 1.031925
+05-16 01:32 INFO     Epoch: 4 Loss: 0.995323
+05-16 01:32 INFO     Epoch: 5 Loss: 0.904354
+05-16 01:32 INFO     Epoch: 6 Loss: 0.913829
+05-16 01:32 INFO     Epoch: 7 Loss: 0.867000
+05-16 01:32 INFO     Epoch: 8 Loss: 0.792559
+05-16 01:32 INFO     Epoch: 9 Loss: 0.769846
+05-16 01:32 INFO     >> Training accuracy: 0.712425
+05-16 01:32 INFO     >> Test accuracy: 0.618400
+05-16 01:32 INFO      ** Training complete **
+05-16 01:32 INFO     net 1 final test acc 0.618400
+05-16 01:32 INFO     global n_training: 782
+05-16 01:32 INFO     global n_test: 313
+05-16 01:33 INFO     >> Global Model Train accuracy: 0.542480
+05-16 01:33 INFO     >> Global Model Test accuracy: 0.565700
+05-16 01:33 INFO      -- comm_round0 1: valid : 0.2447 0.5657
+05-16 01:33 INFO     best valid so far0.5657 -- comm_round0 1: valid : 0.2447 0.5657: loss : 1349.1347784996033 952.6513600945473
+05-16 01:33 INFO     in comm round:2
+05-16 01:33 INFO     Training network 0. n_training: 3017
+05-16 01:33 INFO     Training network 0
+05-16 01:33 INFO     >> Pre-Training Training accuracy: 0.5757374875704342
+05-16 01:33 INFO     >> Pre-Training Test accuracy: 0.5657
+05-16 01:33 INFO     Epoch: 0 Loss: 0.996245
+05-16 01:33 INFO     Epoch: 1 Loss: 0.854335
+05-16 01:33 INFO     Epoch: 2 Loss: 0.839298
+05-16 01:33 INFO     Epoch: 3 Loss: 0.789834
+05-16 01:33 INFO     Epoch: 4 Loss: 0.699887
+05-16 01:33 INFO     Epoch: 5 Loss: 0.693864
+05-16 01:34 INFO     Epoch: 6 Loss: 0.650864
+05-16 01:34 INFO     Epoch: 7 Loss: 0.645061
+05-16 01:34 INFO     Epoch: 8 Loss: 0.609283
+05-16 01:34 INFO     Epoch: 9 Loss: 0.597268
+05-16 01:34 INFO     >> Training accuracy: 0.564137
+05-16 01:34 INFO     >> Test accuracy: 0.504600
+05-16 01:34 INFO      ** Training complete **
+05-16 01:34 INFO     net 0 final test acc 0.504600
+05-16 01:34 INFO     Training network 1. n_training: 2994
+05-16 01:34 INFO     Training network 1
+05-16 01:34 INFO     >> Pre-Training Training accuracy: 0.5704742818971276
+05-16 01:34 INFO     >> Pre-Training Test accuracy: 0.5657
+05-16 01:34 INFO     Epoch: 0 Loss: 0.944531
+05-16 01:34 INFO     Epoch: 1 Loss: 0.854567
+05-16 01:34 INFO     Epoch: 2 Loss: 0.776539
+05-16 01:34 INFO     Epoch: 3 Loss: 0.730309
+05-16 01:34 INFO     Epoch: 4 Loss: 0.691297
+05-16 01:34 INFO     Epoch: 5 Loss: 0.664850
+05-16 01:34 INFO     Epoch: 6 Loss: 0.641073
+05-16 01:34 INFO     Epoch: 7 Loss: 0.620351
+05-16 01:34 INFO     Epoch: 8 Loss: 0.530734
+05-16 01:35 INFO     Epoch: 9 Loss: 0.540987
+05-16 01:35 INFO     >> Training accuracy: 0.773547
+05-16 01:35 INFO     >> Test accuracy: 0.664900
+05-16 01:35 INFO      ** Training complete **
+05-16 01:35 INFO     net 1 final test acc 0.664900
+05-16 01:35 INFO     global n_training: 782
+05-16 01:35 INFO     global n_test: 313
+05-16 01:35 INFO     >> Global Model Train accuracy: 0.695660
+05-16 01:35 INFO     >> Global Model Test accuracy: 0.714600
+05-16 01:35 INFO      -- comm_round0 1 2: valid : 0.2447 0.5657 0.7146
+05-16 01:35 INFO     best valid so far0.7146 -- comm_round0 1 2: valid : 0.2447 0.5657 0.7146: loss : 1349.1347784996033 952.6513600945473 682.8212873339653
+05-16 01:35 INFO     in comm round:3
+05-16 01:35 INFO     Training network 0. n_training: 3017
+05-16 01:35 INFO     Training network 0
+05-16 01:35 INFO     >> Pre-Training Training accuracy: 0.7583692409678489
+05-16 01:35 INFO     >> Pre-Training Test accuracy: 0.7146
+05-16 01:35 INFO     Epoch: 0 Loss: 0.738227
+05-16 01:35 INFO     Epoch: 1 Loss: 0.642172
+05-16 01:35 INFO     Epoch: 2 Loss: 0.593983
+05-16 01:36 INFO     Epoch: 3 Loss: 0.544360
+05-16 01:36 INFO     Epoch: 4 Loss: 0.530523
+05-16 01:36 INFO     Epoch: 5 Loss: 0.487978
+05-16 01:36 INFO     Epoch: 6 Loss: 0.509894
+05-16 01:36 INFO     Epoch: 7 Loss: 0.448485
+05-16 01:36 INFO     Epoch: 8 Loss: 0.436076
+05-16 01:36 INFO     Epoch: 9 Loss: 0.379220
+05-16 01:36 INFO     >> Training accuracy: 0.856480
+05-16 01:36 INFO     >> Test accuracy: 0.691400
+05-16 01:36 INFO      ** Training complete **
+05-16 01:36 INFO     net 0 final test acc 0.691400
+05-16 01:36 INFO     Training network 1. n_training: 2994
+05-16 01:36 INFO     Training network 1
+05-16 01:36 INFO     >> Pre-Training Training accuracy: 0.758183032732131
+05-16 01:36 INFO     >> Pre-Training Test accuracy: 0.7146
+05-16 01:36 INFO     Epoch: 0 Loss: 0.749865
+05-16 01:36 INFO     Epoch: 1 Loss: 0.576279
+05-16 01:36 INFO     Epoch: 2 Loss: 0.535542
+05-16 01:36 INFO     Epoch: 3 Loss: 0.546883
+05-16 01:36 INFO     Epoch: 4 Loss: 0.481375
+05-16 01:36 INFO     Epoch: 5 Loss: 0.439872
+05-16 01:37 INFO     Epoch: 6 Loss: 0.440878
+05-16 01:37 INFO     Epoch: 7 Loss: 0.410839
+05-16 01:37 INFO     Epoch: 8 Loss: 0.379517
+05-16 01:37 INFO     Epoch: 9 Loss: 0.361139
+05-16 01:37 INFO     >> Training accuracy: 0.808283
+05-16 01:37 INFO     >> Test accuracy: 0.662900
+05-16 01:37 INFO      ** Training complete **
+05-16 01:37 INFO     net 1 final test acc 0.662900
+05-16 01:37 INFO     global n_training: 782
+05-16 01:37 INFO     global n_test: 313
+05-16 01:37 INFO     >> Global Model Train accuracy: 0.747880
+05-16 01:37 INFO     >> Global Model Test accuracy: 0.748400
+05-16 01:37 INFO      -- comm_round0 1 2 3: valid : 0.2447 0.5657 0.7146 0.7484
+05-16 01:37 INFO     best valid so far0.7484 -- comm_round0 1 2 3: valid : 0.2447 0.5657 0.7146 0.7484: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639
+05-16 01:37 INFO     in comm round:4
+05-16 01:37 INFO     Training network 0. n_training: 3017
+05-16 01:37 INFO     Training network 0
+05-16 01:38 INFO     >> Pre-Training Training accuracy: 0.848193569771296
+05-16 01:38 INFO     >> Pre-Training Test accuracy: 0.7484
+05-16 01:38 INFO     Epoch: 0 Loss: 0.575653
+05-16 01:38 INFO     Epoch: 1 Loss: 0.447136
+05-16 01:38 INFO     Epoch: 2 Loss: 0.450152
+05-16 01:38 INFO     Epoch: 3 Loss: 0.458797
+05-16 01:38 INFO     Epoch: 4 Loss: 0.421568
+05-16 01:38 INFO     Epoch: 5 Loss: 0.329786
+05-16 01:38 INFO     Epoch: 6 Loss: 0.395047
+05-16 01:38 INFO     Epoch: 7 Loss: 0.322552
+05-16 01:38 INFO     Epoch: 8 Loss: 0.367392
+05-16 01:38 INFO     Epoch: 9 Loss: 0.314206
+05-16 01:38 INFO     >> Training accuracy: 0.856811
+05-16 01:38 INFO     >> Test accuracy: 0.690500
+05-16 01:38 INFO      ** Training complete **
+05-16 01:38 INFO     net 0 final test acc 0.690500
+05-16 01:38 INFO     Training network 1. n_training: 2994
+05-16 01:38 INFO     Training network 1
+05-16 01:38 INFO     >> Pre-Training Training accuracy: 0.8486973947895792
+05-16 01:38 INFO     >> Pre-Training Test accuracy: 0.7484
+05-16 01:38 INFO     Epoch: 0 Loss: 0.558739
+05-16 01:38 INFO     Epoch: 1 Loss: 0.408692
+05-16 01:39 INFO     Epoch: 2 Loss: 0.372794
+05-16 01:39 INFO     Epoch: 3 Loss: 0.340634
+05-16 01:39 INFO     Epoch: 4 Loss: 0.336181
+05-16 01:39 INFO     Epoch: 5 Loss: 0.324906
+05-16 01:39 INFO     Epoch: 6 Loss: 0.287876
+05-16 01:39 INFO     Epoch: 7 Loss: 0.266311
+05-16 01:39 INFO     Epoch: 8 Loss: 0.268744
+05-16 01:39 INFO     Epoch: 9 Loss: 0.261790
+05-16 01:39 INFO     >> Training accuracy: 0.885772
+05-16 01:39 INFO     >> Test accuracy: 0.721100
+05-16 01:39 INFO      ** Training complete **
+05-16 01:39 INFO     net 1 final test acc 0.721100
+05-16 01:39 INFO     global n_training: 782
+05-16 01:39 INFO     global n_test: 313
+05-16 01:40 INFO     >> Global Model Train accuracy: 0.771680
+05-16 01:40 INFO     >> Global Model Test accuracy: 0.773500
+05-16 01:40 INFO      -- comm_round0 1 2 3 4: valid : 0.2447 0.5657 0.7146 0.7484 0.7735
+05-16 01:40 INFO     best valid so far0.7735 -- comm_round0 1 2 3 4: valid : 0.2447 0.5657 0.7146 0.7484 0.7735: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437
+05-16 01:40 INFO     in comm round:5
+05-16 01:40 INFO     Training network 0. n_training: 3017
+05-16 01:40 INFO     Training network 0
+05-16 01:40 INFO     >> Pre-Training Training accuracy: 0.8879681803115678
+05-16 01:40 INFO     >> Pre-Training Test accuracy: 0.7735
+05-16 01:40 INFO     Epoch: 0 Loss: 0.411791
+05-16 01:40 INFO     Epoch: 1 Loss: 0.344151
+05-16 01:40 INFO     Epoch: 2 Loss: 0.394138
+05-16 01:40 INFO     Epoch: 3 Loss: 0.352161
+05-16 01:40 INFO     Epoch: 4 Loss: 0.316079
+05-16 01:40 INFO     Epoch: 5 Loss: 0.280875
+05-16 01:40 INFO     Epoch: 6 Loss: 0.275871
+05-16 01:40 INFO     Epoch: 7 Loss: 0.365044
+05-16 01:40 INFO     Epoch: 8 Loss: 0.232637
+05-16 01:40 INFO     Epoch: 9 Loss: 0.204700
+05-16 01:40 INFO     >> Training accuracy: 0.913822
+05-16 01:40 INFO     >> Test accuracy: 0.727800
+05-16 01:40 INFO      ** Training complete **
+05-16 01:40 INFO     net 0 final test acc 0.727800
+05-16 01:40 INFO     Training network 1. n_training: 2994
+05-16 01:40 INFO     Training network 1
+05-16 01:41 INFO     >> Pre-Training Training accuracy: 0.8937875751503006
+05-16 01:41 INFO     >> Pre-Training Test accuracy: 0.7735
+05-16 01:41 INFO     Epoch: 0 Loss: 0.417346
+05-16 01:41 INFO     Epoch: 1 Loss: 0.307132
+05-16 01:41 INFO     Epoch: 2 Loss: 0.257316
+05-16 01:41 INFO     Epoch: 3 Loss: 0.267048
+05-16 01:41 INFO     Epoch: 4 Loss: 0.252104
+05-16 01:41 INFO     Epoch: 5 Loss: 0.273341
+05-16 01:41 INFO     Epoch: 6 Loss: 0.231346
+05-16 01:41 INFO     Epoch: 7 Loss: 0.209300
+05-16 01:41 INFO     Epoch: 8 Loss: 0.202363
+05-16 01:41 INFO     Epoch: 9 Loss: 0.197692
+05-16 01:41 INFO     >> Training accuracy: 0.900468
+05-16 01:41 INFO     >> Test accuracy: 0.697600
+05-16 01:41 INFO      ** Training complete **
+05-16 01:41 INFO     net 1 final test acc 0.697600
+05-16 01:41 INFO     global n_training: 782
+05-16 01:41 INFO     global n_test: 313
+05-16 01:42 INFO     >> Global Model Train accuracy: 0.789340
+05-16 01:42 INFO     >> Global Model Test accuracy: 0.782800
+05-16 01:42 INFO      -- comm_round0 1 2 3 4 5: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828
+05-16 01:42 INFO     best valid so far0.7828 -- comm_round0 1 2 3 4 5: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137
+05-16 01:42 INFO     in comm round:6
+05-16 01:42 INFO     Training network 0. n_training: 3017
+05-16 01:42 INFO     Training network 0
+05-16 01:42 INFO     >> Pre-Training Training accuracy: 0.9095127610208816
+05-16 01:42 INFO     >> Pre-Training Test accuracy: 0.7828
+05-16 01:42 INFO     Epoch: 0 Loss: 0.348122
+05-16 01:42 INFO     Epoch: 1 Loss: 0.257182
+05-16 01:42 INFO     Epoch: 2 Loss: 0.259560
+05-16 01:42 INFO     Epoch: 3 Loss: 0.253280
+05-16 01:42 INFO     Epoch: 4 Loss: 0.296870
+05-16 01:42 INFO     Epoch: 5 Loss: 0.236631
+05-16 01:42 INFO     Epoch: 6 Loss: 0.171752
+05-16 01:42 INFO     Epoch: 7 Loss: 0.204076
+05-16 01:42 INFO     Epoch: 8 Loss: 0.221772
+05-16 01:43 INFO     Epoch: 9 Loss: 0.168627
+05-16 01:43 INFO     >> Training accuracy: 0.953928
+05-16 01:43 INFO     >> Test accuracy: 0.749600
+05-16 01:43 INFO      ** Training complete **
+05-16 01:43 INFO     net 0 final test acc 0.749600
+05-16 01:43 INFO     Training network 1. n_training: 2994
+05-16 01:43 INFO     Training network 1
+05-16 01:43 INFO     >> Pre-Training Training accuracy: 0.9168336673346693
+05-16 01:43 INFO     >> Pre-Training Test accuracy: 0.7828
+05-16 01:43 INFO     Epoch: 0 Loss: 0.328888
+05-16 01:43 INFO     Epoch: 1 Loss: 0.204958
+05-16 01:43 INFO     Epoch: 2 Loss: 0.234825
+05-16 01:43 INFO     Epoch: 3 Loss: 0.182428
+05-16 01:43 INFO     Epoch: 4 Loss: 0.179756
+05-16 01:43 INFO     Epoch: 5 Loss: 0.206851
+05-16 01:43 INFO     Epoch: 6 Loss: 0.167458
+05-16 01:43 INFO     Epoch: 7 Loss: 0.137782
+05-16 01:43 INFO     Epoch: 8 Loss: 0.155223
+05-16 01:43 INFO     Epoch: 9 Loss: 0.219071
+05-16 01:43 INFO     >> Training accuracy: 0.875418
+05-16 01:43 INFO     >> Test accuracy: 0.696000
+05-16 01:43 INFO      ** Training complete **
+05-16 01:43 INFO     net 1 final test acc 0.696000
+05-16 01:43 INFO     global n_training: 782
+05-16 01:43 INFO     global n_test: 313
+05-16 01:44 INFO     >> Global Model Train accuracy: 0.797800
+05-16 01:44 INFO     >> Global Model Test accuracy: 0.788700
+05-16 01:44 INFO      -- comm_round0 1 2 3 4 5 6: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887
+05-16 01:44 INFO     best valid so far0.7887 -- comm_round0 1 2 3 4 5 6: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945
+05-16 01:44 INFO     in comm round:7
+05-16 01:44 INFO     Training network 0. n_training: 3017
+05-16 01:44 INFO     Training network 0
+05-16 01:44 INFO     >> Pre-Training Training accuracy: 0.9363606231355651
+05-16 01:44 INFO     >> Pre-Training Test accuracy: 0.7887
+05-16 01:44 INFO     Epoch: 0 Loss: 0.294374
+05-16 01:44 INFO     Epoch: 1 Loss: 0.226499
+05-16 01:44 INFO     Epoch: 2 Loss: 0.224696
+05-16 01:44 INFO     Epoch: 3 Loss: 0.181204
+05-16 01:44 INFO     Epoch: 4 Loss: 0.183439
+05-16 01:44 INFO     Epoch: 5 Loss: 0.142297
+05-16 01:45 INFO     Epoch: 6 Loss: 0.239460
+05-16 01:45 INFO     Epoch: 7 Loss: 0.287841
+05-16 01:45 INFO     Epoch: 8 Loss: 0.158074
+05-16 01:45 INFO     Epoch: 9 Loss: 0.208537
+05-16 01:45 INFO     >> Training accuracy: 0.959894
+05-16 01:45 INFO     >> Test accuracy: 0.757900
+05-16 01:45 INFO      ** Training complete **
+05-16 01:45 INFO     net 0 final test acc 0.757900
+05-16 01:45 INFO     Training network 1. n_training: 2994
+05-16 01:45 INFO     Training network 1
+05-16 01:45 INFO     >> Pre-Training Training accuracy: 0.938877755511022
+05-16 01:45 INFO     >> Pre-Training Test accuracy: 0.7887
+05-16 01:45 INFO     Epoch: 0 Loss: 0.274175
+05-16 01:45 INFO     Epoch: 1 Loss: 0.170936
+05-16 01:45 INFO     Epoch: 2 Loss: 0.166607
+05-16 01:45 INFO     Epoch: 3 Loss: 0.148251
+05-16 01:45 INFO     Epoch: 4 Loss: 0.180647
+05-16 01:45 INFO     Epoch: 5 Loss: 0.157997
+05-16 01:45 INFO     Epoch: 6 Loss: 0.137409
+05-16 01:45 INFO     Epoch: 7 Loss: 0.109315
+05-16 01:45 INFO     Epoch: 8 Loss: 0.130562
+05-16 01:46 INFO     Epoch: 9 Loss: 0.146293
+05-16 01:46 INFO     >> Training accuracy: 0.933200
+05-16 01:46 INFO     >> Test accuracy: 0.729200
+05-16 01:46 INFO      ** Training complete **
+05-16 01:46 INFO     net 1 final test acc 0.729200
+05-16 01:46 INFO     global n_training: 782
+05-16 01:46 INFO     global n_test: 313
+05-16 01:46 INFO     >> Global Model Train accuracy: 0.804860
+05-16 01:46 INFO     >> Global Model Test accuracy: 0.791800
+05-16 01:46 INFO      -- comm_round0 1 2 3 4 5 6 7: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918
+05-16 01:46 INFO     best valid so far0.7918 -- comm_round0 1 2 3 4 5 6 7: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807
+05-16 01:46 INFO     in comm round:8
+05-16 01:46 INFO     Training network 0. n_training: 3017
+05-16 01:46 INFO     Training network 0
+05-16 01:46 INFO     >> Pre-Training Training accuracy: 0.9443155452436195
+05-16 01:46 INFO     >> Pre-Training Test accuracy: 0.7918
+05-16 01:46 INFO     Epoch: 0 Loss: 0.261818
+05-16 01:46 INFO     Epoch: 1 Loss: 0.173644
+05-16 01:46 INFO     Epoch: 2 Loss: 0.175308
+05-16 01:47 INFO     Epoch: 3 Loss: 0.151844
+05-16 01:47 INFO     Epoch: 4 Loss: 0.195145
+05-16 01:47 INFO     Epoch: 5 Loss: 0.252497
+05-16 01:47 INFO     Epoch: 6 Loss: 0.225823
+05-16 01:47 INFO     Epoch: 7 Loss: 0.145637
+05-16 01:47 INFO     Epoch: 8 Loss: 0.132818
+05-16 01:47 INFO     Epoch: 9 Loss: 0.317833
+05-16 01:47 INFO     >> Training accuracy: 0.966192
+05-16 01:47 INFO     >> Test accuracy: 0.760500
+05-16 01:47 INFO      ** Training complete **
+05-16 01:47 INFO     net 0 final test acc 0.760500
+05-16 01:47 INFO     Training network 1. n_training: 2994
+05-16 01:47 INFO     Training network 1
+05-16 01:47 INFO     >> Pre-Training Training accuracy: 0.9565798263193053
+05-16 01:47 INFO     >> Pre-Training Test accuracy: 0.7918
+05-16 01:47 INFO     Epoch: 0 Loss: 0.238091
+05-16 01:47 INFO     Epoch: 1 Loss: 0.157894
+05-16 01:47 INFO     Epoch: 2 Loss: 0.115629
+05-16 01:47 INFO     Epoch: 3 Loss: 0.148308
+05-16 01:47 INFO     Epoch: 4 Loss: 0.133350
+05-16 01:47 INFO     Epoch: 5 Loss: 0.112571
+05-16 01:48 INFO     Epoch: 6 Loss: 0.114367
+05-16 01:48 INFO     Epoch: 7 Loss: 0.120450
+05-16 01:48 INFO     Epoch: 8 Loss: 0.098207
+05-16 01:48 INFO     Epoch: 9 Loss: 0.115296
+05-16 01:48 INFO     >> Training accuracy: 0.910822
+05-16 01:48 INFO     >> Test accuracy: 0.699700
+05-16 01:48 INFO      ** Training complete **
+05-16 01:48 INFO     net 1 final test acc 0.699700
+05-16 01:48 INFO     global n_training: 782
+05-16 01:48 INFO     global n_test: 313
+05-16 01:48 INFO     >> Global Model Train accuracy: 0.807420
+05-16 01:48 INFO     >> Global Model Test accuracy: 0.785200
+05-16 01:48 INFO      -- comm_round0 1 2 3 4 5 6 7 8: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852
+05-16 01:48 INFO     best valid so far0.7918 -- comm_round0 1 2 3 4 5 6 7 8: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717
+05-16 01:48 INFO     in comm round:9
+05-16 01:48 INFO     Training network 0. n_training: 3017
+05-16 01:48 INFO     Training network 0
+05-16 01:49 INFO     >> Pre-Training Training accuracy: 0.9456413655949619
+05-16 01:49 INFO     >> Pre-Training Test accuracy: 0.7852
+05-16 01:49 INFO     Epoch: 0 Loss: 0.207834
+05-16 01:49 INFO     Epoch: 1 Loss: 0.196302
+05-16 01:49 INFO     Epoch: 2 Loss: 0.143670
+05-16 01:49 INFO     Epoch: 3 Loss: 0.142549
+05-16 01:49 INFO     Epoch: 4 Loss: 0.133418
+05-16 01:49 INFO     Epoch: 5 Loss: 0.131818
+05-16 01:49 INFO     Epoch: 6 Loss: 0.138164
+05-16 01:49 INFO     Epoch: 7 Loss: 0.130591
+05-16 01:49 INFO     Epoch: 8 Loss: 0.174710
+05-16 01:49 INFO     Epoch: 9 Loss: 0.210798
+05-16 01:49 INFO     >> Training accuracy: 0.963540
+05-16 01:49 INFO     >> Test accuracy: 0.760300
+05-16 01:49 INFO      ** Training complete **
+05-16 01:49 INFO     net 0 final test acc 0.760300
+05-16 01:49 INFO     Training network 1. n_training: 2994
+05-16 01:49 INFO     Training network 1
+05-16 01:49 INFO     >> Pre-Training Training accuracy: 0.9585838343353373
+05-16 01:49 INFO     >> Pre-Training Test accuracy: 0.7852
+05-16 01:49 INFO     Epoch: 0 Loss: 0.196342
+05-16 01:49 INFO     Epoch: 1 Loss: 0.129500
+05-16 01:50 INFO     Epoch: 2 Loss: 0.108283
+05-16 01:50 INFO     Epoch: 3 Loss: 0.112818
+05-16 01:50 INFO     Epoch: 4 Loss: 0.102112
+05-16 01:50 INFO     Epoch: 5 Loss: 0.149310
+05-16 01:50 INFO     Epoch: 6 Loss: 0.117351
+05-16 01:50 INFO     Epoch: 7 Loss: 0.084595
+05-16 01:50 INFO     Epoch: 8 Loss: 0.069159
+05-16 01:50 INFO     Epoch: 9 Loss: 0.073613
+05-16 01:50 INFO     >> Training accuracy: 0.959252
+05-16 01:50 INFO     >> Test accuracy: 0.742700
+05-16 01:50 INFO      ** Training complete **
+05-16 01:50 INFO     net 1 final test acc 0.742700
+05-16 01:50 INFO     global n_training: 782
+05-16 01:50 INFO     global n_test: 313
+05-16 01:51 INFO     >> Global Model Train accuracy: 0.814660
+05-16 01:51 INFO     >> Global Model Test accuracy: 0.801000
+05-16 01:51 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801
+05-16 01:51 INFO     best valid so far0.801 -- comm_round0 1 2 3 4 5 6 7 8 9: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263
+05-16 01:51 INFO     in comm round:10
+05-16 01:51 INFO     Training network 0. n_training: 3017
+05-16 01:51 INFO     Training network 0
+05-16 01:51 INFO     >> Pre-Training Training accuracy: 0.9724892277096453
+05-16 01:51 INFO     >> Pre-Training Test accuracy: 0.801
+05-16 01:51 INFO     Epoch: 0 Loss: 0.171219
+05-16 01:51 INFO     Epoch: 1 Loss: 0.161973
+05-16 01:51 INFO     Epoch: 2 Loss: 0.107583
+05-16 01:51 INFO     Epoch: 3 Loss: 0.163956
+05-16 01:51 INFO     Epoch: 4 Loss: 0.148591
+05-16 01:51 INFO     Epoch: 5 Loss: 0.076018
+05-16 01:51 INFO     Epoch: 6 Loss: 0.058372
+05-16 01:51 INFO     Epoch: 7 Loss: 0.112433
+05-16 01:51 INFO     Epoch: 8 Loss: 0.134820
+05-16 01:51 INFO     Epoch: 9 Loss: 0.104590
+05-16 01:51 INFO     >> Training accuracy: 0.963208
+05-16 01:51 INFO     >> Test accuracy: 0.748200
+05-16 01:51 INFO      ** Training complete **
+05-16 01:51 INFO     net 0 final test acc 0.748200
+05-16 01:51 INFO     Training network 1. n_training: 2994
+05-16 01:51 INFO     Training network 1
+05-16 01:52 INFO     >> Pre-Training Training accuracy: 0.9635938543754174
+05-16 01:52 INFO     >> Pre-Training Test accuracy: 0.801
+05-16 01:52 INFO     Epoch: 0 Loss: 0.165079
+05-16 01:52 INFO     Epoch: 1 Loss: 0.111802
+05-16 01:52 INFO     Epoch: 2 Loss: 0.083541
+05-16 01:52 INFO     Epoch: 3 Loss: 0.102441
+05-16 01:52 INFO     Epoch: 4 Loss: 0.107514
+05-16 01:52 INFO     Epoch: 5 Loss: 0.096396
+05-16 01:52 INFO     Epoch: 6 Loss: 0.101196
+05-16 01:52 INFO     Epoch: 7 Loss: 0.084231
+05-16 01:52 INFO     Epoch: 8 Loss: 0.073483
+05-16 01:52 INFO     Epoch: 9 Loss: 0.077586
+05-16 01:52 INFO     >> Training accuracy: 0.970942
+05-16 01:52 INFO     >> Test accuracy: 0.758400
+05-16 01:52 INFO      ** Training complete **
+05-16 01:52 INFO     net 1 final test acc 0.758400
+05-16 01:52 INFO     global n_training: 782
+05-16 01:52 INFO     global n_test: 313
+05-16 01:53 INFO     >> Global Model Train accuracy: 0.821340
+05-16 01:53 INFO     >> Global Model Test accuracy: 0.804100
+05-16 01:53 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041
+05-16 01:53 INFO     best valid so far0.8041 -- comm_round0 1 2 3 4 5 6 7 8 9 10: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535
+05-16 01:53 INFO     in comm round:11
+05-16 01:53 INFO     Training network 0. n_training: 3017
+05-16 01:53 INFO     Training network 0
+05-16 01:53 INFO     >> Pre-Training Training accuracy: 0.9787868743785217
+05-16 01:53 INFO     >> Pre-Training Test accuracy: 0.8041
+05-16 01:53 INFO     Epoch: 0 Loss: 0.154708
+05-16 01:53 INFO     Epoch: 1 Loss: 0.148300
+05-16 01:53 INFO     Epoch: 2 Loss: 0.092007
+05-16 01:53 INFO     Epoch: 3 Loss: 0.093383
+05-16 01:53 INFO     Epoch: 4 Loss: 0.095135
+05-16 01:53 INFO     Epoch: 5 Loss: 0.186841
+05-16 01:53 INFO     Epoch: 6 Loss: 0.085937
+05-16 01:53 INFO     Epoch: 7 Loss: 0.054668
+05-16 01:53 INFO     Epoch: 8 Loss: 0.081466
+05-16 01:54 INFO     Epoch: 9 Loss: 0.083501
+05-16 01:54 INFO     >> Training accuracy: 0.959231
+05-16 01:54 INFO     >> Test accuracy: 0.756400
+05-16 01:54 INFO      ** Training complete **
+05-16 01:54 INFO     net 0 final test acc 0.756400
+05-16 01:54 INFO     Training network 1. n_training: 2994
+05-16 01:54 INFO     Training network 1
+05-16 01:54 INFO     >> Pre-Training Training accuracy: 0.9792919171676687
+05-16 01:54 INFO     >> Pre-Training Test accuracy: 0.8041
+05-16 01:54 INFO     Epoch: 0 Loss: 0.137362
+05-16 01:54 INFO     Epoch: 1 Loss: 0.112850
+05-16 01:54 INFO     Epoch: 2 Loss: 0.084094
+05-16 01:54 INFO     Epoch: 3 Loss: 0.072591
+05-16 01:54 INFO     Epoch: 4 Loss: 0.077882
+05-16 01:54 INFO     Epoch: 5 Loss: 0.072108
+05-16 01:54 INFO     Epoch: 6 Loss: 0.083476
+05-16 01:54 INFO     Epoch: 7 Loss: 0.116095
+05-16 01:54 INFO     Epoch: 8 Loss: 0.099847
+05-16 01:54 INFO     Epoch: 9 Loss: 0.065796
+05-16 01:54 INFO     >> Training accuracy: 0.974616
+05-16 01:54 INFO     >> Test accuracy: 0.753200
+05-16 01:54 INFO      ** Training complete **
+05-16 01:54 INFO     net 1 final test acc 0.753200
+05-16 01:54 INFO     global n_training: 782
+05-16 01:54 INFO     global n_test: 313
+05-16 01:55 INFO     >> Global Model Train accuracy: 0.821300
+05-16 01:55 INFO     >> Global Model Test accuracy: 0.799400
+05-16 01:55 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994
+05-16 01:55 INFO     best valid so far0.8041 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075
+05-16 01:55 INFO     in comm round:12
+05-16 01:55 INFO     Training network 0. n_training: 3017
+05-16 01:55 INFO     Training network 0
+05-16 01:55 INFO     >> Pre-Training Training accuracy: 0.9738150480609877
+05-16 01:55 INFO     >> Pre-Training Test accuracy: 0.7994
+05-16 01:55 INFO     Epoch: 0 Loss: 0.127903
+05-16 01:55 INFO     Epoch: 1 Loss: 0.126074
+05-16 01:55 INFO     Epoch: 2 Loss: 0.141111
+05-16 01:55 INFO     Epoch: 3 Loss: 0.080683
+05-16 01:55 INFO     Epoch: 4 Loss: 0.059296
+05-16 01:55 INFO     Epoch: 5 Loss: 0.059503
+05-16 01:56 INFO     Epoch: 6 Loss: 0.114433
+05-16 01:56 INFO     Epoch: 7 Loss: 0.123290
+05-16 01:56 INFO     Epoch: 8 Loss: 0.120430
+05-16 01:56 INFO     Epoch: 9 Loss: 0.062170
+05-16 01:56 INFO     >> Training accuracy: 0.980444
+05-16 01:56 INFO     >> Test accuracy: 0.775500
+05-16 01:56 INFO      ** Training complete **
+05-16 01:56 INFO     net 0 final test acc 0.775500
+05-16 01:56 INFO     Training network 1. n_training: 2994
+05-16 01:56 INFO     Training network 1
+05-16 01:56 INFO     >> Pre-Training Training accuracy: 0.9819639278557114
+05-16 01:56 INFO     >> Pre-Training Test accuracy: 0.7994
+05-16 01:56 INFO     Epoch: 0 Loss: 0.114759
+05-16 01:56 INFO     Epoch: 1 Loss: 0.070142
+05-16 01:56 INFO     Epoch: 2 Loss: 0.084230
+05-16 01:56 INFO     Epoch: 3 Loss: 0.094389
+05-16 01:56 INFO     Epoch: 4 Loss: 0.070803
+05-16 01:56 INFO     Epoch: 5 Loss: 0.069396
+05-16 01:56 INFO     Epoch: 6 Loss: 0.096227
+05-16 01:56 INFO     Epoch: 7 Loss: 0.110037
+05-16 01:56 INFO     Epoch: 8 Loss: 0.071616
+05-16 01:57 INFO     Epoch: 9 Loss: 0.055753
+05-16 01:57 INFO     >> Training accuracy: 0.981964
+05-16 01:57 INFO     >> Test accuracy: 0.780800
+05-16 01:57 INFO      ** Training complete **
+05-16 01:57 INFO     net 1 final test acc 0.780800
+05-16 01:57 INFO     global n_training: 782
+05-16 01:57 INFO     global n_test: 313
+05-16 01:57 INFO     >> Global Model Train accuracy: 0.828420
+05-16 01:57 INFO     >> Global Model Test accuracy: 0.814300
+05-16 01:57 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143
+05-16 01:57 INFO     best valid so far0.8143 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848
+05-16 01:57 INFO     in comm round:13
+05-16 01:57 INFO     Training network 0. n_training: 3017
+05-16 01:57 INFO     Training network 0
+05-16 01:57 INFO     >> Pre-Training Training accuracy: 0.9830957905203845
+05-16 01:57 INFO     >> Pre-Training Test accuracy: 0.8143
+05-16 01:57 INFO     Epoch: 0 Loss: 0.125247
+05-16 01:57 INFO     Epoch: 1 Loss: 0.097924
+05-16 01:58 INFO     Epoch: 2 Loss: 0.058284
+05-16 01:58 INFO     Epoch: 3 Loss: 0.124638
+05-16 01:58 INFO     Epoch: 4 Loss: 0.100162
+05-16 01:58 INFO     Epoch: 5 Loss: 0.065224
+05-16 01:58 INFO     Epoch: 6 Loss: 0.067588
+05-16 01:58 INFO     Epoch: 7 Loss: 0.120548
+05-16 01:58 INFO     Epoch: 8 Loss: 0.130140
+05-16 01:58 INFO     Epoch: 9 Loss: 0.117323
+05-16 01:58 INFO     >> Training accuracy: 0.977793
+05-16 01:58 INFO     >> Test accuracy: 0.768200
+05-16 01:58 INFO      ** Training complete **
+05-16 01:58 INFO     net 0 final test acc 0.768200
+05-16 01:58 INFO     Training network 1. n_training: 2994
+05-16 01:58 INFO     Training network 1
+05-16 01:58 INFO     >> Pre-Training Training accuracy: 0.9896459585838343
+05-16 01:58 INFO     >> Pre-Training Test accuracy: 0.8143
+05-16 01:58 INFO     Epoch: 0 Loss: 0.100276
+05-16 01:58 INFO     Epoch: 1 Loss: 0.069229
+05-16 01:58 INFO     Epoch: 2 Loss: 0.072140
+05-16 01:58 INFO     Epoch: 3 Loss: 0.087735
+05-16 01:58 INFO     Epoch: 4 Loss: 0.052481
+05-16 01:59 INFO     Epoch: 5 Loss: 0.091984
+05-16 01:59 INFO     Epoch: 6 Loss: 0.088216
+05-16 01:59 INFO     Epoch: 7 Loss: 0.052885
+05-16 01:59 INFO     Epoch: 8 Loss: 0.064922
+05-16 01:59 INFO     Epoch: 9 Loss: 0.059343
+05-16 01:59 INFO     >> Training accuracy: 0.970942
+05-16 01:59 INFO     >> Test accuracy: 0.767400
+05-16 01:59 INFO      ** Training complete **
+05-16 01:59 INFO     net 1 final test acc 0.767400
+05-16 01:59 INFO     global n_training: 782
+05-16 01:59 INFO     global n_test: 313
+05-16 01:59 INFO     >> Global Model Train accuracy: 0.827860
+05-16 01:59 INFO     >> Global Model Test accuracy: 0.809900
+05-16 01:59 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099
+05-16 01:59 INFO     best valid so far0.8143 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603
+05-16 01:59 INFO     in comm round:14
+05-16 01:59 INFO     Training network 0. n_training: 3017
+05-16 01:59 INFO     Training network 0
+05-16 02:00 INFO     >> Pre-Training Training accuracy: 0.9824328803447133
+05-16 02:00 INFO     >> Pre-Training Test accuracy: 0.8099
+05-16 02:00 INFO     Epoch: 0 Loss: 0.117273
+05-16 02:00 INFO     Epoch: 1 Loss: 0.116635
+05-16 02:00 INFO     Epoch: 2 Loss: 0.105836
+05-16 02:00 INFO     Epoch: 3 Loss: 0.095269
+05-16 02:00 INFO     Epoch: 4 Loss: 0.057824
+05-16 02:00 INFO     Epoch: 5 Loss: 0.060304
+05-16 02:00 INFO     Epoch: 6 Loss: 0.049873
+05-16 02:00 INFO     Epoch: 7 Loss: 0.051579
+05-16 02:00 INFO     Epoch: 8 Loss: 0.041846
+05-16 02:00 INFO     Epoch: 9 Loss: 0.037189
+05-16 02:00 INFO     >> Training accuracy: 0.971495
+05-16 02:00 INFO     >> Test accuracy: 0.761400
+05-16 02:00 INFO      ** Training complete **
+05-16 02:00 INFO     net 0 final test acc 0.761400
+05-16 02:00 INFO     Training network 1. n_training: 2994
+05-16 02:00 INFO     Training network 1
+05-16 02:00 INFO     >> Pre-Training Training accuracy: 0.9906479625918504
+05-16 02:00 INFO     >> Pre-Training Test accuracy: 0.8099
+05-16 02:00 INFO     Epoch: 0 Loss: 0.085220
+05-16 02:00 INFO     Epoch: 1 Loss: 0.082002
+05-16 02:01 INFO     Epoch: 2 Loss: 0.047768
+05-16 02:01 INFO     Epoch: 3 Loss: 0.075047
+05-16 02:01 INFO     Epoch: 4 Loss: 0.077904
+05-16 02:01 INFO     Epoch: 5 Loss: 0.058929
+05-16 02:01 INFO     Epoch: 6 Loss: 0.046720
+05-16 02:01 INFO     Epoch: 7 Loss: 0.065607
+05-16 02:01 INFO     Epoch: 8 Loss: 0.068173
+05-16 02:01 INFO     Epoch: 9 Loss: 0.050745
+05-16 02:01 INFO     >> Training accuracy: 0.983634
+05-16 02:01 INFO     >> Test accuracy: 0.782500
+05-16 02:01 INFO      ** Training complete **
+05-16 02:01 INFO     net 1 final test acc 0.782500
+05-16 02:01 INFO     global n_training: 782
+05-16 02:01 INFO     global n_test: 313
+05-16 02:02 INFO     >> Global Model Train accuracy: 0.829480
+05-16 02:02 INFO     >> Global Model Test accuracy: 0.811500
+05-16 02:02 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115
+05-16 02:02 INFO     best valid so far0.8143 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521
+05-16 02:02 INFO     in comm round:15
+05-16 02:02 INFO     Training network 0. n_training: 3017
+05-16 02:02 INFO     Training network 0
+05-16 02:02 INFO     >> Pre-Training Training accuracy: 0.9900563473649321
+05-16 02:02 INFO     >> Pre-Training Test accuracy: 0.8115
+05-16 02:02 INFO     Epoch: 0 Loss: 0.102362
+05-16 02:02 INFO     Epoch: 1 Loss: 0.133280
+05-16 02:02 INFO     Epoch: 2 Loss: 0.125081
+05-16 02:02 INFO     Epoch: 3 Loss: 0.056403
+05-16 02:02 INFO     Epoch: 4 Loss: 0.081645
+05-16 02:02 INFO     Epoch: 5 Loss: 0.043905
+05-16 02:02 INFO     Epoch: 6 Loss: 0.028941
+05-16 02:02 INFO     Epoch: 7 Loss: 0.028227
+05-16 02:02 INFO     Epoch: 8 Loss: 0.028436
+05-16 02:02 INFO     Epoch: 9 Loss: 0.092545
+05-16 02:02 INFO     >> Training accuracy: 0.976467
+05-16 02:02 INFO     >> Test accuracy: 0.761500
+05-16 02:02 INFO      ** Training complete **
+05-16 02:02 INFO     net 0 final test acc 0.761500
+05-16 02:02 INFO     Training network 1. n_training: 2994
+05-16 02:02 INFO     Training network 1
+05-16 02:03 INFO     >> Pre-Training Training accuracy: 0.9856379425517702
+05-16 02:03 INFO     >> Pre-Training Test accuracy: 0.8115
+05-16 02:03 INFO     Epoch: 0 Loss: 0.080383
+05-16 02:03 INFO     Epoch: 1 Loss: 0.052521
+05-16 02:03 INFO     Epoch: 2 Loss: 0.037094
+05-16 02:03 INFO     Epoch: 3 Loss: 0.077984
+05-16 02:03 INFO     Epoch: 4 Loss: 0.078514
+05-16 02:03 INFO     Epoch: 5 Loss: 0.059006
+05-16 02:03 INFO     Epoch: 6 Loss: 0.053646
+05-16 02:03 INFO     Epoch: 7 Loss: 0.055298
+05-16 02:03 INFO     Epoch: 8 Loss: 0.061240
+05-16 02:03 INFO     Epoch: 9 Loss: 0.062804
+05-16 02:03 INFO     >> Training accuracy: 0.976954
+05-16 02:03 INFO     >> Test accuracy: 0.767100
+05-16 02:03 INFO      ** Training complete **
+05-16 02:03 INFO     net 1 final test acc 0.767100
+05-16 02:03 INFO     global n_training: 782
+05-16 02:03 INFO     global n_test: 313
+05-16 02:04 INFO     >> Global Model Train accuracy: 0.826040
+05-16 02:04 INFO     >> Global Model Test accuracy: 0.812100
+05-16 02:04 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121
+05-16 02:04 INFO     best valid so far0.8143 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359
+05-16 02:04 INFO     in comm round:16
+05-16 02:04 INFO     Training network 0. n_training: 3017
+05-16 02:04 INFO     Training network 0
+05-16 02:04 INFO     >> Pre-Training Training accuracy: 0.9877361617500828
+05-16 02:04 INFO     >> Pre-Training Test accuracy: 0.8121
+05-16 02:04 INFO     Epoch: 0 Loss: 0.087560
+05-16 02:04 INFO     Epoch: 1 Loss: 0.094331
+05-16 02:04 INFO     Epoch: 2 Loss: 0.096676
+05-16 02:04 INFO     Epoch: 3 Loss: 0.058414
+05-16 02:04 INFO     Epoch: 4 Loss: 0.068634
+05-16 02:04 INFO     Epoch: 5 Loss: 0.082987
+05-16 02:04 INFO     Epoch: 6 Loss: 0.057995
+05-16 02:04 INFO     Epoch: 7 Loss: 0.053951
+05-16 02:04 INFO     Epoch: 8 Loss: 0.042395
+05-16 02:05 INFO     Epoch: 9 Loss: 0.097733
+05-16 02:05 INFO     >> Training accuracy: 0.957574
+05-16 02:05 INFO     >> Test accuracy: 0.763400
+05-16 02:05 INFO      ** Training complete **
+05-16 02:05 INFO     net 0 final test acc 0.763400
+05-16 02:05 INFO     Training network 1. n_training: 2994
+05-16 02:05 INFO     Training network 1
+05-16 02:05 INFO     >> Pre-Training Training accuracy: 0.9919839679358717
+05-16 02:05 INFO     >> Pre-Training Test accuracy: 0.8121
+05-16 02:05 INFO     Epoch: 0 Loss: 0.070180
+05-16 02:05 INFO     Epoch: 1 Loss: 0.066776
+05-16 02:05 INFO     Epoch: 2 Loss: 0.060547
+05-16 02:05 INFO     Epoch: 3 Loss: 0.065237
+05-16 02:05 INFO     Epoch: 4 Loss: 0.033233
+05-16 02:05 INFO     Epoch: 5 Loss: 0.039869
+05-16 02:05 INFO     Epoch: 6 Loss: 0.052567
+05-16 02:05 INFO     Epoch: 7 Loss: 0.060124
+05-16 02:05 INFO     Epoch: 8 Loss: 0.098847
+05-16 02:05 INFO     Epoch: 9 Loss: 0.038625
+05-16 02:05 INFO     >> Training accuracy: 0.988644
+05-16 02:05 INFO     >> Test accuracy: 0.788400
+05-16 02:05 INFO      ** Training complete **
+05-16 02:05 INFO     net 1 final test acc 0.788400
+05-16 02:05 INFO     global n_training: 782
+05-16 02:05 INFO     global n_test: 313
+05-16 02:06 INFO     >> Global Model Train accuracy: 0.826580
+05-16 02:06 INFO     >> Global Model Test accuracy: 0.818000
+05-16 02:06 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818
+05-16 02:06 INFO     best valid so far0.818 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235
+05-16 02:06 INFO     in comm round:17
+05-16 02:06 INFO     Training network 0. n_training: 3017
+05-16 02:06 INFO     Training network 0
+05-16 02:06 INFO     >> Pre-Training Training accuracy: 0.9864103413987405
+05-16 02:06 INFO     >> Pre-Training Test accuracy: 0.818
+05-16 02:06 INFO     Epoch: 0 Loss: 0.089060
+05-16 02:06 INFO     Epoch: 1 Loss: 0.085293
+05-16 02:06 INFO     Epoch: 2 Loss: 0.062810
+05-16 02:06 INFO     Epoch: 3 Loss: 0.030391
+05-16 02:06 INFO     Epoch: 4 Loss: 0.049914
+05-16 02:06 INFO     Epoch: 5 Loss: 0.122036
+05-16 02:07 INFO     Epoch: 6 Loss: 0.118458
+05-16 02:07 INFO     Epoch: 7 Loss: 0.064747
+05-16 02:07 INFO     Epoch: 8 Loss: 0.042495
+05-16 02:07 INFO     Epoch: 9 Loss: 0.038576
+05-16 02:07 INFO     >> Training accuracy: 0.987405
+05-16 02:07 INFO     >> Test accuracy: 0.776300
+05-16 02:07 INFO      ** Training complete **
+05-16 02:07 INFO     net 0 final test acc 0.776300
+05-16 02:07 INFO     Training network 1. n_training: 2994
+05-16 02:07 INFO     Training network 1
+05-16 02:07 INFO     >> Pre-Training Training accuracy: 0.9866399465597863
+05-16 02:07 INFO     >> Pre-Training Test accuracy: 0.818
+05-16 02:07 INFO     Epoch: 0 Loss: 0.066836
+05-16 02:07 INFO     Epoch: 1 Loss: 0.064155
+05-16 02:07 INFO     Epoch: 2 Loss: 0.060621
+05-16 02:07 INFO     Epoch: 3 Loss: 0.050536
+05-16 02:07 INFO     Epoch: 4 Loss: 0.051147
+05-16 02:07 INFO     Epoch: 5 Loss: 0.041537
+05-16 02:07 INFO     Epoch: 6 Loss: 0.065176
+05-16 02:07 INFO     Epoch: 7 Loss: 0.051571
+05-16 02:07 INFO     Epoch: 8 Loss: 0.043182
+05-16 02:08 INFO     Epoch: 9 Loss: 0.052995
+05-16 02:08 INFO     >> Training accuracy: 0.960922
+05-16 02:08 INFO     >> Test accuracy: 0.752600
+05-16 02:08 INFO      ** Training complete **
+05-16 02:08 INFO     net 1 final test acc 0.752600
+05-16 02:08 INFO     global n_training: 782
+05-16 02:08 INFO     global n_test: 313
+05-16 02:08 INFO     >> Global Model Train accuracy: 0.823320
+05-16 02:08 INFO     >> Global Model Test accuracy: 0.808300
+05-16 02:08 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083
+05-16 02:08 INFO     best valid so far0.818 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917
+05-16 02:08 INFO     in comm round:18
+05-16 02:08 INFO     Training network 0. n_training: 3017
+05-16 02:08 INFO     Training network 0
+05-16 02:08 INFO     >> Pre-Training Training accuracy: 0.99171362280411
+05-16 02:08 INFO     >> Pre-Training Test accuracy: 0.8083
+05-16 02:08 INFO     Epoch: 0 Loss: 0.060716
+05-16 02:08 INFO     Epoch: 1 Loss: 0.053872
+05-16 02:09 INFO     Epoch: 2 Loss: 0.082456
+05-16 02:09 INFO     Epoch: 3 Loss: 0.112288
+05-16 02:09 INFO     Epoch: 4 Loss: 0.065203
+05-16 02:09 INFO     Epoch: 5 Loss: 0.028839
+05-16 02:09 INFO     Epoch: 6 Loss: 0.020897
+05-16 02:09 INFO     Epoch: 7 Loss: 0.016730
+05-16 02:09 INFO     Epoch: 8 Loss: 0.022027
+05-16 02:09 INFO     Epoch: 9 Loss: 0.077496
+05-16 02:09 INFO     >> Training accuracy: 0.875373
+05-16 02:09 INFO     >> Test accuracy: 0.686700
+05-16 02:09 INFO      ** Training complete **
+05-16 02:09 INFO     net 0 final test acc 0.686700
+05-16 02:09 INFO     Training network 1. n_training: 2994
+05-16 02:09 INFO     Training network 1
+05-16 02:09 INFO     >> Pre-Training Training accuracy: 0.9906479625918504
+05-16 02:09 INFO     >> Pre-Training Test accuracy: 0.8083
+05-16 02:09 INFO     Epoch: 0 Loss: 0.068428
+05-16 02:09 INFO     Epoch: 1 Loss: 0.047018
+05-16 02:09 INFO     Epoch: 2 Loss: 0.048272
+05-16 02:09 INFO     Epoch: 3 Loss: 0.073660
+05-16 02:09 INFO     Epoch: 4 Loss: 0.069636
+05-16 02:10 INFO     Epoch: 5 Loss: 0.040911
+05-16 02:10 INFO     Epoch: 6 Loss: 0.057987
+05-16 02:10 INFO     Epoch: 7 Loss: 0.055990
+05-16 02:10 INFO     Epoch: 8 Loss: 0.040913
+05-16 02:10 INFO     Epoch: 9 Loss: 0.033955
+05-16 02:10 INFO     >> Training accuracy: 0.987642
+05-16 02:10 INFO     >> Test accuracy: 0.784700
+05-16 02:10 INFO      ** Training complete **
+05-16 02:10 INFO     net 1 final test acc 0.784700
+05-16 02:10 INFO     global n_training: 782
+05-16 02:10 INFO     global n_test: 313
+05-16 02:10 INFO     >> Global Model Train accuracy: 0.826040
+05-16 02:10 INFO     >> Global Model Test accuracy: 0.810500
+05-16 02:10 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105
+05-16 02:10 INFO     best valid so far0.818 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313
+05-16 02:10 INFO     in comm round:19
+05-16 02:10 INFO     Training network 0. n_training: 3017
+05-16 02:10 INFO     Training network 0
+05-16 02:11 INFO     >> Pre-Training Training accuracy: 0.9857474312230693
+05-16 02:11 INFO     >> Pre-Training Test accuracy: 0.8105
+05-16 02:11 INFO     Epoch: 0 Loss: 0.089622
+05-16 02:11 INFO     Epoch: 1 Loss: 0.091112
+05-16 02:11 INFO     Epoch: 2 Loss: 0.080855
+05-16 02:11 INFO     Epoch: 3 Loss: 0.081494
+05-16 02:11 INFO     Epoch: 4 Loss: 0.067046
+05-16 02:11 INFO     Epoch: 5 Loss: 0.058492
+05-16 02:11 INFO     Epoch: 6 Loss: 0.084496
+05-16 02:11 INFO     Epoch: 7 Loss: 0.054535
+05-16 02:11 INFO     Epoch: 8 Loss: 0.061923
+05-16 02:11 INFO     Epoch: 9 Loss: 0.129228
+05-16 02:11 INFO     >> Training accuracy: 0.975804
+05-16 02:11 INFO     >> Test accuracy: 0.774600
+05-16 02:11 INFO      ** Training complete **
+05-16 02:11 INFO     net 0 final test acc 0.774600
+05-16 02:11 INFO     Training network 1. n_training: 2994
+05-16 02:11 INFO     Training network 1
+05-16 02:11 INFO     >> Pre-Training Training accuracy: 0.9889779559118237
+05-16 02:11 INFO     >> Pre-Training Test accuracy: 0.8105
+05-16 02:11 INFO     Epoch: 0 Loss: 0.070644
+05-16 02:11 INFO     Epoch: 1 Loss: 0.042126
+05-16 02:12 INFO     Epoch: 2 Loss: 0.036697
+05-16 02:12 INFO     Epoch: 3 Loss: 0.059689
+05-16 02:12 INFO     Epoch: 4 Loss: 0.046370
+05-16 02:12 INFO     Epoch: 5 Loss: 0.034025
+05-16 02:12 INFO     Epoch: 6 Loss: 0.030448
+05-16 02:12 INFO     Epoch: 7 Loss: 0.052483
+05-16 02:12 INFO     Epoch: 8 Loss: 0.050941
+05-16 02:12 INFO     Epoch: 9 Loss: 0.070598
+05-16 02:12 INFO     >> Training accuracy: 0.979292
+05-16 02:12 INFO     >> Test accuracy: 0.762800
+05-16 02:12 INFO      ** Training complete **
+05-16 02:12 INFO     net 1 final test acc 0.762800
+05-16 02:12 INFO     global n_training: 782
+05-16 02:12 INFO     global n_test: 313
+05-16 02:13 INFO     >> Global Model Train accuracy: 0.828120
+05-16 02:13 INFO     >> Global Model Test accuracy: 0.814700
+05-16 02:13 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147
+05-16 02:13 INFO     best valid so far0.818 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406
+05-16 02:13 INFO     in comm round:20
+05-16 02:13 INFO     Training network 0. n_training: 3017
+05-16 02:13 INFO     Training network 0
+05-16 02:13 INFO     >> Pre-Training Training accuracy: 0.9887305270135897
+05-16 02:13 INFO     >> Pre-Training Test accuracy: 0.8147
+05-16 02:13 INFO     Epoch: 0 Loss: 0.060177
+05-16 02:13 INFO     Epoch: 1 Loss: 0.101946
+05-16 02:13 INFO     Epoch: 2 Loss: 0.099790
+05-16 02:13 INFO     Epoch: 3 Loss: 0.049904
+05-16 02:13 INFO     Epoch: 4 Loss: 0.068873
+05-16 02:13 INFO     Epoch: 5 Loss: 0.041763
+05-16 02:13 INFO     Epoch: 6 Loss: 0.029309
+05-16 02:13 INFO     Epoch: 7 Loss: 0.031244
+05-16 02:13 INFO     Epoch: 8 Loss: 0.024287
+05-16 02:13 INFO     Epoch: 9 Loss: 0.027633
+05-16 02:13 INFO     >> Training accuracy: 0.992708
+05-16 02:13 INFO     >> Test accuracy: 0.789600
+05-16 02:13 INFO      ** Training complete **
+05-16 02:13 INFO     net 0 final test acc 0.789600
+05-16 02:13 INFO     Training network 1. n_training: 2994
+05-16 02:13 INFO     Training network 1
+05-16 02:14 INFO     >> Pre-Training Training accuracy: 0.9896459585838343
+05-16 02:14 INFO     >> Pre-Training Test accuracy: 0.8147
+05-16 02:14 INFO     Epoch: 0 Loss: 0.071522
+05-16 02:14 INFO     Epoch: 1 Loss: 0.040842
+05-16 02:14 INFO     Epoch: 2 Loss: 0.061657
+05-16 02:14 INFO     Epoch: 3 Loss: 0.053409
+05-16 02:14 INFO     Epoch: 4 Loss: 0.042578
+05-16 02:14 INFO     Epoch: 5 Loss: 0.046024
+05-16 02:14 INFO     Epoch: 6 Loss: 0.035378
+05-16 02:14 INFO     Epoch: 7 Loss: 0.042166
+05-16 02:14 INFO     Epoch: 8 Loss: 0.052639
+05-16 02:14 INFO     Epoch: 9 Loss: 0.046844
+05-16 02:14 INFO     >> Training accuracy: 0.993988
+05-16 02:14 INFO     >> Test accuracy: 0.793700
+05-16 02:14 INFO      ** Training complete **
+05-16 02:14 INFO     net 1 final test acc 0.793700
+05-16 02:14 INFO     global n_training: 782
+05-16 02:14 INFO     global n_test: 313
+05-16 02:15 INFO     >> Global Model Train accuracy: 0.839240
+05-16 02:15 INFO     >> Global Model Test accuracy: 0.825400
+05-16 02:15 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254
+05-16 02:15 INFO     best valid so far0.8254 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184
+05-16 02:15 INFO     in comm round:21
+05-16 02:15 INFO     Training network 0. n_training: 3017
+05-16 02:15 INFO     Training network 0
+05-16 02:15 INFO     >> Pre-Training Training accuracy: 0.9937023533311237
+05-16 02:15 INFO     >> Pre-Training Test accuracy: 0.8254
+05-16 02:15 INFO     Epoch: 0 Loss: 0.076081
+05-16 02:15 INFO     Epoch: 1 Loss: 0.060911
+05-16 02:15 INFO     Epoch: 2 Loss: 0.067049
+05-16 02:15 INFO     Epoch: 3 Loss: 0.035738
+05-16 02:15 INFO     Epoch: 4 Loss: 0.031117
+05-16 02:15 INFO     Epoch: 5 Loss: 0.028804
+05-16 02:15 INFO     Epoch: 6 Loss: 0.051590
+05-16 02:15 INFO     Epoch: 7 Loss: 0.076436
+05-16 02:15 INFO     Epoch: 8 Loss: 0.052431
+05-16 02:16 INFO     Epoch: 9 Loss: 0.042051
+05-16 02:16 INFO     >> Training accuracy: 0.991382
+05-16 02:16 INFO     >> Test accuracy: 0.787500
+05-16 02:16 INFO      ** Training complete **
+05-16 02:16 INFO     net 0 final test acc 0.787500
+05-16 02:16 INFO     Training network 1. n_training: 2994
+05-16 02:16 INFO     Training network 1
+05-16 02:16 INFO     >> Pre-Training Training accuracy: 0.9979959919839679
+05-16 02:16 INFO     >> Pre-Training Test accuracy: 0.8254
+05-16 02:16 INFO     Epoch: 0 Loss: 0.041629
+05-16 02:16 INFO     Epoch: 1 Loss: 0.043349
+05-16 02:16 INFO     Epoch: 2 Loss: 0.059488
+05-16 02:16 INFO     Epoch: 3 Loss: 0.060937
+05-16 02:16 INFO     Epoch: 4 Loss: 0.043355
+05-16 02:16 INFO     Epoch: 5 Loss: 0.039546
+05-16 02:16 INFO     Epoch: 6 Loss: 0.021503
+05-16 02:16 INFO     Epoch: 7 Loss: 0.031040
+05-16 02:16 INFO     Epoch: 8 Loss: 0.043787
+05-16 02:16 INFO     Epoch: 9 Loss: 0.081281
+05-16 02:16 INFO     >> Training accuracy: 0.927188
+05-16 02:16 INFO     >> Test accuracy: 0.724300
+05-16 02:16 INFO      ** Training complete **
+05-16 02:16 INFO     net 1 final test acc 0.724300
+05-16 02:16 INFO     global n_training: 782
+05-16 02:16 INFO     global n_test: 313
+05-16 02:17 INFO     >> Global Model Train accuracy: 0.830660
+05-16 02:17 INFO     >> Global Model Test accuracy: 0.820100
+05-16 02:17 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201
+05-16 02:17 INFO     best valid so far0.8254 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562
+05-16 02:17 INFO     in comm round:22
+05-16 02:17 INFO     Training network 0. n_training: 3017
+05-16 02:17 INFO     Training network 0
+05-16 02:17 INFO     >> Pre-Training Training accuracy: 0.9893934371892609
+05-16 02:17 INFO     >> Pre-Training Test accuracy: 0.8201
+05-16 02:17 INFO     Epoch: 0 Loss: 0.052315
+05-16 02:17 INFO     Epoch: 1 Loss: 0.065990
+05-16 02:17 INFO     Epoch: 2 Loss: 0.045740
+05-16 02:17 INFO     Epoch: 3 Loss: 0.112763
+05-16 02:17 INFO     Epoch: 4 Loss: 0.087515
+05-16 02:17 INFO     Epoch: 5 Loss: 0.048484
+05-16 02:18 INFO     Epoch: 6 Loss: 0.027318
+05-16 02:18 INFO     Epoch: 7 Loss: 0.029465
+05-16 02:18 INFO     Epoch: 8 Loss: 0.014927
+05-16 02:18 INFO     Epoch: 9 Loss: 0.017741
+05-16 02:18 INFO     >> Training accuracy: 0.997680
+05-16 02:18 INFO     >> Test accuracy: 0.798400
+05-16 02:18 INFO      ** Training complete **
+05-16 02:18 INFO     net 0 final test acc 0.798400
+05-16 02:18 INFO     Training network 1. n_training: 2994
+05-16 02:18 INFO     Training network 1
+05-16 02:18 INFO     >> Pre-Training Training accuracy: 0.9923179692718771
+05-16 02:18 INFO     >> Pre-Training Test accuracy: 0.8201
+05-16 02:18 INFO     Epoch: 0 Loss: 0.049259
+05-16 02:18 INFO     Epoch: 1 Loss: 0.036785
+05-16 02:18 INFO     Epoch: 2 Loss: 0.037600
+05-16 02:18 INFO     Epoch: 3 Loss: 0.058884
+05-16 02:18 INFO     Epoch: 4 Loss: 0.054207
+05-16 02:18 INFO     Epoch: 5 Loss: 0.051827
+05-16 02:18 INFO     Epoch: 6 Loss: 0.040623
+05-16 02:18 INFO     Epoch: 7 Loss: 0.026712
+05-16 02:19 INFO     Epoch: 8 Loss: 0.030704
+05-16 02:19 INFO     Epoch: 9 Loss: 0.046680
+05-16 02:19 INFO     >> Training accuracy: 0.980628
+05-16 02:19 INFO     >> Test accuracy: 0.774900
+05-16 02:19 INFO      ** Training complete **
+05-16 02:19 INFO     net 1 final test acc 0.774900
+05-16 02:19 INFO     global n_training: 782
+05-16 02:19 INFO     global n_test: 313
+05-16 02:19 INFO     >> Global Model Train accuracy: 0.839600
+05-16 02:19 INFO     >> Global Model Test accuracy: 0.825900
+05-16 02:19 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259
+05-16 02:19 INFO     best valid so far0.8259 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124
+05-16 02:19 INFO     in comm round:23
+05-16 02:19 INFO     Training network 0. n_training: 3017
+05-16 02:19 INFO     Training network 0
+05-16 02:19 INFO     >> Pre-Training Training accuracy: 0.9953596287703016
+05-16 02:19 INFO     >> Pre-Training Test accuracy: 0.8259
+05-16 02:19 INFO     Epoch: 0 Loss: 0.041680
+05-16 02:19 INFO     Epoch: 1 Loss: 0.054475
+05-16 02:20 INFO     Epoch: 2 Loss: 0.035727
+05-16 02:20 INFO     Epoch: 3 Loss: 0.072057
+05-16 02:20 INFO     Epoch: 4 Loss: 0.116406
+05-16 02:20 INFO     Epoch: 5 Loss: 0.094837
+05-16 02:20 INFO     Epoch: 6 Loss: 0.029881
+05-16 02:20 INFO     Epoch: 7 Loss: 0.028901
+05-16 02:20 INFO     Epoch: 8 Loss: 0.023659
+05-16 02:20 INFO     Epoch: 9 Loss: 0.026653
+05-16 02:20 INFO     >> Training accuracy: 0.994697
+05-16 02:20 INFO     >> Test accuracy: 0.793600
+05-16 02:20 INFO      ** Training complete **
+05-16 02:20 INFO     net 0 final test acc 0.793600
+05-16 02:20 INFO     Training network 1. n_training: 2994
+05-16 02:20 INFO     Training network 1
+05-16 02:20 INFO     >> Pre-Training Training accuracy: 0.9966599866399466
+05-16 02:20 INFO     >> Pre-Training Test accuracy: 0.8259
+05-16 02:20 INFO     Epoch: 0 Loss: 0.051240
+05-16 02:20 INFO     Epoch: 1 Loss: 0.026757
+05-16 02:20 INFO     Epoch: 2 Loss: 0.049053
+05-16 02:20 INFO     Epoch: 3 Loss: 0.062496
+05-16 02:20 INFO     Epoch: 4 Loss: 0.039852
+05-16 02:21 INFO     Epoch: 5 Loss: 0.032535
+05-16 02:21 INFO     Epoch: 6 Loss: 0.039834
+05-16 02:21 INFO     Epoch: 7 Loss: 0.041979
+05-16 02:21 INFO     Epoch: 8 Loss: 0.046465
+05-16 02:21 INFO     Epoch: 9 Loss: 0.037200
+05-16 02:21 INFO     >> Training accuracy: 0.991650
+05-16 02:21 INFO     >> Test accuracy: 0.791200
+05-16 02:21 INFO      ** Training complete **
+05-16 02:21 INFO     net 1 final test acc 0.791200
+05-16 02:21 INFO     global n_training: 782
+05-16 02:21 INFO     global n_test: 313
+05-16 02:21 INFO     >> Global Model Train accuracy: 0.845060
+05-16 02:21 INFO     >> Global Model Test accuracy: 0.829400
+05-16 02:21 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294
+05-16 02:21 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355
+05-16 02:21 INFO     in comm round:24
+05-16 02:21 INFO     Training network 0. n_training: 3017
+05-16 02:21 INFO     Training network 0
+05-16 02:22 INFO     >> Pre-Training Training accuracy: 0.996685449121644
+05-16 02:22 INFO     >> Pre-Training Test accuracy: 0.8294
+05-16 02:22 INFO     Epoch: 0 Loss: 0.040912
+05-16 02:22 INFO     Epoch: 1 Loss: 0.050462
+05-16 02:22 INFO     Epoch: 2 Loss: 0.040617
+05-16 02:22 INFO     Epoch: 3 Loss: 0.047423
+05-16 02:22 INFO     Epoch: 4 Loss: 0.049506
+05-16 02:22 INFO     Epoch: 5 Loss: 0.048357
+05-16 02:22 INFO     Epoch: 6 Loss: 0.028273
+05-16 02:22 INFO     Epoch: 7 Loss: 0.070953
+05-16 02:22 INFO     Epoch: 8 Loss: 0.070767
+05-16 02:22 INFO     Epoch: 9 Loss: 0.034484
+05-16 02:22 INFO     >> Training accuracy: 0.992708
+05-16 02:22 INFO     >> Test accuracy: 0.791700
+05-16 02:22 INFO      ** Training complete **
+05-16 02:22 INFO     net 0 final test acc 0.791700
+05-16 02:22 INFO     Training network 1. n_training: 2994
+05-16 02:22 INFO     Training network 1
+05-16 02:22 INFO     >> Pre-Training Training accuracy: 0.9986639946559787
+05-16 02:22 INFO     >> Pre-Training Test accuracy: 0.8294
+05-16 02:22 INFO     Epoch: 0 Loss: 0.031096
+05-16 02:22 INFO     Epoch: 1 Loss: 0.058279
+05-16 02:23 INFO     Epoch: 2 Loss: 0.071015
+05-16 02:23 INFO     Epoch: 3 Loss: 0.049758
+05-16 02:23 INFO     Epoch: 4 Loss: 0.035898
+05-16 02:23 INFO     Epoch: 5 Loss: 0.026367
+05-16 02:23 INFO     Epoch: 6 Loss: 0.015556
+05-16 02:23 INFO     Epoch: 7 Loss: 0.009613
+05-16 02:23 INFO     Epoch: 8 Loss: 0.020552
+05-16 02:23 INFO     Epoch: 9 Loss: 0.056787
+05-16 02:23 INFO     >> Training accuracy: 0.972946
+05-16 02:23 INFO     >> Test accuracy: 0.764300
+05-16 02:23 INFO      ** Training complete **
+05-16 02:23 INFO     net 1 final test acc 0.764300
+05-16 02:23 INFO     global n_training: 782
+05-16 02:23 INFO     global n_test: 313
+05-16 02:24 INFO     >> Global Model Train accuracy: 0.840840
+05-16 02:24 INFO     >> Global Model Test accuracy: 0.825300
+05-16 02:24 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253
+05-16 02:24 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873
+05-16 02:24 INFO     in comm round:25
+05-16 02:24 INFO     Training network 0. n_training: 3017
+05-16 02:24 INFO     Training network 0
+05-16 02:24 INFO     >> Pre-Training Training accuracy: 0.9973483592973152
+05-16 02:24 INFO     >> Pre-Training Test accuracy: 0.8253
+05-16 02:24 INFO     Epoch: 0 Loss: 0.044366
+05-16 02:24 INFO     Epoch: 1 Loss: 0.042179
+05-16 02:24 INFO     Epoch: 2 Loss: 0.035632
+05-16 02:24 INFO     Epoch: 3 Loss: 0.089500
+05-16 02:24 INFO     Epoch: 4 Loss: 0.119274
+05-16 02:24 INFO     Epoch: 5 Loss: 0.083469
+05-16 02:24 INFO     Epoch: 6 Loss: 0.033915
+05-16 02:24 INFO     Epoch: 7 Loss: 0.011747
+05-16 02:24 INFO     Epoch: 8 Loss: 0.043921
+05-16 02:24 INFO     Epoch: 9 Loss: 0.163911
+05-16 02:24 INFO     >> Training accuracy: 0.949950
+05-16 02:24 INFO     >> Test accuracy: 0.748800
+05-16 02:24 INFO      ** Training complete **
+05-16 02:24 INFO     net 0 final test acc 0.748800
+05-16 02:24 INFO     Training network 1. n_training: 2994
+05-16 02:24 INFO     Training network 1
+05-16 02:25 INFO     >> Pre-Training Training accuracy: 0.996993987975952
+05-16 02:25 INFO     >> Pre-Training Test accuracy: 0.8253
+05-16 02:25 INFO     Epoch: 0 Loss: 0.046572
+05-16 02:25 INFO     Epoch: 1 Loss: 0.032359
+05-16 02:25 INFO     Epoch: 2 Loss: 0.027865
+05-16 02:25 INFO     Epoch: 3 Loss: 0.033014
+05-16 02:25 INFO     Epoch: 4 Loss: 0.050852
+05-16 02:25 INFO     Epoch: 5 Loss: 0.059410
+05-16 02:25 INFO     Epoch: 6 Loss: 0.059096
+05-16 02:25 INFO     Epoch: 7 Loss: 0.039699
+05-16 02:25 INFO     Epoch: 8 Loss: 0.032320
+05-16 02:25 INFO     Epoch: 9 Loss: 0.038560
+05-16 02:25 INFO     >> Training accuracy: 0.992652
+05-16 02:25 INFO     >> Test accuracy: 0.789600
+05-16 02:25 INFO      ** Training complete **
+05-16 02:25 INFO     net 1 final test acc 0.789600
+05-16 02:25 INFO     global n_training: 782
+05-16 02:25 INFO     global n_test: 313
+05-16 02:26 INFO     >> Global Model Train accuracy: 0.827500
+05-16 02:26 INFO     >> Global Model Test accuracy: 0.812600
+05-16 02:26 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126
+05-16 02:26 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975
+05-16 02:26 INFO     in comm round:26
+05-16 02:26 INFO     Training network 0. n_training: 3017
+05-16 02:26 INFO     Training network 0
+05-16 02:26 INFO     >> Pre-Training Training accuracy: 0.9910507126284388
+05-16 02:26 INFO     >> Pre-Training Test accuracy: 0.8126
+05-16 02:26 INFO     Epoch: 0 Loss: 0.030792
+05-16 02:26 INFO     Epoch: 1 Loss: 0.063987
+05-16 02:26 INFO     Epoch: 2 Loss: 0.057904
+05-16 02:26 INFO     Epoch: 3 Loss: 0.069961
+05-16 02:26 INFO     Epoch: 4 Loss: 0.079408
+05-16 02:26 INFO     Epoch: 5 Loss: 0.083826
+05-16 02:26 INFO     Epoch: 6 Loss: 0.055197
+05-16 02:26 INFO     Epoch: 7 Loss: 0.030590
+05-16 02:26 INFO     Epoch: 8 Loss: 0.019564
+05-16 02:27 INFO     Epoch: 9 Loss: 0.010786
+05-16 02:27 INFO     >> Training accuracy: 0.999669
+05-16 02:27 INFO     >> Test accuracy: 0.807900
+05-16 02:27 INFO      ** Training complete **
+05-16 02:27 INFO     net 0 final test acc 0.807900
+05-16 02:27 INFO     Training network 1. n_training: 2994
+05-16 02:27 INFO     Training network 1
+05-16 02:27 INFO     >> Pre-Training Training accuracy: 0.9929859719438878
+05-16 02:27 INFO     >> Pre-Training Test accuracy: 0.8126
+05-16 02:27 INFO     Epoch: 0 Loss: 0.038161
+05-16 02:27 INFO     Epoch: 1 Loss: 0.027642
+05-16 02:27 INFO     Epoch: 2 Loss: 0.031791
+05-16 02:27 INFO     Epoch: 3 Loss: 0.061074
+05-16 02:27 INFO     Epoch: 4 Loss: 0.056557
+05-16 02:27 INFO     Epoch: 5 Loss: 0.050709
+05-16 02:27 INFO     Epoch: 6 Loss: 0.041023
+05-16 02:27 INFO     Epoch: 7 Loss: 0.028591
+05-16 02:27 INFO     Epoch: 8 Loss: 0.033154
+05-16 02:27 INFO     Epoch: 9 Loss: 0.026178
+05-16 02:27 INFO     >> Training accuracy: 0.989646
+05-16 02:27 INFO     >> Test accuracy: 0.790900
+05-16 02:27 INFO      ** Training complete **
+05-16 02:27 INFO     net 1 final test acc 0.790900
+05-16 02:27 INFO     global n_training: 782
+05-16 02:27 INFO     global n_test: 313
+05-16 02:28 INFO     >> Global Model Train accuracy: 0.845100
+05-16 02:28 INFO     >> Global Model Test accuracy: 0.827100
+05-16 02:28 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271
+05-16 02:28 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966
+05-16 02:28 INFO     in comm round:27
+05-16 02:28 INFO     Training network 0. n_training: 3017
+05-16 02:28 INFO     Training network 0
+05-16 02:28 INFO     >> Pre-Training Training accuracy: 0.9986741796486576
+05-16 02:28 INFO     >> Pre-Training Test accuracy: 0.8271
+05-16 02:28 INFO     Epoch: 0 Loss: 0.031769
+05-16 02:28 INFO     Epoch: 1 Loss: 0.030077
+05-16 02:28 INFO     Epoch: 2 Loss: 0.053087
+05-16 02:28 INFO     Epoch: 3 Loss: 0.047837
+05-16 02:28 INFO     Epoch: 4 Loss: 0.043849
+05-16 02:29 INFO     Epoch: 5 Loss: 0.043252
+05-16 02:29 INFO     Epoch: 6 Loss: 0.076599
+05-16 02:29 INFO     Epoch: 7 Loss: 0.071163
+05-16 02:29 INFO     Epoch: 8 Loss: 0.028997
+05-16 02:29 INFO     Epoch: 9 Loss: 0.019217
+05-16 02:29 INFO     >> Training accuracy: 0.994365
+05-16 02:29 INFO     >> Test accuracy: 0.805400
+05-16 02:29 INFO      ** Training complete **
+05-16 02:29 INFO     net 0 final test acc 0.805400
+05-16 02:29 INFO     Training network 1. n_training: 2994
+05-16 02:29 INFO     Training network 1
+05-16 02:29 INFO     >> Pre-Training Training accuracy: 0.998997995991984
+05-16 02:29 INFO     >> Pre-Training Test accuracy: 0.8271
+05-16 02:29 INFO     Epoch: 0 Loss: 0.038085
+05-16 02:29 INFO     Epoch: 1 Loss: 0.043575
+05-16 02:29 INFO     Epoch: 2 Loss: 0.048491
+05-16 02:29 INFO     Epoch: 3 Loss: 0.045207
+05-16 02:29 INFO     Epoch: 4 Loss: 0.023522
+05-16 02:29 INFO     Epoch: 5 Loss: 0.023008
+05-16 02:29 INFO     Epoch: 6 Loss: 0.022022
+05-16 02:29 INFO     Epoch: 7 Loss: 0.022097
+05-16 02:30 INFO     Epoch: 8 Loss: 0.045224
+05-16 02:30 INFO     Epoch: 9 Loss: 0.034562
+05-16 02:30 INFO     >> Training accuracy: 0.982298
+05-16 02:30 INFO     >> Test accuracy: 0.780000
+05-16 02:30 INFO      ** Training complete **
+05-16 02:30 INFO     net 1 final test acc 0.780000
+05-16 02:30 INFO     global n_training: 782
+05-16 02:30 INFO     global n_test: 313
+05-16 02:30 INFO     >> Global Model Train accuracy: 0.843700
+05-16 02:30 INFO     >> Global Model Test accuracy: 0.828800
+05-16 02:30 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288
+05-16 02:30 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878
+05-16 02:30 INFO     in comm round:28
+05-16 02:30 INFO     Training network 0. n_training: 3017
+05-16 02:30 INFO     Training network 0
+05-16 02:30 INFO     >> Pre-Training Training accuracy: 0.9973483592973152
+05-16 02:30 INFO     >> Pre-Training Test accuracy: 0.8288
+05-16 02:30 INFO     Epoch: 0 Loss: 0.025456
+05-16 02:30 INFO     Epoch: 1 Loss: 0.060778
+05-16 02:31 INFO     Epoch: 2 Loss: 0.045419
+05-16 02:31 INFO     Epoch: 3 Loss: 0.035829
+05-16 02:31 INFO     Epoch: 4 Loss: 0.031548
+05-16 02:31 INFO     Epoch: 5 Loss: 0.031979
+05-16 02:31 INFO     Epoch: 6 Loss: 0.062963
+05-16 02:31 INFO     Epoch: 7 Loss: 0.162702
+05-16 02:31 INFO     Epoch: 8 Loss: 0.092370
+05-16 02:31 INFO     Epoch: 9 Loss: 0.064391
+05-16 02:31 INFO     >> Training accuracy: 0.982101
+05-16 02:31 INFO     >> Test accuracy: 0.772300
+05-16 02:31 INFO      ** Training complete **
+05-16 02:31 INFO     net 0 final test acc 0.772300
+05-16 02:31 INFO     Training network 1. n_training: 2994
+05-16 02:31 INFO     Training network 1
+05-16 02:31 INFO     >> Pre-Training Training accuracy: 0.9979959919839679
+05-16 02:31 INFO     >> Pre-Training Test accuracy: 0.8288
+05-16 02:31 INFO     Epoch: 0 Loss: 0.039075
+05-16 02:31 INFO     Epoch: 1 Loss: 0.033481
+05-16 02:31 INFO     Epoch: 2 Loss: 0.019873
+05-16 02:31 INFO     Epoch: 3 Loss: 0.040101
+05-16 02:31 INFO     Epoch: 4 Loss: 0.055015
+05-16 02:32 INFO     Epoch: 5 Loss: 0.046693
+05-16 02:32 INFO     Epoch: 6 Loss: 0.045394
+05-16 02:32 INFO     Epoch: 7 Loss: 0.031481
+05-16 02:32 INFO     Epoch: 8 Loss: 0.026824
+05-16 02:32 INFO     Epoch: 9 Loss: 0.027749
+05-16 02:32 INFO     >> Training accuracy: 0.988978
+05-16 02:32 INFO     >> Test accuracy: 0.788100
+05-16 02:32 INFO      ** Training complete **
+05-16 02:32 INFO     net 1 final test acc 0.788100
+05-16 02:32 INFO     global n_training: 782
+05-16 02:32 INFO     global n_test: 313
+05-16 02:32 INFO     >> Global Model Train accuracy: 0.836620
+05-16 02:32 INFO     >> Global Model Test accuracy: 0.817100
+05-16 02:32 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171
+05-16 02:32 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094
+05-16 02:32 INFO     in comm round:29
+05-16 02:32 INFO     Training network 0. n_training: 3017
+05-16 02:32 INFO     Training network 0
+05-16 02:33 INFO     >> Pre-Training Training accuracy: 0.9937023533311237
+05-16 02:33 INFO     >> Pre-Training Test accuracy: 0.8171
+05-16 02:33 INFO     Epoch: 0 Loss: 0.047734
+05-16 02:33 INFO     Epoch: 1 Loss: 0.035713
+05-16 02:33 INFO     Epoch: 2 Loss: 0.047721
+05-16 02:33 INFO     Epoch: 3 Loss: 0.078055
+05-16 02:33 INFO     Epoch: 4 Loss: 0.062201
+05-16 02:33 INFO     Epoch: 5 Loss: 0.029567
+05-16 02:33 INFO     Epoch: 6 Loss: 0.022615
+05-16 02:33 INFO     Epoch: 7 Loss: 0.012096
+05-16 02:33 INFO     Epoch: 8 Loss: 0.018009
+05-16 02:33 INFO     Epoch: 9 Loss: 0.092310
+05-16 02:33 INFO     >> Training accuracy: 0.963540
+05-16 02:33 INFO     >> Test accuracy: 0.757600
+05-16 02:33 INFO      ** Training complete **
+05-16 02:33 INFO     net 0 final test acc 0.757600
+05-16 02:33 INFO     Training network 1. n_training: 2994
+05-16 02:33 INFO     Training network 1
+05-16 02:33 INFO     >> Pre-Training Training accuracy: 0.996993987975952
+05-16 02:33 INFO     >> Pre-Training Test accuracy: 0.8171
+05-16 02:33 INFO     Epoch: 0 Loss: 0.036228
+05-16 02:33 INFO     Epoch: 1 Loss: 0.029947
+05-16 02:34 INFO     Epoch: 2 Loss: 0.026722
+05-16 02:34 INFO     Epoch: 3 Loss: 0.036847
+05-16 02:34 INFO     Epoch: 4 Loss: 0.029467
+05-16 02:34 INFO     Epoch: 5 Loss: 0.020350
+05-16 02:34 INFO     Epoch: 6 Loss: 0.025867
+05-16 02:34 INFO     Epoch: 7 Loss: 0.041030
+05-16 02:34 INFO     Epoch: 8 Loss: 0.057842
+05-16 02:34 INFO     Epoch: 9 Loss: 0.052768
+05-16 02:34 INFO     >> Training accuracy: 0.980628
+05-16 02:34 INFO     >> Test accuracy: 0.767500
+05-16 02:34 INFO      ** Training complete **
+05-16 02:34 INFO     net 1 final test acc 0.767500
+05-16 02:34 INFO     global n_training: 782
+05-16 02:34 INFO     global n_test: 313
+05-16 02:35 INFO     >> Global Model Train accuracy: 0.832560
+05-16 02:35 INFO     >> Global Model Test accuracy: 0.810800
+05-16 02:35 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108
+05-16 02:35 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584
+05-16 02:35 INFO     in comm round:30
+05-16 02:35 INFO     Training network 0. n_training: 3017
+05-16 02:35 INFO     Training network 0
+05-16 02:35 INFO     >> Pre-Training Training accuracy: 0.9940338084189593
+05-16 02:35 INFO     >> Pre-Training Test accuracy: 0.8108
+05-16 02:35 INFO     Epoch: 0 Loss: 0.039645
+05-16 02:35 INFO     Epoch: 1 Loss: 0.049362
+05-16 02:35 INFO     Epoch: 2 Loss: 0.030591
+05-16 02:35 INFO     Epoch: 3 Loss: 0.029316
+05-16 02:35 INFO     Epoch: 4 Loss: 0.034405
+05-16 02:35 INFO     Epoch: 5 Loss: 0.024993
+05-16 02:35 INFO     Epoch: 6 Loss: 0.038411
+05-16 02:35 INFO     Epoch: 7 Loss: 0.048913
+05-16 02:35 INFO     Epoch: 8 Loss: 0.035161
+05-16 02:35 INFO     Epoch: 9 Loss: 0.038255
+05-16 02:35 INFO     >> Training accuracy: 0.994034
+05-16 02:35 INFO     >> Test accuracy: 0.800600
+05-16 02:35 INFO      ** Training complete **
+05-16 02:35 INFO     net 0 final test acc 0.800600
+05-16 02:35 INFO     Training network 1. n_training: 2994
+05-16 02:35 INFO     Training network 1
+05-16 02:36 INFO     >> Pre-Training Training accuracy: 0.9943219772879092
+05-16 02:36 INFO     >> Pre-Training Test accuracy: 0.8108
+05-16 02:36 INFO     Epoch: 0 Loss: 0.021366
+05-16 02:36 INFO     Epoch: 1 Loss: 0.045193
+05-16 02:36 INFO     Epoch: 2 Loss: 0.044695
+05-16 02:36 INFO     Epoch: 3 Loss: 0.050861
+05-16 02:36 INFO     Epoch: 4 Loss: 0.046197
+05-16 02:36 INFO     Epoch: 5 Loss: 0.037784
+05-16 02:36 INFO     Epoch: 6 Loss: 0.022108
+05-16 02:36 INFO     Epoch: 7 Loss: 0.033451
+05-16 02:36 INFO     Epoch: 8 Loss: 0.036312
+05-16 02:36 INFO     Epoch: 9 Loss: 0.028460
+05-16 02:36 INFO     >> Training accuracy: 0.993320
+05-16 02:36 INFO     >> Test accuracy: 0.792100
+05-16 02:36 INFO      ** Training complete **
+05-16 02:36 INFO     net 1 final test acc 0.792100
+05-16 02:36 INFO     global n_training: 782
+05-16 02:36 INFO     global n_test: 313
+05-16 02:37 INFO     >> Global Model Train accuracy: 0.845960
+05-16 02:37 INFO     >> Global Model Test accuracy: 0.826400
+05-16 02:37 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264
+05-16 02:37 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295
+05-16 02:37 INFO     in comm round:31
+05-16 02:37 INFO     Training network 0. n_training: 3017
+05-16 02:37 INFO     Training network 0
+05-16 02:37 INFO     >> Pre-Training Training accuracy: 0.9980112694729865
+05-16 02:37 INFO     >> Pre-Training Test accuracy: 0.8264
+05-16 02:37 INFO     Epoch: 0 Loss: 0.033679
+05-16 02:37 INFO     Epoch: 1 Loss: 0.024900
+05-16 02:37 INFO     Epoch: 2 Loss: 0.048231
+05-16 02:37 INFO     Epoch: 3 Loss: 0.054873
+05-16 02:37 INFO     Epoch: 4 Loss: 0.086110
+05-16 02:37 INFO     Epoch: 5 Loss: 0.038735
+05-16 02:37 INFO     Epoch: 6 Loss: 0.022658
+05-16 02:37 INFO     Epoch: 7 Loss: 0.016762
+05-16 02:38 INFO     Epoch: 8 Loss: 0.047706
+05-16 02:38 INFO     Epoch: 9 Loss: 0.068267
+05-16 02:38 INFO     >> Training accuracy: 0.985416
+05-16 02:38 INFO     >> Test accuracy: 0.782300
+05-16 02:38 INFO      ** Training complete **
+05-16 02:38 INFO     net 0 final test acc 0.782300
+05-16 02:38 INFO     Training network 1. n_training: 2994
+05-16 02:38 INFO     Training network 1
+05-16 02:38 INFO     >> Pre-Training Training accuracy: 0.9993319973279893
+05-16 02:38 INFO     >> Pre-Training Test accuracy: 0.8264
+05-16 02:38 INFO     Epoch: 0 Loss: 0.024579
+05-16 02:38 INFO     Epoch: 1 Loss: 0.047277
+05-16 02:38 INFO     Epoch: 2 Loss: 0.051460
+05-16 02:38 INFO     Epoch: 3 Loss: 0.024094
+05-16 02:38 INFO     Epoch: 4 Loss: 0.025534
+05-16 02:38 INFO     Epoch: 5 Loss: 0.020343
+05-16 02:38 INFO     Epoch: 6 Loss: 0.016482
+05-16 02:38 INFO     Epoch: 7 Loss: 0.020846
+05-16 02:38 INFO     Epoch: 8 Loss: 0.021163
+05-16 02:38 INFO     Epoch: 9 Loss: 0.053891
+05-16 02:38 INFO     >> Training accuracy: 0.978624
+05-16 02:38 INFO     >> Test accuracy: 0.769100
+05-16 02:38 INFO      ** Training complete **
+05-16 02:38 INFO     net 1 final test acc 0.769100
+05-16 02:38 INFO     global n_training: 782
+05-16 02:38 INFO     global n_test: 313
+05-16 02:39 INFO     >> Global Model Train accuracy: 0.836140
+05-16 02:39 INFO     >> Global Model Test accuracy: 0.815700
+05-16 02:39 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157
+05-16 02:39 INFO     best valid so far0.8294 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699
+05-16 02:39 INFO     in comm round:32
+05-16 02:39 INFO     Training network 0. n_training: 3017
+05-16 02:39 INFO     Training network 0
+05-16 02:39 INFO     >> Pre-Training Training accuracy: 0.9973483592973152
+05-16 02:39 INFO     >> Pre-Training Test accuracy: 0.8157
+05-16 02:39 INFO     Epoch: 0 Loss: 0.032112
+05-16 02:39 INFO     Epoch: 1 Loss: 0.037683
+05-16 02:39 INFO     Epoch: 2 Loss: 0.048393
+05-16 02:39 INFO     Epoch: 3 Loss: 0.084306
+05-16 02:39 INFO     Epoch: 4 Loss: 0.084432
+05-16 02:40 INFO     Epoch: 5 Loss: 0.078138
+05-16 02:40 INFO     Epoch: 6 Loss: 0.092681
+05-16 02:40 INFO     Epoch: 7 Loss: 0.045840
+05-16 02:40 INFO     Epoch: 8 Loss: 0.055684
+05-16 02:40 INFO     Epoch: 9 Loss: 0.039820
+05-16 02:40 INFO     >> Training accuracy: 0.994365
+05-16 02:40 INFO     >> Test accuracy: 0.797700
+05-16 02:40 INFO      ** Training complete **
+05-16 02:40 INFO     net 0 final test acc 0.797700
+05-16 02:40 INFO     Training network 1. n_training: 2994
+05-16 02:40 INFO     Training network 1
+05-16 02:40 INFO     >> Pre-Training Training accuracy: 0.9949899799599199
+05-16 02:40 INFO     >> Pre-Training Test accuracy: 0.8157
+05-16 02:40 INFO     Epoch: 0 Loss: 0.023495
+05-16 02:40 INFO     Epoch: 1 Loss: 0.040533
+05-16 02:40 INFO     Epoch: 2 Loss: 0.044669
+05-16 02:40 INFO     Epoch: 3 Loss: 0.041195
+05-16 02:40 INFO     Epoch: 4 Loss: 0.031718
+05-16 02:40 INFO     Epoch: 5 Loss: 0.025389
+05-16 02:40 INFO     Epoch: 6 Loss: 0.023444
+05-16 02:40 INFO     Epoch: 7 Loss: 0.025135
+05-16 02:41 INFO     Epoch: 8 Loss: 0.020914
+05-16 02:41 INFO     Epoch: 9 Loss: 0.023428
+05-16 02:41 INFO     >> Training accuracy: 0.995324
+05-16 02:41 INFO     >> Test accuracy: 0.795100
+05-16 02:41 INFO      ** Training complete **
+05-16 02:41 INFO     net 1 final test acc 0.795100
+05-16 02:41 INFO     global n_training: 782
+05-16 02:41 INFO     global n_test: 313
+05-16 02:41 INFO     >> Global Model Train accuracy: 0.849740
+05-16 02:41 INFO     >> Global Model Test accuracy: 0.831200
+05-16 02:41 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312
+05-16 02:41 INFO     best valid so far0.8312 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989
+05-16 02:41 INFO     in comm round:33
+05-16 02:41 INFO     Training network 0. n_training: 3017
+05-16 02:41 INFO     Training network 0
+05-16 02:41 INFO     >> Pre-Training Training accuracy: 0.9993370898243288
+05-16 02:41 INFO     >> Pre-Training Test accuracy: 0.8312
+05-16 02:41 INFO     Epoch: 0 Loss: 0.021325
+05-16 02:41 INFO     Epoch: 1 Loss: 0.054084
+05-16 02:42 INFO     Epoch: 2 Loss: 0.079630
+05-16 02:42 INFO     Epoch: 3 Loss: 0.047140
+05-16 02:42 INFO     Epoch: 4 Loss: 0.024275
+05-16 02:42 INFO     Epoch: 5 Loss: 0.020818
+05-16 02:42 INFO     Epoch: 6 Loss: 0.062392
+05-16 02:42 INFO     Epoch: 7 Loss: 0.112956
+05-16 02:42 INFO     Epoch: 8 Loss: 0.036098
+05-16 02:42 INFO     Epoch: 9 Loss: 0.043925
+05-16 02:42 INFO     >> Training accuracy: 0.992045
+05-16 02:42 INFO     >> Test accuracy: 0.802900
+05-16 02:42 INFO      ** Training complete **
+05-16 02:42 INFO     net 0 final test acc 0.802900
+05-16 02:42 INFO     Training network 1. n_training: 2994
+05-16 02:42 INFO     Training network 1
+05-16 02:42 INFO     >> Pre-Training Training accuracy: 0.9986639946559787
+05-16 02:42 INFO     >> Pre-Training Test accuracy: 0.8312
+05-16 02:42 INFO     Epoch: 0 Loss: 0.022488
+05-16 02:42 INFO     Epoch: 1 Loss: 0.040427
+05-16 02:42 INFO     Epoch: 2 Loss: 0.030758
+05-16 02:42 INFO     Epoch: 3 Loss: 0.027727
+05-16 02:42 INFO     Epoch: 4 Loss: 0.030239
+05-16 02:43 INFO     Epoch: 5 Loss: 0.039275
+05-16 02:43 INFO     Epoch: 6 Loss: 0.033800
+05-16 02:43 INFO     Epoch: 7 Loss: 0.021868
+05-16 02:43 INFO     Epoch: 8 Loss: 0.027332
+05-16 02:43 INFO     Epoch: 9 Loss: 0.019794
+05-16 02:43 INFO     >> Training accuracy: 0.993988
+05-16 02:43 INFO     >> Test accuracy: 0.789500
+05-16 02:43 INFO      ** Training complete **
+05-16 02:43 INFO     net 1 final test acc 0.789500
+05-16 02:43 INFO     global n_training: 782
+05-16 02:43 INFO     global n_test: 313
+05-16 02:43 INFO     >> Global Model Train accuracy: 0.843240
+05-16 02:43 INFO     >> Global Model Test accuracy: 0.829700
+05-16 02:43 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297
+05-16 02:43 INFO     best valid so far0.8312 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556
+05-16 02:43 INFO     in comm round:34
+05-16 02:43 INFO     Training network 0. n_training: 3017
+05-16 02:43 INFO     Training network 0
+05-16 02:44 INFO     >> Pre-Training Training accuracy: 0.9980112694729865
+05-16 02:44 INFO     >> Pre-Training Test accuracy: 0.8297
+05-16 02:44 INFO     Epoch: 0 Loss: 0.023728
+05-16 02:44 INFO     Epoch: 1 Loss: 0.063909
+05-16 02:44 INFO     Epoch: 2 Loss: 0.067122
+05-16 02:44 INFO     Epoch: 3 Loss: 0.040555
+05-16 02:44 INFO     Epoch: 4 Loss: 0.055533
+05-16 02:44 INFO     Epoch: 5 Loss: 0.032167
+05-16 02:44 INFO     Epoch: 6 Loss: 0.044125
+05-16 02:44 INFO     Epoch: 7 Loss: 0.019352
+05-16 02:44 INFO     Epoch: 8 Loss: 0.010769
+05-16 02:44 INFO     Epoch: 9 Loss: 0.008046
+05-16 02:44 INFO     >> Training accuracy: 0.992377
+05-16 02:44 INFO     >> Test accuracy: 0.800000
+05-16 02:44 INFO      ** Training complete **
+05-16 02:44 INFO     net 0 final test acc 0.800000
+05-16 02:44 INFO     Training network 1. n_training: 2994
+05-16 02:44 INFO     Training network 1
+05-16 02:44 INFO     >> Pre-Training Training accuracy: 0.998997995991984
+05-16 02:44 INFO     >> Pre-Training Test accuracy: 0.8297
+05-16 02:44 INFO     Epoch: 0 Loss: 0.030182
+05-16 02:45 INFO     Epoch: 1 Loss: 0.038225
+05-16 02:45 INFO     Epoch: 2 Loss: 0.045878
+05-16 02:45 INFO     Epoch: 3 Loss: 0.026064
+05-16 02:45 INFO     Epoch: 4 Loss: 0.019802
+05-16 02:45 INFO     Epoch: 5 Loss: 0.016316
+05-16 02:45 INFO     Epoch: 6 Loss: 0.019251
+05-16 02:45 INFO     Epoch: 7 Loss: 0.050074
+05-16 02:45 INFO     Epoch: 8 Loss: 0.081497
+05-16 02:45 INFO     Epoch: 9 Loss: 0.040513
+05-16 02:45 INFO     >> Training accuracy: 0.992652
+05-16 02:45 INFO     >> Test accuracy: 0.797600
+05-16 02:45 INFO      ** Training complete **
+05-16 02:45 INFO     net 1 final test acc 0.797600
+05-16 02:45 INFO     global n_training: 782
+05-16 02:45 INFO     global n_test: 313
+05-16 02:46 INFO     >> Global Model Train accuracy: 0.847720
+05-16 02:46 INFO     >> Global Model Test accuracy: 0.835100
+05-16 02:46 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351
+05-16 02:46 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786
+05-16 02:46 INFO     in comm round:35
+05-16 02:46 INFO     Training network 0. n_training: 3017
+05-16 02:46 INFO     Training network 0
+05-16 02:46 INFO     >> Pre-Training Training accuracy: 0.9993370898243288
+05-16 02:46 INFO     >> Pre-Training Test accuracy: 0.8351
+05-16 02:46 INFO     Epoch: 0 Loss: 0.023054
+05-16 02:46 INFO     Epoch: 1 Loss: 0.064204
+05-16 02:46 INFO     Epoch: 2 Loss: 0.032379
+05-16 02:46 INFO     Epoch: 3 Loss: 0.056808
+05-16 02:46 INFO     Epoch: 4 Loss: 0.045212
+05-16 02:46 INFO     Epoch: 5 Loss: 0.028909
+05-16 02:46 INFO     Epoch: 6 Loss: 0.019745
+05-16 02:46 INFO     Epoch: 7 Loss: 0.030802
+05-16 02:46 INFO     Epoch: 8 Loss: 0.029372
+05-16 02:46 INFO     Epoch: 9 Loss: 0.058892
+05-16 02:46 INFO     >> Training accuracy: 0.991051
+05-16 02:46 INFO     >> Test accuracy: 0.801200
+05-16 02:46 INFO      ** Training complete **
+05-16 02:46 INFO     net 0 final test acc 0.801200
+05-16 02:46 INFO     Training network 1. n_training: 2994
+05-16 02:47 INFO     Training network 1
+05-16 02:47 INFO     >> Pre-Training Training accuracy: 1.0
+05-16 02:47 INFO     >> Pre-Training Test accuracy: 0.8351
+05-16 02:47 INFO     Epoch: 0 Loss: 0.025051
+05-16 02:47 INFO     Epoch: 1 Loss: 0.037080
+05-16 02:47 INFO     Epoch: 2 Loss: 0.018794
+05-16 02:47 INFO     Epoch: 3 Loss: 0.028863
+05-16 02:47 INFO     Epoch: 4 Loss: 0.027780
+05-16 02:47 INFO     Epoch: 5 Loss: 0.028579
+05-16 02:47 INFO     Epoch: 6 Loss: 0.027379
+05-16 02:47 INFO     Epoch: 7 Loss: 0.031685
+05-16 02:47 INFO     Epoch: 8 Loss: 0.026078
+05-16 02:47 INFO     Epoch: 9 Loss: 0.020780
+05-16 02:47 INFO     >> Training accuracy: 0.991984
+05-16 02:47 INFO     >> Test accuracy: 0.799400
+05-16 02:47 INFO      ** Training complete **
+05-16 02:47 INFO     net 1 final test acc 0.799400
+05-16 02:47 INFO     global n_training: 782
+05-16 02:47 INFO     global n_test: 313
+05-16 02:48 INFO     >> Global Model Train accuracy: 0.845180
+05-16 02:48 INFO     >> Global Model Test accuracy: 0.831700
+05-16 02:48 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317
+05-16 02:48 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798
+05-16 02:48 INFO     in comm round:36
+05-16 02:48 INFO     Training network 0. n_training: 3017
+05-16 02:48 INFO     Training network 0
+05-16 02:48 INFO     >> Pre-Training Training accuracy: 0.9976798143851509
+05-16 02:48 INFO     >> Pre-Training Test accuracy: 0.8317
+05-16 02:48 INFO     Epoch: 0 Loss: 0.031147
+05-16 02:48 INFO     Epoch: 1 Loss: 0.045701
+05-16 02:48 INFO     Epoch: 2 Loss: 0.028983
+05-16 02:48 INFO     Epoch: 3 Loss: 0.060494
+05-16 02:48 INFO     Epoch: 4 Loss: 0.030791
+05-16 02:48 INFO     Epoch: 5 Loss: 0.018163
+05-16 02:48 INFO     Epoch: 6 Loss: 0.014594
+05-16 02:48 INFO     Epoch: 7 Loss: 0.018637
+05-16 02:49 INFO     Epoch: 8 Loss: 0.039123
+05-16 02:49 INFO     Epoch: 9 Loss: 0.028551
+05-16 02:49 INFO     >> Training accuracy: 0.991714
+05-16 02:49 INFO     >> Test accuracy: 0.799700
+05-16 02:49 INFO      ** Training complete **
+05-16 02:49 INFO     net 0 final test acc 0.799700
+05-16 02:49 INFO     Training network 1. n_training: 2994
+05-16 02:49 INFO     Training network 1
+05-16 02:49 INFO     >> Pre-Training Training accuracy: 0.9983299933199733
+05-16 02:49 INFO     >> Pre-Training Test accuracy: 0.8317
+05-16 02:49 INFO     Epoch: 0 Loss: 0.024417
+05-16 02:49 INFO     Epoch: 1 Loss: 0.027955
+05-16 02:49 INFO     Epoch: 2 Loss: 0.047001
+05-16 02:49 INFO     Epoch: 3 Loss: 0.020988
+05-16 02:49 INFO     Epoch: 4 Loss: 0.016844
+05-16 02:49 INFO     Epoch: 5 Loss: 0.017290
+05-16 02:49 INFO     Epoch: 6 Loss: 0.025857
+05-16 02:49 INFO     Epoch: 7 Loss: 0.050189
+05-16 02:49 INFO     Epoch: 8 Loss: 0.044771
+05-16 02:49 INFO     Epoch: 9 Loss: 0.042993
+05-16 02:49 INFO     >> Training accuracy: 0.987976
+05-16 02:49 INFO     >> Test accuracy: 0.796400
+05-16 02:49 INFO      ** Training complete **
+05-16 02:49 INFO     net 1 final test acc 0.796400
+05-16 02:49 INFO     global n_training: 782
+05-16 02:49 INFO     global n_test: 313
+05-16 02:50 INFO     >> Global Model Train accuracy: 0.844040
+05-16 02:50 INFO     >> Global Model Test accuracy: 0.830700
+05-16 02:50 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307
+05-16 02:50 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214
+05-16 02:50 INFO     in comm round:37
+05-16 02:50 INFO     Training network 0. n_training: 3017
+05-16 02:50 INFO     Training network 0
+05-16 02:50 INFO     >> Pre-Training Training accuracy: 0.9980112694729865
+05-16 02:50 INFO     >> Pre-Training Test accuracy: 0.8307
+05-16 02:50 INFO     Epoch: 0 Loss: 0.029350
+05-16 02:50 INFO     Epoch: 1 Loss: 0.043182
+05-16 02:50 INFO     Epoch: 2 Loss: 0.060288
+05-16 02:50 INFO     Epoch: 3 Loss: 0.022823
+05-16 02:50 INFO     Epoch: 4 Loss: 0.010161
+05-16 02:51 INFO     Epoch: 5 Loss: 0.011976
+05-16 02:51 INFO     Epoch: 6 Loss: 0.013442
+05-16 02:51 INFO     Epoch: 7 Loss: 0.062769
+05-16 02:51 INFO     Epoch: 8 Loss: 0.036962
+05-16 02:51 INFO     Epoch: 9 Loss: 0.016924
+05-16 02:51 INFO     >> Training accuracy: 0.992708
+05-16 02:51 INFO     >> Test accuracy: 0.802700
+05-16 02:51 INFO      ** Training complete **
+05-16 02:51 INFO     net 0 final test acc 0.802700
+05-16 02:51 INFO     Training network 1. n_training: 2994
+05-16 02:51 INFO     Training network 1
+05-16 02:51 INFO     >> Pre-Training Training accuracy: 0.9979959919839679
+05-16 02:51 INFO     >> Pre-Training Test accuracy: 0.8307
+05-16 02:51 INFO     Epoch: 0 Loss: 0.020266
+05-16 02:51 INFO     Epoch: 1 Loss: 0.046679
+05-16 02:51 INFO     Epoch: 2 Loss: 0.024032
+05-16 02:51 INFO     Epoch: 3 Loss: 0.021200
+05-16 02:51 INFO     Epoch: 4 Loss: 0.033957
+05-16 02:51 INFO     Epoch: 5 Loss: 0.075896
+05-16 02:51 INFO     Epoch: 6 Loss: 0.041431
+05-16 02:51 INFO     Epoch: 7 Loss: 0.032557
+05-16 02:52 INFO     Epoch: 8 Loss: 0.020761
+05-16 02:52 INFO     Epoch: 9 Loss: 0.011673
+05-16 02:52 INFO     >> Training accuracy: 0.998998
+05-16 02:52 INFO     >> Test accuracy: 0.806300
+05-16 02:52 INFO      ** Training complete **
+05-16 02:52 INFO     net 1 final test acc 0.806300
+05-16 02:52 INFO     global n_training: 782
+05-16 02:52 INFO     global n_test: 313
+05-16 02:52 INFO     >> Global Model Train accuracy: 0.847360
+05-16 02:52 INFO     >> Global Model Test accuracy: 0.828100
+05-16 02:52 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281
+05-16 02:52 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194
+05-16 02:52 INFO     in comm round:38
+05-16 02:52 INFO     Training network 0. n_training: 3017
+05-16 02:52 INFO     Training network 0
+05-16 02:52 INFO     >> Pre-Training Training accuracy: 0.9990056347364932
+05-16 02:52 INFO     >> Pre-Training Test accuracy: 0.8281
+05-16 02:52 INFO     Epoch: 0 Loss: 0.023579
+05-16 02:52 INFO     Epoch: 1 Loss: 0.041241
+05-16 02:53 INFO     Epoch: 2 Loss: 0.047853
+05-16 02:53 INFO     Epoch: 3 Loss: 0.029333
+05-16 02:53 INFO     Epoch: 4 Loss: 0.026455
+05-16 02:53 INFO     Epoch: 5 Loss: 0.073133
+05-16 02:53 INFO     Epoch: 6 Loss: 0.031634
+05-16 02:53 INFO     Epoch: 7 Loss: 0.037217
+05-16 02:53 INFO     Epoch: 8 Loss: 0.055168
+05-16 02:53 INFO     Epoch: 9 Loss: 0.041341
+05-16 02:53 INFO     >> Training accuracy: 0.992377
+05-16 02:53 INFO     >> Test accuracy: 0.799900
+05-16 02:53 INFO      ** Training complete **
+05-16 02:53 INFO     net 0 final test acc 0.799900
+05-16 02:53 INFO     Training network 1. n_training: 2994
+05-16 02:53 INFO     Training network 1
+05-16 02:53 INFO     >> Pre-Training Training accuracy: 0.998997995991984
+05-16 02:53 INFO     >> Pre-Training Test accuracy: 0.8281
+05-16 02:53 INFO     Epoch: 0 Loss: 0.015386
+05-16 02:53 INFO     Epoch: 1 Loss: 0.027500
+05-16 02:53 INFO     Epoch: 2 Loss: 0.059801
+05-16 02:53 INFO     Epoch: 3 Loss: 0.054741
+05-16 02:54 INFO     Epoch: 4 Loss: 0.028950
+05-16 02:54 INFO     Epoch: 5 Loss: 0.011913
+05-16 02:54 INFO     Epoch: 6 Loss: 0.009855
+05-16 02:54 INFO     Epoch: 7 Loss: 0.007505
+05-16 02:54 INFO     Epoch: 8 Loss: 0.013743
+05-16 02:54 INFO     Epoch: 9 Loss: 0.034416
+05-16 02:54 INFO     >> Training accuracy: 0.991650
+05-16 02:54 INFO     >> Test accuracy: 0.797600
+05-16 02:54 INFO      ** Training complete **
+05-16 02:54 INFO     net 1 final test acc 0.797600
+05-16 02:54 INFO     global n_training: 782
+05-16 02:54 INFO     global n_test: 313
+05-16 02:54 INFO     >> Global Model Train accuracy: 0.845820
+05-16 02:54 INFO     >> Global Model Test accuracy: 0.831500
+05-16 02:54 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315
+05-16 02:54 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354
+05-16 02:54 INFO     in comm round:39
+05-16 02:54 INFO     Training network 0. n_training: 3017
+05-16 02:54 INFO     Training network 0
+05-16 02:55 INFO     >> Pre-Training Training accuracy: 0.9990056347364932
+05-16 02:55 INFO     >> Pre-Training Test accuracy: 0.8315
+05-16 02:55 INFO     Epoch: 0 Loss: 0.030412
+05-16 02:55 INFO     Epoch: 1 Loss: 0.054846
+05-16 02:55 INFO     Epoch: 2 Loss: 0.027552
+05-16 02:55 INFO     Epoch: 3 Loss: 0.028405
+05-16 02:55 INFO     Epoch: 4 Loss: 0.059288
+05-16 02:55 INFO     Epoch: 5 Loss: 0.046169
+05-16 02:55 INFO     Epoch: 6 Loss: 0.015535
+05-16 02:55 INFO     Epoch: 7 Loss: 0.013043
+05-16 02:55 INFO     Epoch: 8 Loss: 0.008454
+05-16 02:55 INFO     Epoch: 9 Loss: 0.004188
+05-16 02:55 INFO     >> Training accuracy: 0.999669
+05-16 02:55 INFO     >> Test accuracy: 0.819200
+05-16 02:55 INFO      ** Training complete **
+05-16 02:55 INFO     net 0 final test acc 0.819200
+05-16 02:55 INFO     Training network 1. n_training: 2994
+05-16 02:55 INFO     Training network 1
+05-16 02:55 INFO     >> Pre-Training Training accuracy: 0.9979959919839679
+05-16 02:55 INFO     >> Pre-Training Test accuracy: 0.8315
+05-16 02:55 INFO     Epoch: 0 Loss: 0.023603
+05-16 02:56 INFO     Epoch: 1 Loss: 0.030231
+05-16 02:56 INFO     Epoch: 2 Loss: 0.031732
+05-16 02:56 INFO     Epoch: 3 Loss: 0.029551
+05-16 02:56 INFO     Epoch: 4 Loss: 0.024414
+05-16 02:56 INFO     Epoch: 5 Loss: 0.020881
+05-16 02:56 INFO     Epoch: 6 Loss: 0.013366
+05-16 02:56 INFO     Epoch: 7 Loss: 0.017827
+05-16 02:56 INFO     Epoch: 8 Loss: 0.029002
+05-16 02:56 INFO     Epoch: 9 Loss: 0.058398
+05-16 02:56 INFO     >> Training accuracy: 0.980628
+05-16 02:56 INFO     >> Test accuracy: 0.773800
+05-16 02:56 INFO      ** Training complete **
+05-16 02:56 INFO     net 1 final test acc 0.773800
+05-16 02:56 INFO     global n_training: 782
+05-16 02:56 INFO     global n_test: 313
+05-16 02:57 INFO     >> Global Model Train accuracy: 0.842640
+05-16 02:57 INFO     >> Global Model Test accuracy: 0.828400
+05-16 02:57 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284
+05-16 02:57 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243
+05-16 02:57 INFO     in comm round:40
+05-16 02:57 INFO     Training network 0. n_training: 3017
+05-16 02:57 INFO     Training network 0
+05-16 02:57 INFO     >> Pre-Training Training accuracy: 0.9993370898243288
+05-16 02:57 INFO     >> Pre-Training Test accuracy: 0.8284
+05-16 02:57 INFO     Epoch: 0 Loss: 0.027875
+05-16 02:57 INFO     Epoch: 1 Loss: 0.055069
+05-16 02:57 INFO     Epoch: 2 Loss: 0.027869
+05-16 02:57 INFO     Epoch: 3 Loss: 0.019386
+05-16 02:57 INFO     Epoch: 4 Loss: 0.028982
+05-16 02:57 INFO     Epoch: 5 Loss: 0.027273
+05-16 02:57 INFO     Epoch: 6 Loss: 0.028727
+05-16 02:57 INFO     Epoch: 7 Loss: 0.077758
+05-16 02:57 INFO     Epoch: 8 Loss: 0.087997
+05-16 02:57 INFO     Epoch: 9 Loss: 0.050934
+05-16 02:57 INFO     >> Training accuracy: 0.992045
+05-16 02:57 INFO     >> Test accuracy: 0.786600
+05-16 02:57 INFO      ** Training complete **
+05-16 02:57 INFO     net 0 final test acc 0.786600
+05-16 02:57 INFO     Training network 1. n_training: 2994
+05-16 02:58 INFO     Training network 1
+05-16 02:58 INFO     >> Pre-Training Training accuracy: 0.9983299933199733
+05-16 02:58 INFO     >> Pre-Training Test accuracy: 0.8284
+05-16 02:58 INFO     Epoch: 0 Loss: 0.027067
+05-16 02:58 INFO     Epoch: 1 Loss: 0.025946
+05-16 02:58 INFO     Epoch: 2 Loss: 0.014302
+05-16 02:58 INFO     Epoch: 3 Loss: 0.025585
+05-16 02:58 INFO     Epoch: 4 Loss: 0.018540
+05-16 02:58 INFO     Epoch: 5 Loss: 0.041759
+05-16 02:58 INFO     Epoch: 6 Loss: 0.058464
+05-16 02:58 INFO     Epoch: 7 Loss: 0.038780
+05-16 02:58 INFO     Epoch: 8 Loss: 0.023210
+05-16 02:58 INFO     Epoch: 9 Loss: 0.025612
+05-16 02:58 INFO     >> Training accuracy: 0.991984
+05-16 02:58 INFO     >> Test accuracy: 0.802100
+05-16 02:58 INFO      ** Training complete **
+05-16 02:58 INFO     net 1 final test acc 0.802100
+05-16 02:58 INFO     global n_training: 782
+05-16 02:58 INFO     global n_test: 313
+05-16 02:59 INFO     >> Global Model Train accuracy: 0.845040
+05-16 02:59 INFO     >> Global Model Test accuracy: 0.828600
+05-16 02:59 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286
+05-16 02:59 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693
+05-16 02:59 INFO     in comm round:41
+05-16 02:59 INFO     Training network 0. n_training: 3017
+05-16 02:59 INFO     Training network 0
+05-16 02:59 INFO     >> Pre-Training Training accuracy: 0.9973483592973152
+05-16 02:59 INFO     >> Pre-Training Test accuracy: 0.8286
+05-16 02:59 INFO     Epoch: 0 Loss: 0.027144
+05-16 02:59 INFO     Epoch: 1 Loss: 0.052089
+05-16 02:59 INFO     Epoch: 2 Loss: 0.042177
+05-16 02:59 INFO     Epoch: 3 Loss: 0.021316
+05-16 02:59 INFO     Epoch: 4 Loss: 0.014736
+05-16 02:59 INFO     Epoch: 5 Loss: 0.011219
+05-16 02:59 INFO     Epoch: 6 Loss: 0.017993
+05-16 02:59 INFO     Epoch: 7 Loss: 0.011985
+05-16 03:00 INFO     Epoch: 8 Loss: 0.032152
+05-16 03:00 INFO     Epoch: 9 Loss: 0.075956
+05-16 03:00 INFO     >> Training accuracy: 0.985747
+05-16 03:00 INFO     >> Test accuracy: 0.784700
+05-16 03:00 INFO      ** Training complete **
+05-16 03:00 INFO     net 0 final test acc 0.784700
+05-16 03:00 INFO     Training network 1. n_training: 2994
+05-16 03:00 INFO     Training network 1
+05-16 03:00 INFO     >> Pre-Training Training accuracy: 0.9986639946559787
+05-16 03:00 INFO     >> Pre-Training Test accuracy: 0.8286
+05-16 03:00 INFO     Epoch: 0 Loss: 0.025402
+05-16 03:00 INFO     Epoch: 1 Loss: 0.031295
+05-16 03:00 INFO     Epoch: 2 Loss: 0.019219
+05-16 03:00 INFO     Epoch: 3 Loss: 0.019880
+05-16 03:00 INFO     Epoch: 4 Loss: 0.008906
+05-16 03:00 INFO     Epoch: 5 Loss: 0.017523
+05-16 03:00 INFO     Epoch: 6 Loss: 0.029023
+05-16 03:00 INFO     Epoch: 7 Loss: 0.029013
+05-16 03:00 INFO     Epoch: 8 Loss: 0.047290
+05-16 03:00 INFO     Epoch: 9 Loss: 0.047748
+05-16 03:00 INFO     >> Training accuracy: 0.977622
+05-16 03:00 INFO     >> Test accuracy: 0.763600
+05-16 03:00 INFO      ** Training complete **
+05-16 03:00 INFO     net 1 final test acc 0.763600
+05-16 03:00 INFO     global n_training: 782
+05-16 03:00 INFO     global n_test: 313
+05-16 03:01 INFO     >> Global Model Train accuracy: 0.836540
+05-16 03:01 INFO     >> Global Model Test accuracy: 0.821000
+05-16 03:01 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821
+05-16 03:01 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072
+05-16 03:01 INFO     in comm round:42
+05-16 03:01 INFO     Training network 0. n_training: 3017
+05-16 03:01 INFO     Training network 0
+05-16 03:01 INFO     >> Pre-Training Training accuracy: 0.9963539940338084
+05-16 03:01 INFO     >> Pre-Training Test accuracy: 0.821
+05-16 03:01 INFO     Epoch: 0 Loss: 0.035228
+05-16 03:01 INFO     Epoch: 1 Loss: 0.070457
+05-16 03:01 INFO     Epoch: 2 Loss: 0.055912
+05-16 03:01 INFO     Epoch: 3 Loss: 0.018866
+05-16 03:01 INFO     Epoch: 4 Loss: 0.006803
+05-16 03:02 INFO     Epoch: 5 Loss: 0.049435
+05-16 03:02 INFO     Epoch: 6 Loss: 0.103174
+05-16 03:02 INFO     Epoch: 7 Loss: 0.047107
+05-16 03:02 INFO     Epoch: 8 Loss: 0.054135
+05-16 03:02 INFO     Epoch: 9 Loss: 0.017637
+05-16 03:02 INFO     >> Training accuracy: 0.997348
+05-16 03:02 INFO     >> Test accuracy: 0.802100
+05-16 03:02 INFO      ** Training complete **
+05-16 03:02 INFO     net 0 final test acc 0.802100
+05-16 03:02 INFO     Training network 1. n_training: 2994
+05-16 03:02 INFO     Training network 1
+05-16 03:02 INFO     >> Pre-Training Training accuracy: 0.9973279893119572
+05-16 03:02 INFO     >> Pre-Training Test accuracy: 0.821
+05-16 03:02 INFO     Epoch: 0 Loss: 0.031626
+05-16 03:02 INFO     Epoch: 1 Loss: 0.026378
+05-16 03:02 INFO     Epoch: 2 Loss: 0.019050
+05-16 03:02 INFO     Epoch: 3 Loss: 0.015713
+05-16 03:02 INFO     Epoch: 4 Loss: 0.027141
+05-16 03:02 INFO     Epoch: 5 Loss: 0.032224
+05-16 03:02 INFO     Epoch: 6 Loss: 0.027634
+05-16 03:02 INFO     Epoch: 7 Loss: 0.040141
+05-16 03:03 INFO     Epoch: 8 Loss: 0.031533
+05-16 03:03 INFO     Epoch: 9 Loss: 0.023419
+05-16 03:03 INFO     >> Training accuracy: 0.991316
+05-16 03:03 INFO     >> Test accuracy: 0.795100
+05-16 03:03 INFO      ** Training complete **
+05-16 03:03 INFO     net 1 final test acc 0.795100
+05-16 03:03 INFO     global n_training: 782
+05-16 03:03 INFO     global n_test: 313
+05-16 03:03 INFO     >> Global Model Train accuracy: 0.845020
+05-16 03:03 INFO     >> Global Model Test accuracy: 0.824500
+05-16 03:03 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245
+05-16 03:03 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542
+05-16 03:03 INFO     in comm round:43
+05-16 03:03 INFO     Training network 0. n_training: 3017
+05-16 03:03 INFO     Training network 0
+05-16 03:03 INFO     >> Pre-Training Training accuracy: 0.998342724560822
+05-16 03:03 INFO     >> Pre-Training Test accuracy: 0.8245
+05-16 03:03 INFO     Epoch: 0 Loss: 0.020861
+05-16 03:04 INFO     Epoch: 1 Loss: 0.018349
+05-16 03:04 INFO     Epoch: 2 Loss: 0.029796
+05-16 03:04 INFO     Epoch: 3 Loss: 0.049795
+05-16 03:04 INFO     Epoch: 4 Loss: 0.088628
+05-16 03:04 INFO     Epoch: 5 Loss: 0.093614
+05-16 03:04 INFO     Epoch: 6 Loss: 0.083463
+05-16 03:04 INFO     Epoch: 7 Loss: 0.027100
+05-16 03:04 INFO     Epoch: 8 Loss: 0.013360
+05-16 03:04 INFO     Epoch: 9 Loss: 0.013604
+05-16 03:04 INFO     >> Training accuracy: 0.999006
+05-16 03:04 INFO     >> Test accuracy: 0.808100
+05-16 03:04 INFO      ** Training complete **
+05-16 03:04 INFO     net 0 final test acc 0.808100
+05-16 03:04 INFO     Training network 1. n_training: 2994
+05-16 03:04 INFO     Training network 1
+05-16 03:04 INFO     >> Pre-Training Training accuracy: 0.9986639946559787
+05-16 03:04 INFO     >> Pre-Training Test accuracy: 0.8245
+05-16 03:04 INFO     Epoch: 0 Loss: 0.017319
+05-16 03:04 INFO     Epoch: 1 Loss: 0.020725
+05-16 03:04 INFO     Epoch: 2 Loss: 0.027393
+05-16 03:04 INFO     Epoch: 3 Loss: 0.024442
+05-16 03:05 INFO     Epoch: 4 Loss: 0.023754
+05-16 03:05 INFO     Epoch: 5 Loss: 0.027989
+05-16 03:05 INFO     Epoch: 6 Loss: 0.016917
+05-16 03:05 INFO     Epoch: 7 Loss: 0.015524
+05-16 03:05 INFO     Epoch: 8 Loss: 0.041840
+05-16 03:05 INFO     Epoch: 9 Loss: 0.046035
+05-16 03:05 INFO     >> Training accuracy: 0.987308
+05-16 03:05 INFO     >> Test accuracy: 0.792800
+05-16 03:05 INFO      ** Training complete **
+05-16 03:05 INFO     net 1 final test acc 0.792800
+05-16 03:05 INFO     global n_training: 782
+05-16 03:05 INFO     global n_test: 313
+05-16 03:05 INFO     >> Global Model Train accuracy: 0.847740
+05-16 03:05 INFO     >> Global Model Test accuracy: 0.833800
+05-16 03:05 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338
+05-16 03:05 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612
+05-16 03:05 INFO     in comm round:44
+05-16 03:05 INFO     Training network 0. n_training: 3017
+05-16 03:05 INFO     Training network 0
+05-16 03:06 INFO     >> Pre-Training Training accuracy: 0.9990056347364932
+05-16 03:06 INFO     >> Pre-Training Test accuracy: 0.8338
+05-16 03:06 INFO     Epoch: 0 Loss: 0.017895
+05-16 03:06 INFO     Epoch: 1 Loss: 0.012317
+05-16 03:06 INFO     Epoch: 2 Loss: 0.043387
+05-16 03:06 INFO     Epoch: 3 Loss: 0.088701
+05-16 03:06 INFO     Epoch: 4 Loss: 0.082535
+05-16 03:06 INFO     Epoch: 5 Loss: 0.022600
+05-16 03:06 INFO     Epoch: 6 Loss: 0.027290
+05-16 03:06 INFO     Epoch: 7 Loss: 0.050498
+05-16 03:06 INFO     Epoch: 8 Loss: 0.021033
+05-16 03:06 INFO     Epoch: 9 Loss: 0.014673
+05-16 03:06 INFO     >> Training accuracy: 0.998343
+05-16 03:06 INFO     >> Test accuracy: 0.817200
+05-16 03:06 INFO      ** Training complete **
+05-16 03:06 INFO     net 0 final test acc 0.817200
+05-16 03:06 INFO     Training network 1. n_training: 2994
+05-16 03:06 INFO     Training network 1
+05-16 03:06 INFO     >> Pre-Training Training accuracy: 0.9976619906479626
+05-16 03:06 INFO     >> Pre-Training Test accuracy: 0.8338
+05-16 03:06 INFO     Epoch: 0 Loss: 0.021824
+05-16 03:07 INFO     Epoch: 1 Loss: 0.039983
+05-16 03:07 INFO     Epoch: 2 Loss: 0.013033
+05-16 03:07 INFO     Epoch: 3 Loss: 0.008383
+05-16 03:07 INFO     Epoch: 4 Loss: 0.014945
+05-16 03:07 INFO     Epoch: 5 Loss: 0.015923
+05-16 03:07 INFO     Epoch: 6 Loss: 0.014171
+05-16 03:07 INFO     Epoch: 7 Loss: 0.031185
+05-16 03:07 INFO     Epoch: 8 Loss: 0.042274
+05-16 03:07 INFO     Epoch: 9 Loss: 0.044947
+05-16 03:07 INFO     >> Training accuracy: 0.989312
+05-16 03:07 INFO     >> Test accuracy: 0.795600
+05-16 03:07 INFO      ** Training complete **
+05-16 03:07 INFO     net 1 final test acc 0.795600
+05-16 03:07 INFO     global n_training: 782
+05-16 03:07 INFO     global n_test: 313
+05-16 03:08 INFO     >> Global Model Train accuracy: 0.845840
+05-16 03:08 INFO     >> Global Model Test accuracy: 0.832000
+05-16 03:08 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832
+05-16 03:08 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612 29.87799042010738
+05-16 03:08 INFO     in comm round:45
+05-16 03:08 INFO     Training network 0. n_training: 3017
+05-16 03:08 INFO     Training network 0
+05-16 03:08 INFO     >> Pre-Training Training accuracy: 0.9996685449121644
+05-16 03:08 INFO     >> Pre-Training Test accuracy: 0.832
+05-16 03:08 INFO     Epoch: 0 Loss: 0.022409
+05-16 03:08 INFO     Epoch: 1 Loss: 0.036442
+05-16 03:08 INFO     Epoch: 2 Loss: 0.033791
+05-16 03:08 INFO     Epoch: 3 Loss: 0.011937
+05-16 03:08 INFO     Epoch: 4 Loss: 0.005566
+05-16 03:08 INFO     Epoch: 5 Loss: 0.016580
+05-16 03:08 INFO     Epoch: 6 Loss: 0.075134
+05-16 03:08 INFO     Epoch: 7 Loss: 0.073108
+05-16 03:08 INFO     Epoch: 8 Loss: 0.111422
+05-16 03:08 INFO     Epoch: 9 Loss: 0.030033
+05-16 03:08 INFO     >> Training accuracy: 0.996354
+05-16 03:08 INFO     >> Test accuracy: 0.804200
+05-16 03:08 INFO      ** Training complete **
+05-16 03:08 INFO     net 0 final test acc 0.804200
+05-16 03:08 INFO     Training network 1. n_training: 2994
+05-16 03:09 INFO     Training network 1
+05-16 03:09 INFO     >> Pre-Training Training accuracy: 0.9983299933199733
+05-16 03:09 INFO     >> Pre-Training Test accuracy: 0.832
+05-16 03:09 INFO     Epoch: 0 Loss: 0.014288
+05-16 03:09 INFO     Epoch: 1 Loss: 0.026698
+05-16 03:09 INFO     Epoch: 2 Loss: 0.026968
+05-16 03:09 INFO     Epoch: 3 Loss: 0.025226
+05-16 03:09 INFO     Epoch: 4 Loss: 0.022124
+05-16 03:09 INFO     Epoch: 5 Loss: 0.025383
+05-16 03:09 INFO     Epoch: 6 Loss: 0.044610
+05-16 03:09 INFO     Epoch: 7 Loss: 0.027828
+05-16 03:09 INFO     Epoch: 8 Loss: 0.014419
+05-16 03:09 INFO     Epoch: 9 Loss: 0.014551
+05-16 03:09 INFO     >> Training accuracy: 0.995324
+05-16 03:09 INFO     >> Test accuracy: 0.795600
+05-16 03:09 INFO      ** Training complete **
+05-16 03:09 INFO     net 1 final test acc 0.795600
+05-16 03:09 INFO     global n_training: 782
+05-16 03:09 INFO     global n_test: 313
+05-16 03:10 INFO     >> Global Model Train accuracy: 0.845120
+05-16 03:10 INFO     >> Global Model Test accuracy: 0.832200
+05-16 03:10 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322
+05-16 03:10 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612 29.87799042010738 31.366643261295394
+05-16 03:10 INFO     in comm round:46
+05-16 03:10 INFO     Training network 0. n_training: 3017
+05-16 03:10 INFO     Training network 0
+05-16 03:10 INFO     >> Pre-Training Training accuracy: 0.9986741796486576
+05-16 03:10 INFO     >> Pre-Training Test accuracy: 0.8322
+05-16 03:10 INFO     Epoch: 0 Loss: 0.023759
+05-16 03:10 INFO     Epoch: 1 Loss: 0.054062
+05-16 03:10 INFO     Epoch: 2 Loss: 0.058913
+05-16 03:10 INFO     Epoch: 3 Loss: 0.018602
+05-16 03:10 INFO     Epoch: 4 Loss: 0.016885
+05-16 03:10 INFO     Epoch: 5 Loss: 0.011039
+05-16 03:10 INFO     Epoch: 6 Loss: 0.019316
+05-16 03:10 INFO     Epoch: 7 Loss: 0.090601
+05-16 03:11 INFO     Epoch: 8 Loss: 0.048601
+05-16 03:11 INFO     Epoch: 9 Loss: 0.028951
+05-16 03:11 INFO     >> Training accuracy: 0.996685
+05-16 03:11 INFO     >> Test accuracy: 0.811400
+05-16 03:11 INFO      ** Training complete **
+05-16 03:11 INFO     net 0 final test acc 0.811400
+05-16 03:11 INFO     Training network 1. n_training: 2994
+05-16 03:11 INFO     Training network 1
+05-16 03:11 INFO     >> Pre-Training Training accuracy: 0.9986639946559787
+05-16 03:11 INFO     >> Pre-Training Test accuracy: 0.8322
+05-16 03:11 INFO     Epoch: 0 Loss: 0.026106
+05-16 03:11 INFO     Epoch: 1 Loss: 0.038855
+05-16 03:11 INFO     Epoch: 2 Loss: 0.025913
+05-16 03:11 INFO     Epoch: 3 Loss: 0.017810
+05-16 03:11 INFO     Epoch: 4 Loss: 0.013040
+05-16 03:11 INFO     Epoch: 5 Loss: 0.015526
+05-16 03:11 INFO     Epoch: 6 Loss: 0.015403
+05-16 03:11 INFO     Epoch: 7 Loss: 0.026724
+05-16 03:11 INFO     Epoch: 8 Loss: 0.027252
+05-16 03:11 INFO     Epoch: 9 Loss: 0.028337
+05-16 03:12 INFO     >> Training accuracy: 0.985972
+05-16 03:12 INFO     >> Test accuracy: 0.798800
+05-16 03:12 INFO      ** Training complete **
+05-16 03:12 INFO     net 1 final test acc 0.798800
+05-16 03:12 INFO     global n_training: 782
+05-16 03:12 INFO     global n_test: 313
+05-16 03:12 INFO     >> Global Model Train accuracy: 0.845160
+05-16 03:12 INFO     >> Global Model Test accuracy: 0.832500
+05-16 03:12 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325
+05-16 03:12 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612 29.87799042010738 31.366643261295394 28.838413655845216
+05-16 03:12 INFO     in comm round:47
+05-16 03:12 INFO     Training network 0. n_training: 3017
+05-16 03:12 INFO     Training network 0
+05-16 03:12 INFO     >> Pre-Training Training accuracy: 0.9980112694729865
+05-16 03:12 INFO     >> Pre-Training Test accuracy: 0.8325
+05-16 03:12 INFO     Epoch: 0 Loss: 0.030933
+05-16 03:12 INFO     Epoch: 1 Loss: 0.034665
+05-16 03:12 INFO     Epoch: 2 Loss: 0.015894
+05-16 03:12 INFO     Epoch: 3 Loss: 0.018793
+05-16 03:12 INFO     Epoch: 4 Loss: 0.013715
+05-16 03:13 INFO     Epoch: 5 Loss: 0.016362
+05-16 03:13 INFO     Epoch: 6 Loss: 0.021090
+05-16 03:13 INFO     Epoch: 7 Loss: 0.025130
+05-16 03:13 INFO     Epoch: 8 Loss: 0.039399
+05-16 03:13 INFO     Epoch: 9 Loss: 0.041637
+05-16 03:13 INFO     >> Training accuracy: 0.979118
+05-16 03:13 INFO     >> Test accuracy: 0.776000
+05-16 03:13 INFO      ** Training complete **
+05-16 03:13 INFO     net 0 final test acc 0.776000
+05-16 03:13 INFO     Training network 1. n_training: 2994
+05-16 03:13 INFO     Training network 1
+05-16 03:13 INFO     >> Pre-Training Training accuracy: 0.9983299933199733
+05-16 03:13 INFO     >> Pre-Training Test accuracy: 0.8325
+05-16 03:13 INFO     Epoch: 0 Loss: 0.028255
+05-16 03:13 INFO     Epoch: 1 Loss: 0.018467
+05-16 03:13 INFO     Epoch: 2 Loss: 0.014975
+05-16 03:13 INFO     Epoch: 3 Loss: 0.021203
+05-16 03:13 INFO     Epoch: 4 Loss: 0.029014
+05-16 03:13 INFO     Epoch: 5 Loss: 0.041897
+05-16 03:13 INFO     Epoch: 6 Loss: 0.037397
+05-16 03:13 INFO     Epoch: 7 Loss: 0.043566
+05-16 03:14 INFO     Epoch: 8 Loss: 0.037601
+05-16 03:14 INFO     Epoch: 9 Loss: 0.016942
+05-16 03:14 INFO     >> Training accuracy: 0.998330
+05-16 03:14 INFO     >> Test accuracy: 0.809400
+05-16 03:14 INFO      ** Training complete **
+05-16 03:14 INFO     net 1 final test acc 0.809400
+05-16 03:14 INFO     global n_training: 782
+05-16 03:14 INFO     global n_test: 313
+05-16 03:14 INFO     >> Global Model Train accuracy: 0.843560
+05-16 03:14 INFO     >> Global Model Test accuracy: 0.830400
+05-16 03:14 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325 0.8304
+05-16 03:14 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325 0.8304: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612 29.87799042010738 31.366643261295394 28.838413655845216 25.96355684519949
+05-16 03:14 INFO     in comm round:48
+05-16 03:14 INFO     Training network 0. n_training: 3017
+05-16 03:14 INFO     Training network 0
+05-16 03:14 INFO     >> Pre-Training Training accuracy: 0.9986741796486576
+05-16 03:14 INFO     >> Pre-Training Test accuracy: 0.8304
+05-16 03:14 INFO     Epoch: 0 Loss: 0.036024
+05-16 03:15 INFO     Epoch: 1 Loss: 0.026567
+05-16 03:15 INFO     Epoch: 2 Loss: 0.041133
+05-16 03:15 INFO     Epoch: 3 Loss: 0.057283
+05-16 03:15 INFO     Epoch: 4 Loss: 0.019801
+05-16 03:15 INFO     Epoch: 5 Loss: 0.011247
+05-16 03:15 INFO     Epoch: 6 Loss: 0.008296
+05-16 03:15 INFO     Epoch: 7 Loss: 0.004987
+05-16 03:15 INFO     Epoch: 8 Loss: 0.007095
+05-16 03:15 INFO     Epoch: 9 Loss: 0.011309
+05-16 03:15 INFO     >> Training accuracy: 0.997680
+05-16 03:15 INFO     >> Test accuracy: 0.808900
+05-16 03:15 INFO      ** Training complete **
+05-16 03:15 INFO     net 0 final test acc 0.808900
+05-16 03:15 INFO     Training network 1. n_training: 2994
+05-16 03:15 INFO     Training network 1
+05-16 03:15 INFO     >> Pre-Training Training accuracy: 0.9993319973279893
+05-16 03:15 INFO     >> Pre-Training Test accuracy: 0.8304
+05-16 03:15 INFO     Epoch: 0 Loss: 0.013224
+05-16 03:15 INFO     Epoch: 1 Loss: 0.029222
+05-16 03:15 INFO     Epoch: 2 Loss: 0.030440
+05-16 03:15 INFO     Epoch: 3 Loss: 0.022761
+05-16 03:16 INFO     Epoch: 4 Loss: 0.027347
+05-16 03:16 INFO     Epoch: 5 Loss: 0.013290
+05-16 03:16 INFO     Epoch: 6 Loss: 0.009466
+05-16 03:16 INFO     Epoch: 7 Loss: 0.007762
+05-16 03:16 INFO     Epoch: 8 Loss: 0.012508
+05-16 03:16 INFO     Epoch: 9 Loss: 0.040167
+05-16 03:16 INFO     >> Training accuracy: 0.975284
+05-16 03:16 INFO     >> Test accuracy: 0.774800
+05-16 03:16 INFO      ** Training complete **
+05-16 03:16 INFO     net 1 final test acc 0.774800
+05-16 03:16 INFO     global n_training: 782
+05-16 03:16 INFO     global n_test: 313
+05-16 03:16 INFO     >> Global Model Train accuracy: 0.839900
+05-16 03:16 INFO     >> Global Model Test accuracy: 0.826100
+05-16 03:16 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325 0.8304 0.8261
+05-16 03:16 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325 0.8304 0.8261: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612 29.87799042010738 31.366643261295394 28.838413655845216 25.96355684519949 20.430426105878723
+05-16 03:16 INFO     in comm round:49
+05-16 03:16 INFO     Training network 0. n_training: 3017
+05-16 03:17 INFO     Training network 0
+05-16 03:17 INFO     >> Pre-Training Training accuracy: 0.9976798143851509
+05-16 03:17 INFO     >> Pre-Training Test accuracy: 0.8261
+05-16 03:17 INFO     Epoch: 0 Loss: 0.024533
+05-16 03:17 INFO     Epoch: 1 Loss: 0.026039
+05-16 03:17 INFO     Epoch: 2 Loss: 0.064820
+05-16 03:17 INFO     Epoch: 3 Loss: 0.031437
+05-16 03:17 INFO     Epoch: 4 Loss: 0.037127
+05-16 03:17 INFO     Epoch: 5 Loss: 0.026080
+05-16 03:17 INFO     Epoch: 6 Loss: 0.027080
+05-16 03:17 INFO     Epoch: 7 Loss: 0.017256
+05-16 03:17 INFO     Epoch: 8 Loss: 0.007986
+05-16 03:17 INFO     Epoch: 9 Loss: 0.005798
+05-16 03:17 INFO     >> Training accuracy: 0.999006
+05-16 03:17 INFO     >> Test accuracy: 0.811100
+05-16 03:17 INFO      ** Training complete **
+05-16 03:17 INFO     net 0 final test acc 0.811100
+05-16 03:17 INFO     Training network 1. n_training: 2994
+05-16 03:17 INFO     Training network 1
+05-16 03:17 INFO     >> Pre-Training Training accuracy: 0.9983299933199733
+05-16 03:17 INFO     >> Pre-Training Test accuracy: 0.8261
+05-16 03:17 INFO     Epoch: 0 Loss: 0.023154
+05-16 03:18 INFO     Epoch: 1 Loss: 0.016142
+05-16 03:18 INFO     Epoch: 2 Loss: 0.011901
+05-16 03:18 INFO     Epoch: 3 Loss: 0.025819
+05-16 03:18 INFO     Epoch: 4 Loss: 0.049524
+05-16 03:18 INFO     Epoch: 5 Loss: 0.045255
+05-16 03:18 INFO     Epoch: 6 Loss: 0.023698
+05-16 03:18 INFO     Epoch: 7 Loss: 0.020492
+05-16 03:18 INFO     Epoch: 8 Loss: 0.019458
+05-16 03:18 INFO     Epoch: 9 Loss: 0.027031
+05-16 03:18 INFO     >> Training accuracy: 0.996326
+05-16 03:18 INFO     >> Test accuracy: 0.791700
+05-16 03:18 INFO      ** Training complete **
+05-16 03:18 INFO     net 1 final test acc 0.791700
+05-16 03:18 INFO     global n_training: 782
+05-16 03:18 INFO     global n_test: 313
+05-16 03:19 INFO     >> Global Model Train accuracy: 0.850420
+05-16 03:19 INFO     >> Global Model Test accuracy: 0.833900
+05-16 03:19 INFO      -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325 0.8304 0.8261 0.8339
+05-16 03:19 INFO     best valid so far0.8351 -- comm_round0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49: valid : 0.2447 0.5657 0.7146 0.7484 0.7735 0.7828 0.7887 0.7918 0.7852 0.801 0.8041 0.7994 0.8143 0.8099 0.8115 0.8121 0.818 0.8083 0.8105 0.8147 0.8254 0.8201 0.8259 0.8294 0.8253 0.8126 0.8271 0.8288 0.8171 0.8108 0.8264 0.8157 0.8312 0.8297 0.8351 0.8317 0.8307 0.8281 0.8315 0.8284 0.8286 0.821 0.8245 0.8338 0.832 0.8322 0.8325 0.8304 0.8261 0.8339: loss : 1349.1347784996033 952.6513600945473 682.8212873339653 486.266931861639 357.0032542720437 275.4218719676137 210.86811955831945 179.2713109268807 161.19934745691717 130.99791506957263 106.65232031885535 94.98413968936075 88.07048812694848 83.08268376998603 66.14561779977521 63.66859385301359 63.094673413201235 59.52592202927917 51.17329722142313 61.56162685138406 48.850149514037184 46.96376776165562 44.47261126252124 45.253651467268355 40.74540122412873 51.787867487058975 42.656033958151966 37.65296691127878 46.63205277422094 38.191173243183584 34.936558713103295 35.57871054249699 42.85250463359989 37.93123950701556 34.821417511993786 31.47736929194798 30.13722251402214 30.215442815628194 31.932948013418354 26.932120548008243 34.79507822013693 27.6638245297072 34.9386555399542 33.36244839291612 29.87799042010738 31.366643261295394 28.838413655845216 25.96355684519949 20.430426105878723 25.20781249605352
+05-16 03:19 INFO     New best score: 0.8351 found with params lr=0.001, optimizer=sgd, batch_size=64
