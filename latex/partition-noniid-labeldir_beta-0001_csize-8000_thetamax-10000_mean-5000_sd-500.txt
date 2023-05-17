@@ -1,0 +1,60 @@
+\subsection{Scenario 5}
+
+\textbf{Simulation Setup}:
+Data Scenario: Non-IID Label Dirichlet
+C Dataset Size: {8000}
+Theta Max: {10000}
+Is Squared: {False}
+Is Uniform: {True}
+Dirichlet Beta Parameter: {0.001}
+
+\textbf{Numerical results}:
+
+\begin{table}[h]
+\centering
+\caption{Training results.}
+\label{training-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
+$\{A,B,C\}$ & 86.78\% & 86.78\% & 86.78\%\\ \hline
+$\{A,B\}, \{C\}$ & 81.29\% & 81.29\% & 81.29\%\\ \hline
+$\{A,C\}, \{B\}$ & 84.69\% & 84.69\% & 84.69\%\\ \hline
+$\{B,C\}, \{A\}$ & 83.58\% & 83.58\% & 83.58\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 60.16\% & 55.63\% & 65.44\%\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Price results.}
+\label{price-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 2.92 & 0.83 & 0.42\\ \hline
+$\{A,B\}, \{C\}$ & 2.92 & 0.83 & 0.42\\ \hline
+$\{A,C\}, \{B\}$ & 3.57 & 2.14 & 5.00\\ \hline
+$\{B,C\}, \{A\}$ & 2.92 & 0.83 & 0.42\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 81.27 & 40.64 & 304.64\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Profit results.}
+\label{profit-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's profit & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 1.70 & 0.83 & 0.42\\ \hline
+$\{A,B\}, \{C\}$ & 1.70 & 0.83 & 0.42\\ \hline
+$\{A,C\}, \{B\}$ & 2.55 & 2.14 & 5.00\\ \hline
+$\{B,C\}, \{A\}$ & 1.70 & 0.83 & 0.42\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 27.09 & 40.64 & 304.64\\ \hline
+\end{tabular}
+\end{table}
+\textbf{Core stable coalition structures}:
+\begin{itemize}
+\item Competitive: $\{A\}, \{B\}, \{C\}$
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}

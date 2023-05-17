@@ -1,0 +1,61 @@
+\subsection{Scenario 11}
+
+\textbf{Simulation Setup}:
+Data Scenario: IID
+C Dataset Size: {8000}
+Theta Max: {10000}
+Is Squared: {True}
+Is Uniform: {False}
+Mean: {5000}
+SD: {500}
+
+\textbf{Numerical results}:
+
+\begin{table}[h]
+\centering
+\caption{Training results.}
+\label{training-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
+$\{A,B,C\}$ & 88.00\% & 88.00\% & 88.17\%\\ \hline
+$\{A,B\}, \{C\}$ & 79.76\% & 80.07\% & 70.91\%\\ \hline
+$\{A,C\}, \{B\}$ & 85.50\% & 61.16\% & 86.08\%\\ \hline
+$\{B,C\}, \{A\}$ & 50.04\% & 87.32\% & 87.62\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 70.91\%\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Price results.}
+\label{price-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 0.00 & 5.00 & 3268.10\\ \hline
+$\{A,B\}, \{C\}$ & 1.16 & 21.92 & 0.57\\ \hline
+$\{A,C\}, \{B\}$ & 2.36 & 1.16 & 44.05\\ \hline
+$\{B,C\}, \{A\}$ & 5.00 & 1.28 & 23.26\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 4.92 & 14.57 & 554.97\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Profit results.}
+\label{profit-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
+$\{A,B,C\}$ & 0.00 & 0.00 & 3086.16\\ \hline
+$\{A,B\}, \{C\}$ & 0.06 & 20.77 & 0.00\\ \hline
+$\{A,C\}, \{B\}$ & 0.12 & 0.00 & 41.74\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 0.07 & 22.04\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 0.00 & 0.57 & 524.96\\ \hline
+\end{tabular}
+\end{table}
+\textbf{Core stable coalition structures}:
+\begin{itemize}
+\item Competitive: 
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}

@@ -6,7 +6,7 @@ C Dataset Size: {2000}
 Theta Max: {10000}
 Is Uniform: {False}
 Mean: {5000}
-SD: {1000}
+SD: {200}
 
 \textbf{Numerical results}:
 
@@ -31,11 +31,11 @@ $\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 56.99\%\\ \hline
 \label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.47 & 6.94 & 0.19\\ \hline
-$\{A,B\}, \{C\}$ & 3.57 & 26.82 & 1.77\\ \hline
-$\{A,C\}, \{B\}$ & 33.03 & 2.13 & 4.32\\ \hline
-$\{B,C\}, \{A\}$ & 0.94 & 13.85 & 1.86\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 7.20 & 207.03 & 16.95\\ \hline
+$\{A,B,C\}$ & 0.06 & 7.72 & 0.01\\ \hline
+$\{A,B\}, \{C\}$ & 0.49 & 28.32 & 5.00\\ \hline
+$\{A,C\}, \{B\}$ & 34.93 & 0.28 & 0.58\\ \hline
+$\{B,C\}, \{A\}$ & 0.12 & 14.60 & 0.25\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 0.57 & 227.79 & 2.30\\ \hline
 \end{tabular}
 \end{table}
 
@@ -46,11 +46,11 @@ $\{A\}, \{B\}, \{C\}$ & 7.20 & 207.03 & 16.95\\ \hline
 \label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.05 & 6.94 & 0.19\\ \hline
-$\{A,B\}, \{C\}$ & 0.42 & 26.82 & 1.77\\ \hline
-$\{A,C\}, \{B\}$ & 29.07 & 2.13 & 4.32\\ \hline
-$\{B,C\}, \{A\}$ & 0.00 & 13.85 & 1.86\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.00 & 207.03 & 16.95\\ \hline
+$\{A,B,C\}$ & 0.00 & 7.72 & 0.01\\ \hline
+$\{A,B\}, \{C\}$ & 0.01 & 28.32 & 5.00\\ \hline
+$\{A,C\}, \{B\}$ & 34.34 & 0.28 & 0.58\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 14.60 & 0.25\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 0.00 & 227.79 & 2.30\\ \hline
 \end{tabular}
 \end{table}
 \textbf{Core stable coalition structures}:
