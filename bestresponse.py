@@ -164,33 +164,27 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
         partition = [(i, x) for i, x in enumerate(partition)]
 
     def set_duplicate_values_to_zero(arr):
-        p_init = [5, 5, 5]  # Initialize p_init with [5, 5, 5]
-
-        # Check for duplicates and set values to zero
         if arr[0][1] == arr[1][1] == arr[2][1]:
             arr[0] = (arr[0][0], 0)
             arr[1] = (arr[1][0], 0)
             arr[2] = (arr[2][0], 0)
-            p_init[0] = p_init[1] = p_init[2] = 0
         else:
             if arr[0][1] == arr[1][1]:
                 arr[0] = (arr[0][0], 0)
                 arr[1] = (arr[1][0], 0)
-                p_init[0] = p_init[1] = 0
             if arr[1][1] == arr[2][1]:
                 arr[1] = (arr[1][0], 0)
                 arr[2] = (arr[2][0], 0)
-                p_init[1] = p_init[2] = 0
             if arr[0][1] == arr[2][1]:
                 arr[0] = (arr[0][0], 0)
                 arr[2] = (arr[2][0], 0)
-                p_init[0] = p_init[2] = 0
-        print('arr, p_init', arr, p_init)
-        return p_init, arr
-    p_init, partition = set_duplicate_values_to_zero(partition)
-    print(f'partition: {partition}')
+        return arr
+    
+    partition = set_duplicate_values_to_zero(partition)
     partition = sorted(partition, key=lambda x: x[1], reverse=True)
-    print(partition)
+    p_init = [0]*3
+    for i, (_, v) in enumerate(partition):
+        p_init[i] = 5 if v != 0 else 0
     p_new = p_init.copy()
     ordering = []
     scores = []
@@ -399,7 +393,7 @@ def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=T
     reordered_profits, reordered_prices = get_final_table(results_array)
 
     np.set_printoptions(precision=8, suppress=True)
-    print(f'profits: {reordered_profits}\n prices: {reordered_prices}')
+    print(f'prices: {reordered_prices}\n profits: {reordered_profits}')
     # For no competition, check stability with pure accuracy of each model
     profit_stability_dict = check_stability(reordered_profits)
     accuracy_stability_dict = check_stability(accuracies_as_table)
