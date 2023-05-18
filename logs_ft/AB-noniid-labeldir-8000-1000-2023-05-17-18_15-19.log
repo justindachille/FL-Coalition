@@ -1,0 +1,203 @@
+05-17 18:15 INFO     Testing lr=0.001, optimizer=sgd, batch_size=32
+05-17 18:15 INFO     Training network 0
+05-17 18:15 INFO     n_training: 48
+05-17 18:15 INFO     n_test: 313
+05-17 18:16 INFO     Epoch: 0 Loss: 0.002371 Best Valid seen: 0.837900 Valid: 0.837900
+05-17 18:17 INFO     Epoch: 1 Loss: 0.005684 Best Valid seen: 0.837900 Valid: 0.836400
+05-17 18:18 INFO     Epoch: 2 Loss: 0.003574 Best Valid seen: 0.837900 Valid: 0.834500
+05-17 18:19 INFO     Epoch: 3 Loss: 0.004194 Best Valid seen: 0.837900 Valid: 0.831000
+05-17 18:20 INFO     Epoch: 4 Loss: 0.010057 Best Valid seen: 0.837900 Valid: 0.829800
+05-17 18:21 INFO     Epoch: 5 Loss: 0.004638 Best Valid seen: 0.837900 Valid: 0.824500
+05-17 18:22 INFO     Epoch: 6 Loss: 0.005823 Best Valid seen: 0.837900 Valid: 0.819800
+05-17 18:24 INFO     Epoch: 7 Loss: 0.010200 Best Valid seen: 0.837900 Valid: 0.816900
+05-17 18:25 INFO     Epoch: 8 Loss: 0.007506 Best Valid seen: 0.837900 Valid: 0.817300
+05-17 18:26 INFO     Epoch: 9 Loss: 0.013545 Best Valid seen: 0.837900 Valid: 0.816100
+05-17 18:27 INFO     Epoch: 10 Loss: 0.013891 Best Valid seen: 0.837900 Valid: 0.807500
+05-17 18:27 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 18:27 INFO     New best score: 0.8379 found with params lr=0.001, optimizer=sgd, batch_size=64
+05-17 18:27 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+05-17 18:27 INFO     Training network 0
+05-17 18:27 INFO     n_training: 48
+05-17 18:27 INFO     n_test: 313
+05-17 18:28 INFO     Epoch: 0 Loss: 0.006275 Best Valid seen: 0.837200 Valid: 0.837200
+05-17 18:29 INFO     Epoch: 1 Loss: 0.002517 Best Valid seen: 0.837200 Valid: 0.837000
+05-17 18:30 INFO     Epoch: 2 Loss: 0.002989 Best Valid seen: 0.837200 Valid: 0.836000
+05-17 18:31 INFO     Epoch: 3 Loss: 0.001868 Best Valid seen: 0.837200 Valid: 0.832000
+05-17 18:32 INFO     Epoch: 4 Loss: 0.002345 Best Valid seen: 0.837200 Valid: 0.828400
+05-17 18:33 INFO     Epoch: 5 Loss: 0.003956 Best Valid seen: 0.837200 Valid: 0.825800
+05-17 18:34 INFO     Epoch: 6 Loss: 0.005315 Best Valid seen: 0.837200 Valid: 0.825600
+05-17 18:35 INFO     Epoch: 7 Loss: 0.004776 Best Valid seen: 0.837200 Valid: 0.823100
+05-17 18:36 INFO     Epoch: 8 Loss: 0.003949 Best Valid seen: 0.837200 Valid: 0.825200
+05-17 18:37 INFO     Epoch: 9 Loss: 0.006299 Best Valid seen: 0.837200 Valid: 0.822400
+05-17 18:38 INFO     Epoch: 10 Loss: 0.010782 Best Valid seen: 0.837200 Valid: 0.810900
+05-17 18:38 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 18:38 INFO     Testing lr=0.01, optimizer=sgd, batch_size=32
+05-17 18:38 INFO     Training network 0
+05-17 18:38 INFO     n_training: 48
+05-17 18:38 INFO     n_test: 313
+05-17 18:39 INFO     Epoch: 0 Loss: 0.005762 Best Valid seen: 0.838700 Valid: 0.838700
+05-17 18:40 INFO     Epoch: 1 Loss: 0.003360 Best Valid seen: 0.838700 Valid: 0.837800
+05-17 18:41 INFO     Epoch: 2 Loss: 0.003332 Best Valid seen: 0.838700 Valid: 0.833600
+05-17 18:42 INFO     Epoch: 3 Loss: 0.004537 Best Valid seen: 0.838700 Valid: 0.833000
+05-17 18:43 INFO     Epoch: 4 Loss: 0.002529 Best Valid seen: 0.838700 Valid: 0.829500
+05-17 18:44 INFO     Epoch: 5 Loss: 0.003019 Best Valid seen: 0.838700 Valid: 0.828000
+05-17 18:45 INFO     Epoch: 6 Loss: 0.002633 Best Valid seen: 0.838700 Valid: 0.827200
+05-17 18:46 INFO     Epoch: 7 Loss: 0.004480 Best Valid seen: 0.838700 Valid: 0.822800
+05-17 18:47 INFO     Epoch: 8 Loss: 0.036460 Best Valid seen: 0.838700 Valid: 0.818300
+05-17 18:48 INFO     Epoch: 9 Loss: 0.008409 Best Valid seen: 0.838700 Valid: 0.808100
+05-17 18:49 INFO     Epoch: 10 Loss: 0.021476 Best Valid seen: 0.838700 Valid: 0.798900
+05-17 18:49 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 18:49 INFO     New best score: 0.8387 found with params lr=0.001, optimizer=sgd, batch_size=64
+05-17 18:49 INFO     Testing lr=0.01, optimizer=sgd, batch_size=64
+05-17 18:49 INFO     Training network 0
+05-17 18:49 INFO     n_training: 48
+05-17 18:49 INFO     n_test: 313
+05-17 18:50 INFO     Epoch: 0 Loss: 0.011142 Best Valid seen: 0.838200 Valid: 0.838200
+05-17 18:51 INFO     Epoch: 1 Loss: 0.003602 Best Valid seen: 0.838200 Valid: 0.837700
+05-17 18:52 INFO     Epoch: 2 Loss: 0.005203 Best Valid seen: 0.838200 Valid: 0.834100
+05-17 18:53 INFO     Epoch: 3 Loss: 0.003686 Best Valid seen: 0.838200 Valid: 0.832200
+05-17 18:54 INFO     Epoch: 4 Loss: 0.006756 Best Valid seen: 0.838200 Valid: 0.828000
+05-17 18:55 INFO     Epoch: 5 Loss: 0.010235 Best Valid seen: 0.838200 Valid: 0.826600
+05-17 18:56 INFO     Epoch: 6 Loss: 0.008990 Best Valid seen: 0.838200 Valid: 0.823000
+05-17 18:57 INFO     Epoch: 7 Loss: 0.038843 Best Valid seen: 0.838200 Valid: 0.817800
+05-17 18:58 INFO     Epoch: 8 Loss: 0.016508 Best Valid seen: 0.838200 Valid: 0.812800
+05-17 18:59 INFO     Epoch: 9 Loss: 0.056414 Best Valid seen: 0.838200 Valid: 0.803000
+05-17 19:00 INFO     Epoch: 10 Loss: 0.033422 Best Valid seen: 0.838200 Valid: 0.782500
+05-17 19:00 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 19:00 INFO     Testing lr=0.1, optimizer=sgd, batch_size=32
+05-17 19:00 INFO     Training network 0
+05-17 19:00 INFO     n_training: 48
+05-17 19:00 INFO     n_test: 313
+05-17 19:01 INFO     Epoch: 0 Loss: 0.004380 Best Valid seen: 0.837700 Valid: 0.837700
+05-17 19:01 INFO     Epoch: 1 Loss: 0.003250 Best Valid seen: 0.839400 Valid: 0.839400
+05-17 19:02 INFO     Epoch: 2 Loss: 0.002773 Best Valid seen: 0.841300 Valid: 0.841300
+05-17 19:03 INFO     Epoch: 3 Loss: 0.002614 Best Valid seen: 0.841300 Valid: 0.840700
+05-17 19:04 INFO     Epoch: 4 Loss: 0.001493 Best Valid seen: 0.841300 Valid: 0.836700
+05-17 19:05 INFO     Epoch: 5 Loss: 0.004499 Best Valid seen: 0.841300 Valid: 0.830600
+05-17 19:06 INFO     Epoch: 6 Loss: 0.006158 Best Valid seen: 0.841300 Valid: 0.827200
+05-17 19:07 INFO     Epoch: 7 Loss: 0.004388 Best Valid seen: 0.841300 Valid: 0.821500
+05-17 19:08 INFO     Epoch: 8 Loss: 0.006784 Best Valid seen: 0.841300 Valid: 0.812100
+05-17 19:09 INFO     Epoch: 9 Loss: 0.006341 Best Valid seen: 0.841300 Valid: 0.811900
+05-17 19:10 INFO     Epoch: 10 Loss: 0.007357 Best Valid seen: 0.841300 Valid: 0.811400
+05-17 19:11 INFO     Epoch: 11 Loss: 0.014818 Best Valid seen: 0.841300 Valid: 0.811800
+05-17 19:12 INFO     Epoch: 12 Loss: 0.014159 Best Valid seen: 0.841300 Valid: 0.809500
+05-17 19:12 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 19:12 INFO     New best score: 0.8413 found with params lr=0.001, optimizer=sgd, batch_size=64
+05-17 19:12 INFO     Testing lr=0.1, optimizer=sgd, batch_size=64
+05-17 19:12 INFO     Training network 0
+05-17 19:12 INFO     n_training: 48
+05-17 19:12 INFO     n_test: 313
+05-17 19:13 INFO     Epoch: 0 Loss: 0.002812 Best Valid seen: 0.838600 Valid: 0.838600
+05-17 19:14 INFO     Epoch: 1 Loss: 0.001977 Best Valid seen: 0.838600 Valid: 0.837300
+05-17 19:15 INFO     Epoch: 2 Loss: 0.012507 Best Valid seen: 0.838600 Valid: 0.836100
+05-17 19:16 INFO     Epoch: 3 Loss: 0.003869 Best Valid seen: 0.838600 Valid: 0.831000
+05-17 19:17 INFO     Epoch: 4 Loss: 0.006673 Best Valid seen: 0.838600 Valid: 0.825000
+05-17 19:18 INFO     Epoch: 5 Loss: 0.014332 Best Valid seen: 0.838600 Valid: 0.821800
+05-17 19:19 INFO     Epoch: 6 Loss: 0.010467 Best Valid seen: 0.838600 Valid: 0.820600
+05-17 19:20 INFO     Epoch: 7 Loss: 0.015733 Best Valid seen: 0.838600 Valid: 0.817600
+05-17 19:21 INFO     Epoch: 8 Loss: 0.014757 Best Valid seen: 0.838600 Valid: 0.806100
+05-17 19:22 INFO     Epoch: 9 Loss: 0.034742 Best Valid seen: 0.838600 Valid: 0.808900
+05-17 19:23 INFO     Epoch: 10 Loss: 0.032216 Best Valid seen: 0.838600 Valid: 0.805700
+05-17 19:23 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 19:23 INFO     Testing lr=0.001, optimizer=sgd, batch_size=32
+05-17 19:23 INFO     Training network 1
+05-17 19:23 INFO     n_training: 47
+05-17 19:23 INFO     n_test: 313
+05-17 19:24 INFO     Epoch: 0 Loss: 0.002327 Best Valid seen: 0.837100 Valid: 0.837100
+05-17 19:25 INFO     Epoch: 1 Loss: 0.001324 Best Valid seen: 0.838900 Valid: 0.838900
+05-17 19:26 INFO     Epoch: 2 Loss: 0.001519 Best Valid seen: 0.838900 Valid: 0.838000
+05-17 19:27 INFO     Epoch: 3 Loss: 0.000940 Best Valid seen: 0.838900 Valid: 0.835600
+05-17 19:28 INFO     Epoch: 4 Loss: 0.002556 Best Valid seen: 0.838900 Valid: 0.837300
+05-17 19:29 INFO     Epoch: 5 Loss: 0.001014 Best Valid seen: 0.838900 Valid: 0.835200
+05-17 19:30 INFO     Epoch: 6 Loss: 0.001280 Best Valid seen: 0.838900 Valid: 0.831700
+05-17 19:32 INFO     Epoch: 7 Loss: 0.001751 Best Valid seen: 0.838900 Valid: 0.828700
+05-17 19:33 INFO     Epoch: 8 Loss: 0.001144 Best Valid seen: 0.838900 Valid: 0.827400
+05-17 19:34 INFO     Epoch: 9 Loss: 0.001769 Best Valid seen: 0.838900 Valid: 0.825300
+05-17 19:35 INFO     Epoch: 10 Loss: 0.001993 Best Valid seen: 0.838900 Valid: 0.825200
+05-17 19:36 INFO     Epoch: 11 Loss: 0.002755 Best Valid seen: 0.838900 Valid: 0.822500
+05-17 19:36 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 19:36 INFO     New best score: 0.8389 found with params lr=0.001, optimizer=sgd, batch_size=64
+05-17 19:36 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+05-17 19:36 INFO     Training network 1
+05-17 19:36 INFO     n_training: 47
+05-17 19:36 INFO     n_test: 313
+05-17 19:37 INFO     Epoch: 0 Loss: 0.003247 Best Valid seen: 0.837000 Valid: 0.837000
+05-17 19:38 INFO     Epoch: 1 Loss: 0.005003 Best Valid seen: 0.837000 Valid: 0.836800
+05-17 19:39 INFO     Epoch: 2 Loss: 0.001335 Best Valid seen: 0.837000 Valid: 0.835600
+05-17 19:40 INFO     Epoch: 3 Loss: 0.002958 Best Valid seen: 0.837000 Valid: 0.829800
+05-17 19:41 INFO     Epoch: 4 Loss: 0.002879 Best Valid seen: 0.837000 Valid: 0.825100
+05-17 19:42 INFO     Epoch: 5 Loss: 0.005310 Best Valid seen: 0.837000 Valid: 0.825900
+05-17 19:43 INFO     Epoch: 6 Loss: 0.002358 Best Valid seen: 0.837000 Valid: 0.826400
+05-17 19:44 INFO     Epoch: 7 Loss: 0.001611 Best Valid seen: 0.837000 Valid: 0.825900
+05-17 19:45 INFO     Epoch: 8 Loss: 0.004866 Best Valid seen: 0.837000 Valid: 0.820100
+05-17 19:46 INFO     Epoch: 9 Loss: 0.009421 Best Valid seen: 0.837000 Valid: 0.822500
+05-17 19:47 INFO     Epoch: 10 Loss: 0.005204 Best Valid seen: 0.837000 Valid: 0.826200
+05-17 19:47 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 19:47 INFO     Testing lr=0.01, optimizer=sgd, batch_size=32
+05-17 19:47 INFO     Training network 1
+05-17 19:47 INFO     n_training: 47
+05-17 19:47 INFO     n_test: 313
+05-17 19:48 INFO     Epoch: 0 Loss: 0.004456 Best Valid seen: 0.836600 Valid: 0.836600
+05-17 19:49 INFO     Epoch: 1 Loss: 0.001895 Best Valid seen: 0.836600 Valid: 0.836400
+05-17 19:50 INFO     Epoch: 2 Loss: 0.001673 Best Valid seen: 0.836600 Valid: 0.835200
+05-17 19:52 INFO     Epoch: 3 Loss: 0.001491 Best Valid seen: 0.836600 Valid: 0.836000
+05-17 19:53 INFO     Epoch: 4 Loss: 0.001201 Best Valid seen: 0.836600 Valid: 0.834200
+05-17 19:54 INFO     Epoch: 5 Loss: 0.001074 Best Valid seen: 0.836600 Valid: 0.830000
+05-17 19:55 INFO     Epoch: 6 Loss: 0.003376 Best Valid seen: 0.836600 Valid: 0.829400
+05-17 19:56 INFO     Epoch: 7 Loss: 0.002584 Best Valid seen: 0.836600 Valid: 0.828000
+05-17 19:57 INFO     Epoch: 8 Loss: 0.001532 Best Valid seen: 0.836600 Valid: 0.825200
+05-17 19:58 INFO     Epoch: 9 Loss: 0.000974 Best Valid seen: 0.836600 Valid: 0.822500
+05-17 19:59 INFO     Epoch: 10 Loss: 0.001303 Best Valid seen: 0.836600 Valid: 0.817900
+05-17 19:59 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 19:59 INFO     Testing lr=0.01, optimizer=sgd, batch_size=64
+05-17 19:59 INFO     Training network 1
+05-17 19:59 INFO     n_training: 47
+05-17 19:59 INFO     n_test: 313
+05-17 20:00 INFO     Epoch: 0 Loss: 0.002919 Best Valid seen: 0.836100 Valid: 0.836100
+05-17 20:01 INFO     Epoch: 1 Loss: 0.003096 Best Valid seen: 0.838200 Valid: 0.838200
+05-17 20:02 INFO     Epoch: 2 Loss: 0.003838 Best Valid seen: 0.838200 Valid: 0.837000
+05-17 20:04 INFO     Epoch: 3 Loss: 0.001334 Best Valid seen: 0.838200 Valid: 0.836300
+05-17 20:05 INFO     Epoch: 4 Loss: 0.003890 Best Valid seen: 0.838200 Valid: 0.832800
+05-17 20:06 INFO     Epoch: 5 Loss: 0.003023 Best Valid seen: 0.838200 Valid: 0.829100
+05-17 20:07 INFO     Epoch: 6 Loss: 0.001739 Best Valid seen: 0.838200 Valid: 0.826800
+05-17 20:08 INFO     Epoch: 7 Loss: 0.002097 Best Valid seen: 0.838200 Valid: 0.826000
+05-17 20:09 INFO     Epoch: 8 Loss: 0.004070 Best Valid seen: 0.838200 Valid: 0.818100
+05-17 20:10 INFO     Epoch: 9 Loss: 0.002075 Best Valid seen: 0.838200 Valid: 0.820000
+05-17 20:11 INFO     Epoch: 10 Loss: 0.004820 Best Valid seen: 0.838200 Valid: 0.818300
+05-17 20:11 INFO     Epoch: 11 Loss: 0.003816 Best Valid seen: 0.838200 Valid: 0.815500
+05-17 20:11 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 20:11 INFO     Testing lr=0.1, optimizer=sgd, batch_size=32
+05-17 20:11 INFO     Training network 1
+05-17 20:11 INFO     n_training: 47
+05-17 20:11 INFO     n_test: 313
+05-17 20:12 INFO     Epoch: 0 Loss: 0.001582 Best Valid seen: 0.836600 Valid: 0.836600
+05-17 20:13 INFO     Epoch: 1 Loss: 0.001572 Best Valid seen: 0.836600 Valid: 0.836300
+05-17 20:14 INFO     Epoch: 2 Loss: 0.001612 Best Valid seen: 0.836600 Valid: 0.834500
+05-17 20:15 INFO     Epoch: 3 Loss: 0.000977 Best Valid seen: 0.836600 Valid: 0.835300
+05-17 20:16 INFO     Epoch: 4 Loss: 0.001292 Best Valid seen: 0.836600 Valid: 0.836400
+05-17 20:17 INFO     Epoch: 5 Loss: 0.001196 Best Valid seen: 0.836600 Valid: 0.832500
+05-17 20:18 INFO     Epoch: 6 Loss: 0.001347 Best Valid seen: 0.836600 Valid: 0.831500
+05-17 20:19 INFO     Epoch: 7 Loss: 0.001081 Best Valid seen: 0.836600 Valid: 0.829900
+05-17 20:20 INFO     Epoch: 8 Loss: 0.002027 Best Valid seen: 0.836600 Valid: 0.829000
+05-17 20:21 INFO     Epoch: 9 Loss: 0.002874 Best Valid seen: 0.836600 Valid: 0.827700
+05-17 20:22 INFO     Epoch: 10 Loss: 0.003009 Best Valid seen: 0.836600 Valid: 0.827000
+05-17 20:22 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 20:22 INFO     Testing lr=0.1, optimizer=sgd, batch_size=64
+05-17 20:22 INFO     Training network 1
+05-17 20:22 INFO     n_training: 47
+05-17 20:22 INFO     n_test: 313
+05-17 20:23 INFO     Epoch: 0 Loss: 0.005249 Best Valid seen: 0.837600 Valid: 0.837600
+05-17 20:24 INFO     Epoch: 1 Loss: 0.001685 Best Valid seen: 0.838700 Valid: 0.838700
+05-17 20:25 INFO     Epoch: 2 Loss: 0.002047 Best Valid seen: 0.839500 Valid: 0.839500
+05-17 20:26 INFO     Epoch: 3 Loss: 0.001593 Best Valid seen: 0.839500 Valid: 0.839200
+05-17 20:27 INFO     Epoch: 4 Loss: 0.001968 Best Valid seen: 0.839500 Valid: 0.836700
+05-17 20:28 INFO     Epoch: 5 Loss: 0.002687 Best Valid seen: 0.839500 Valid: 0.833600
+05-17 20:29 INFO     Epoch: 6 Loss: 0.001874 Best Valid seen: 0.839500 Valid: 0.831400
+05-17 20:30 INFO     Epoch: 7 Loss: 0.001952 Best Valid seen: 0.839500 Valid: 0.830800
+05-17 20:31 INFO     Epoch: 8 Loss: 0.001867 Best Valid seen: 0.839500 Valid: 0.827100
+05-17 20:32 INFO     Epoch: 9 Loss: 0.002146 Best Valid seen: 0.839500 Valid: 0.822500
+05-17 20:33 INFO     Epoch: 10 Loss: 0.002358 Best Valid seen: 0.839500 Valid: 0.818700
+05-17 20:34 INFO     Epoch: 11 Loss: 0.002939 Best Valid seen: 0.839500 Valid: 0.816500
+05-17 20:35 INFO     Epoch: 12 Loss: 0.003146 Best Valid seen: 0.839500 Valid: 0.817800
+05-17 20:35 INFO     Validation accuracy hasn't improved in 10 epochs. Stopping training.
+05-17 20:35 INFO     New best score: 0.8395 found with params lr=0.001, optimizer=sgd, batch_size=64
