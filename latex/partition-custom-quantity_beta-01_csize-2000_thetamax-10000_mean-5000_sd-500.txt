@@ -4,9 +4,8 @@
 Data Scenario: IID
 C Dataset Size: {2000}
 Theta Max: {10000}
-Is Uniform: {False}
-Mean: {5000}
-SD: {1000}
+Is Squared: {False}
+Is Uniform: {True}
 
 \textbf{Numerical results}:
 
@@ -31,11 +30,11 @@ $\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 56.99\%\\ \hline
 \label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.47 & 6.94 & 0.19\\ \hline
-$\{A,B\}, \{C\}$ & 3.57 & 26.82 & 1.77\\ \hline
-$\{A,C\}, \{B\}$ & 33.03 & 2.13 & 4.32\\ \hline
-$\{B,C\}, \{A\}$ & 0.94 & 13.85 & 1.86\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 7.20 & 207.03 & 16.95\\ \hline
+$\{A,B,C\}$ & 1.67 & 5.83 & 0.83\\ \hline
+$\{A,B\}, \{C\}$ & 12.46 & 25.23 & 6.23\\ \hline
+$\{A,C\}, \{B\}$ & 32.41 & 7.91 & 15.82\\ \hline
+$\{B,C\}, \{A\}$ & 3.15 & 12.65 & 6.30\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 43.44 & 251.94 & 86.87\\ \hline
 \end{tabular}
 \end{table}
 
@@ -46,11 +45,11 @@ $\{A\}, \{B\}, \{C\}$ & 7.20 & 207.03 & 16.95\\ \hline
 \label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.05 & 6.94 & 0.19\\ \hline
-$\{A,B\}, \{C\}$ & 0.42 & 26.82 & 1.77\\ \hline
-$\{A,C\}, \{B\}$ & 29.07 & 2.13 & 4.32\\ \hline
-$\{B,C\}, \{A\}$ & 0.00 & 13.85 & 1.86\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.00 & 207.03 & 16.95\\ \hline
+$\{A,B,C\}$ & 0.56 & 5.83 & 0.83\\ \hline
+$\{A,B\}, \{C\}$ & 4.15 & 25.23 & 6.23\\ \hline
+$\{A,C\}, \{B\}$ & 21.44 & 7.91 & 15.82\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 12.65 & 6.30\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 2.71 & 251.94 & 86.87\\ \hline
 \end{tabular}
 \end{table}
 \textbf{Core stable coalition structures}:

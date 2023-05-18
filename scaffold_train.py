@@ -397,7 +397,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
                 # print(f'count of k: {k} is {np.count_nonzero(y_train == k)}')
                 np.random.shuffle(idx_k)
                 proportions = np.random.dirichlet(np.repeat(beta, n_parties))
-                ## Balance
+                # Balance
                 proportions = np.array([p * (len(idx_j) < N / n_parties) for p, idx_j in zip(proportions, idx_batch)])
                 proportions = proportions / proportions.sum()
                 proportions = (np.cumsum(proportions) * len(idx_k)).astype(int)[:-1]

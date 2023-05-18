@@ -7,8 +7,9 @@ import re
 from math import *
 import dill as pickle
 from itertools import product
+import sys
 
-from bestresponse import createTableFromCoalition, Coalition
+from bestresponse import createTableFromCoalition, Coalition, calculate_equilibrium_price, calculate_equilibrium_profits
 
 LOGS_PATH = './logs/'
 LOGS_FT_PATH = './logs_ft/'
@@ -20,6 +21,7 @@ BETA_MAP = {
     "10": "1.0",
     "100": "10.0"
 }
+debug = False
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -35,7 +37,8 @@ def parse_logs():
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                print(f'Reading: {fname}')
+                if debug:
+                    print(f'Reading: {fname}')
                 lines = f.readlines()
                 second_line = lines[1]
                 last_line = lines[-1]
@@ -115,7 +118,8 @@ def parse_ft_logs(coalitions):
             continue
         if os.path.isfile(fname):
             with open(fname, "r") as f:
-                print(f'Reading: {fname}')
+                if debug:
+                    print(f'Reading: {fname}')
                 parts = fname.split('-')
                 abc = parts[0].upper()
                 abc = abc.split('/')[-1]
@@ -143,7 +147,8 @@ def parse_ft_logs(coalitions):
                     # print('values:', values)
                 #     print('before:', coalitions[key])
                 coalition = coalitions[key]
-                print('values:', networks)
+                if debug:
+                    print('values:', networks)
                 if abc.upper() == 'ABC':
                     if '0' in networks:
                         coalition.ABC[0] = max(coalition.ABC[0], networks['0']['best_valid_seen'])
@@ -203,19 +208,25 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
         (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.2f}\\%", f"{coalition.A_B_C_[1]*100:.2f}\\%", f"{coalition.A_B_C_[2]*100:.2f}\\%")
     ]
     uniform_str = "True" if is_uniform else "False"
+    squared_str = "True" if is_squared else "False"
+    partition_str = "Non-IID Label Dirichlet" if coalition.partition == "noniid-labeldir" else "IID"
     table = (r"\subsection{Scenario " + str(i+1) + "}\n\n"
              r"\textbf{Simulation Setup}:" + "\n"
+             r"Data Scenario: " + partition_str + "\n"
              r"C Dataset Size: {" + str(coalition.C_size) + "}\n"
              r"Theta Max: {" + str(theta_max) + "}\n"
+             r"Is Squared: {" + squared_str + "}\n"
              r"Is Uniform: {" + uniform_str + "}\n")
 
+    if coalition.partition == 'noniid-labeldir':
+        table += r"Dirichlet Beta Parameter: {" + str(coalition.beta) + "}\n"
     if not is_uniform:
         table += r"Mean: {" + str(mean) + "}\n"
         table += r"SD: {" + str(sd) + "}\n\n"
-    if coalition.partition == 'noniid-labeldir':
-        table += r"Dirichlet Beta Parameter: {" + str(coalition.beta) + "}\n"
+    else:
+        table += "\n"
 
-    table += r"\textbf{Numerical results}: \n\n"
+    table += r"\textbf{Numerical results}:" + "\n\n"
     table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
     table += ' & '.join(table_header) + '\\\\ \\hline\n'
     for row in table_data:
@@ -238,13 +249,13 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
         table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
     table += '\\end{tabular}\n\\end{table}\n'
 
-    table_header = ['Coalition structure', "Client A's profit", "Client B's price", "Client C's price"]
+    table_header = ['Coalition structure', "Client A's profit", "Client B's profit", "Client C's profit"]
     table_data = [
-        (r"$\{A,B,C\}$", f"{reordered_profits[0][0]:.2f}", f"{reordered_prices[0][1]:.2f}", f"{reordered_prices[0][2]:.2f}"),
-        (r"$\{A,B\}, \{C\}$", f"{reordered_profits[1][0]:.2f}", f"{reordered_prices[1][1]:.2f}", f"{reordered_prices[1][2]:.2f}"),
-        (r"$\{A,C\}, \{B\}$", f"{reordered_profits[2][0]:.2f}", f"{reordered_prices[2][1]:.2f}", f"{reordered_prices[2][2]:.2f}"),
-        (r"$\{B,C\}, \{A\}$", f"{reordered_profits[3][0]:.2f}", f"{reordered_prices[3][1]:.2f}", f"{reordered_prices[3][2]:.2f}"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_profits[4][0]:.2f}", f"{reordered_prices[4][1]:.2f}", f"{reordered_prices[4][2]:.2f}")
+        (r"$\{A,B,C\}$", f"{reordered_profits[0][0]:.2f}", f"{reordered_profits[0][1]:.2f}", f"{reordered_profits[0][2]:.2f}"),
+        (r"$\{A,B\}, \{C\}$", f"{reordered_profits[1][0]:.2f}", f"{reordered_profits[1][1]:.2f}", f"{reordered_profits[1][2]:.2f}"),
+        (r"$\{A,C\}, \{B\}$", f"{reordered_profits[2][0]:.2f}", f"{reordered_profits[2][1]:.2f}", f"{reordered_profits[2][2]:.2f}"),
+        (r"$\{B,C\}, \{A\}$", f"{reordered_profits[3][0]:.2f}", f"{reordered_profits[3][1]:.2f}", f"{reordered_profits[3][2]:.2f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_profits[4][0]:.2f}", f"{reordered_profits[4][1]:.2f}", f"{reordered_profits[4][2]:.2f}")
     ]
     table += '\n\n'
     table += "\\begin{table}[h]\n\\centering\n\\caption{Profit results.}\n\\label{profit-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
@@ -303,9 +314,10 @@ if __name__ == '__main__':
     coalitions = parse_logs()
 
     coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
-    print('After parsing logs:')
-    for k, v in coalition_str_dict.items():
-        print(k, v)
+    if debug:
+        print('After parsing logs:')
+        for k, v in coalition_str_dict.items():
+            print(k, v)
 
     print('--- Parsing FT Logs ---')
     coalitions = parse_ft_logs(coalitions)
@@ -313,17 +325,18 @@ if __name__ == '__main__':
         coalitions[coalition] = fix_solo_accuracies(coalitions[coalition])
 
     coalition_str_dict = {k: str(v) for k, v in coalitions.items()}
-    print('After parsing FT logs:')
-    for k, v in coalition_str_dict.items():
-        print(k, v)
+    if debug:
+        print('After parsing FT logs:')
+        for k, v in coalition_str_dict.items():
+            print(k, v)
 
     THETA_MAX = 10000
     IS_UNIFORM = False
     IS_SQUARED = True
     MEAN = 5000
-    SD = 1000
+    SD = 500
     for i, coalition in enumerate(coalitions):
-        # continue
+        continue
         generate_coalition_table(
             i,
             coalitions[coalition],
@@ -332,26 +345,27 @@ if __name__ == '__main__':
             is_squared=IS_SQUARED,
             mean=MEAN,
             sd=SD,)
-        
 
     SOLO_QUANTITY_A = .5004
     SOLO_QUANTITY_B = .6116
     SOLO_QUANTITY_C = .7091
     ABC_Quantity = [.8803, .8821, .8817]
+    ABC_Quantity = [.88, .88, .8817]
     AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
     AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
     A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]
     A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
-
+    print('price:', calculate_equilibrium_price(SOLO_QUANTITY_C, SOLO_QUANTITY_B, SOLO_QUANTITY_A, 10000))
+    print('profits:', calculate_equilibrium_profits(SOLO_QUANTITY_C, SOLO_QUANTITY_B, SOLO_QUANTITY_A, 10000))
     quantity_coalition = Coalition(8000, ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity, 0.1)
     generate_coalition_table(10, 
                             quantity_coalition,
-                            '8000_Coalition_Proper',
                             theta_max = THETA_MAX,
                             is_uniform=IS_UNIFORM,
                             is_squared=IS_SQUARED,
                             mean=MEAN,
                             sd=SD,)
+    sys.exit()
     # Non-iid
     SOLO_DIRICHLET_A = .6085
     SOLO_DIRICHLET_B = .6394
@@ -366,7 +380,6 @@ if __name__ == '__main__':
 
     generate_coalition_table(10, 
                             dirichlet_coalition, 
-                            '2480_Dirichlet',
                             theta_max = THETA_MAX,
                             is_uniform=IS_UNIFORM,
                             is_squared=IS_SQUARED,

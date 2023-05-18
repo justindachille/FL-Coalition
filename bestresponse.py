@@ -1,5 +1,6 @@
 import argparse
 import os
+import warnings
 
 # import jax.numpy as jnp
 # from jax import grad
@@ -61,9 +62,11 @@ dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirich
 C_pri = [0.5, 0.3, 0.1]
 
 def sigma(m, n, p, A, is_squared):
-    if is_squared:
-        return (p[m] - p[n]) / (A[m]**2 - A[n]**2)
-    return (p[m] - p[n]) / (A[m] - A[n])
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=RuntimeWarning)
+        if is_squared:
+            return (p[m] - p[n]) / (A[m]**2 - A[n]**2)
+        return (p[m] - p[n]) / (A[m] - A[n])
     
 
 def N(theta, mean, sd, theta_max, is_uniform=False):
@@ -92,16 +95,32 @@ def N(theta, mean, sd, theta_max, is_uniform=False):
 # ax.set_ylabel('PDF')
 # ax.legend()
 # plt.show()
-
 def W0(p, A, mean, sd, theta_max, is_uniform, is_squared):
-    # print(p[0], (1 - N(max(sigma(0, 1, p, A), sigma(0, 2, p, A)), mean, sd)))
-    return p[0] * (1 - N(max(sigma(0, 1, p, A, is_squared), sigma(0, 2, p, A, is_squared)), mean, sd, theta_max, is_uniform))# - C_pri[0]
+    try:
+        sigma_0_1 = sigma(0, 1, p, A, is_squared)
+        sigma_0_2 = sigma(0, 2, p, A, is_squared)
+        return p[0] * (1 - N(max(sigma_0_1, sigma_0_2), mean, sd, theta_max, is_uniform))
+
+    except ZeroDivisionError:
+        return 0
 
 def W1(p, A, mean, sd, theta_max, is_uniform, is_squared):
-    return p[1] * N(sigma(0, 1, p, A, is_squared) - sigma(1, 2, p, A, is_squared), mean, sd, theta_max, is_uniform)# - C_pri[1]
+    try:
+        sigma_0_1 = sigma(0, 1, p, A, is_squared)
+        sigma_1_2 = sigma(1, 2, p, A, is_squared)
+        return p[1] * N(sigma_0_1 - sigma_1_2, mean, sd, theta_max, is_uniform)
+
+    except ZeroDivisionError:
+        return 0
 
 def W2(p, A, mean, sd, theta_max, is_uniform, is_squared):
-    return p[2] * N(min(sigma(1, 2, p, A, is_squared), sigma(0, 2, p, A, is_squared)), mean, sd, theta_max, is_uniform) #- C_pri[2]
+    try:
+        sigma_1_2 = sigma(1, 2, p, A, is_squared)
+        sigma_0_2 = sigma(0, 2, p, A, is_squared)
+        return p[2] * N(min(sigma_1_2, sigma_0_2), mean, sd, theta_max, is_uniform)
+
+    except ZeroDivisionError:
+        return 0
 
 def W0Obj(p, A, mean, sd, theta_max, is_uniform, is_squared):
     return -W0(p, A, mean, sd, theta_max, is_uniform, is_squared)
@@ -144,13 +163,34 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
         # partition is a list of single values, convert to a list of tuples
         partition = [(i, x) for i, x in enumerate(partition)]
 
-    # TODO(justin): Set price to be 0 if they are same
-    if partition[0][1] == partition[1][1] or partition[0][1] == partition[2][1] or partition[1][1] == partition[2][1]:
-        partition[0] = (partition[0][0], partition[0][1] + 0.0005)
-        partition[2] = (partition[2][0], partition[2][1] - 0.0005)
+    def set_duplicate_values_to_zero(arr):
+        p_init = [5, 5, 5]  # Initialize p_init with [5, 5, 5]
+
+        # Check for duplicates and set values to zero
+        if arr[0][1] == arr[1][1] == arr[2][1]:
+            arr[0] = (arr[0][0], 0)
+            arr[1] = (arr[1][0], 0)
+            arr[2] = (arr[2][0], 0)
+            p_init[0] = p_init[1] = p_init[2] = 0
+        else:
+            if arr[0][1] == arr[1][1]:
+                arr[0] = (arr[0][0], 0)
+                arr[1] = (arr[1][0], 0)
+                p_init[0] = p_init[1] = 0
+            if arr[1][1] == arr[2][1]:
+                arr[1] = (arr[1][0], 0)
+                arr[2] = (arr[2][0], 0)
+                p_init[1] = p_init[2] = 0
+            if arr[0][1] == arr[2][1]:
+                arr[0] = (arr[0][0], 0)
+                arr[2] = (arr[2][0], 0)
+                p_init[0] = p_init[2] = 0
+        print('arr, p_init', arr, p_init)
+        return p_init, arr
+    p_init, partition = set_duplicate_values_to_zero(partition)
+    print(f'partition: {partition}')
     partition = sorted(partition, key=lambda x: x[1], reverse=True)
     print(partition)
-    p_init = [5] * 3
     p_new = p_init.copy()
     ordering = []
     scores = []
@@ -161,7 +201,6 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
     while True:
         for i in range(3):
             p_new = update_price(float(i), p_new, scores, mean, sd, theta_max, is_uniform, is_squared)
-            # print(f'i: {i}, pnew: {p_new}')
         if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-6):
             break
         p_init = p_new.copy()
@@ -351,19 +390,33 @@ def check_stability(final_table):
     return result_dict
 
 def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
-    prices_array = []
+    results_array = []
     accuracies_as_table = [coalition.ABC, coalition.AB_C, coalition.AC_B, coalition.A_BC, coalition.A_B_C_]
 
     for i, partition in enumerate(accuracies_as_table):
         p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
-        prices_array.append((p_new, profits, ordering, j))
-    reordered_profits, reordered_prices = get_final_table(prices_array)
+        results_array.append((p_new, profits, ordering, j))
+    reordered_profits, reordered_prices = get_final_table(results_array)
 
+    np.set_printoptions(precision=8, suppress=True)
+    print(f'profits: {reordered_profits}\n prices: {reordered_prices}')
     # For no competition, check stability with pure accuracy of each model
     profit_stability_dict = check_stability(reordered_profits)
     accuracy_stability_dict = check_stability(accuracies_as_table)
 
     return accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict
+
+def calculate_equilibrium_price(A1, A2, A3, theta_max):
+    p1_star = ((A1 - A2) * (3 * A1 + A2 - 4 * A3) * theta_max) / (6 * (A1 - A3))
+    p2_star = ((A1 - A2) * (A2 - A3) * theta_max) / (3 * (A1 - A3))
+    p3_star = ((A1 - A2) * (A2 - A3) * theta_max) / (6 * (A1 - A3))
+    return p1_star, p2_star, p3_star
+
+def calculate_equilibrium_profits(A1, A2, A3, theta_max):
+    W1 = ((A1 - A2) * (3 * A1 + A2 - 4 * A3) ** 2 * theta_max) / (36 * (A1 - A3) ** 2)
+    W2 = ((A1 - A2) * (A2 - A3) * theta_max) / (9 * (A1 - A3))
+    W3 = ((A1 - A2) ** 2 * (A2 - A3) * theta_max) / (36 * (A1 - A3) ** 2)
+    return W1, W2, W3
 
 if __name__ == '__main__':
     args = get_args()
