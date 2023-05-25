@@ -22,7 +22,7 @@ BETA_MAP = {
     "100": "10.0",
     "1000": "100.0",
 }
-debug = False
+debug = True
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -186,6 +186,7 @@ def fix_solo_accuracies(coalition):
         SOLO_QUANTITY_C = .7091
     else:
         SOLO_QUANTITY_C = coalition.A_B_C_[2]
+    # TODO: Add case for noniid
     if coalition.partition == 'custom-quantity':
         coalition.A_BC[0] = SOLO_QUANTITY_A
         coalition.AC_B[1] = SOLO_QUANTITY_B
@@ -196,9 +197,11 @@ def fix_solo_accuracies(coalition):
 
 def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=True, is_squared=True, mean=1, sd=1):
     table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
+    uniform_str = "True" if is_uniform else "False"
+    squared_str = "True" if is_squared else "False"
     if filename is None:
         beta_string = str(coalition.beta).replace('.', '')
-        filename = f'partition-{coalition.partition}_beta-{beta_string}_csize-{coalition.C_size}_thetamax-{theta_max}_mean-{mean}_sd-{sd}.txt'
+        filename = f'{coalition.partition}_beta-{beta_string}_csize-{coalition.C_size}_thetamax-{theta_max}_uniform-{uniform_str}_mean-{mean}_sd-{sd}_squared-{squared_str}.txt'
 
     accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
     table_data = [
@@ -208,8 +211,6 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
         (r"$\{B,C\}, \{A\}$", f"{coalition.A_BC[0]*100:.2f}\\%", f"{coalition.A_BC[1]*100:.2f}\\%", f"{coalition.A_BC[2]*100:.2f}\\%"),
         (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.2f}\\%", f"{coalition.A_B_C_[1]*100:.2f}\\%", f"{coalition.A_B_C_[2]*100:.2f}\\%")
     ]
-    uniform_str = "True" if is_uniform else "False"
-    squared_str = "True" if is_squared else "False"
     partition_str = "Non-IID Label Dirichlet" if coalition.partition == "noniid-labeldir" else "IID"
     table = (r"\subsection{Scenario " + str(i+1) + "}\n\n"
              r"\textbf{Simulation Setup}:" + "\n"
@@ -335,9 +336,8 @@ if __name__ == '__main__':
     IS_UNIFORM = False
     IS_SQUARED = True
     MEAN = 5000
-    SD = 500
+    SD = 2000
     for i, coalition in enumerate(coalitions):
-        continue
         generate_coalition_table(
             i,
             coalitions[coalition],
@@ -351,7 +351,6 @@ if __name__ == '__main__':
     SOLO_QUANTITY_B = .6116
     SOLO_QUANTITY_C = .7091
     ABC_Quantity = [.8803, .8821, .8817]
-    ABC_Quantity = [.88, .88, .8817]
     AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
     AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
     A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]

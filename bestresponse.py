@@ -191,12 +191,16 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
     for ord, score in partition:
         ordering += [ord]
         scores += [score]
-
+    maxsteps=100
+    steps=0
     while True:
+        steps+=1
         for i in range(3):
             p_new = update_price(float(i), p_new, scores, mean, sd, theta_max, is_uniform, is_squared)
-        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-6):
+        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-8) or steps>maxsteps:
+            print(f'steps: {steps}')
             break
+
         p_init = p_new.copy()
 
     print(f'Optimal prices: {p_new} with order {ordering} for partition {text_name[j]}')
@@ -212,11 +216,11 @@ def get_final_table(custom_array):
     for i, partition in enumerate(text_name):
         prices, profits, ordering, _ = custom_array[i]
         profits = np.array(profits)
-        # print(f'profits before: {profits} ordering: {ordering}')
+        print(f'profits before: {profits} ordering: {ordering}')
         profits_by_ordering = [0] * 3
         for i, order in enumerate(ordering):
             profits_by_ordering[order] = profits[i]
-        # print(f'profits after: {profits_by_ordering}')
+        print(f'profits after: {profits_by_ordering}')
         # print(f'prices before: {prices} ordering: {ordering}')
         prices_by_ordering = [0] * 3
         for i, order in enumerate(ordering):
@@ -391,7 +395,7 @@ def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=T
         p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
         results_array.append((p_new, profits, ordering, j))
     reordered_profits, reordered_prices = get_final_table(results_array)
-
+    print('hello')
     np.set_printoptions(precision=8, suppress=True)
     print(f'prices: {reordered_prices}\n profits: {reordered_profits}')
     # For no competition, check stability with pure accuracy of each model
