@@ -8,7 +8,9 @@ from math import *
 import dill as pickle
 from itertools import product
 import sys
-
+from importlib import reload
+import bestresponse
+reload(bestresponse)
 from bestresponse import createTableFromCoalition, Coalition, calculate_equilibrium_price, calculate_equilibrium_profits
 
 LOGS_PATH = './logs/'
@@ -22,7 +24,7 @@ BETA_MAP = {
     "100": "10.0",
     "1000": "100.0",
 }
-debug = True
+debug = False
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -331,7 +333,6 @@ if __name__ == '__main__':
         print('After parsing FT logs:')
         for k, v in coalition_str_dict.items():
             print(k, v)
-
     THETA_MAX = 10000
     IS_UNIFORM = False
     IS_SQUARED = True

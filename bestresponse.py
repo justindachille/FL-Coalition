@@ -207,6 +207,7 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
     profits = []
     for i in range(3):
         profits.append(get_profit(i, p_new, scores, mean, sd, theta_max, is_uniform, is_squared))
+    profits = np.nan_to_num(np.array(profits), nan=0).tolist()
     print(f'Profits: {profits}')
     return p_new, profits, ordering, j
 
@@ -216,11 +217,11 @@ def get_final_table(custom_array):
     for i, partition in enumerate(text_name):
         prices, profits, ordering, _ = custom_array[i]
         profits = np.array(profits)
-        print(f'profits before: {profits} ordering: {ordering}')
+        # print(f'profits before: {profits} ordering: {ordering}')
         profits_by_ordering = [0] * 3
         for i, order in enumerate(ordering):
             profits_by_ordering[order] = profits[i]
-        print(f'profits after: {profits_by_ordering}')
+        # print(f'profits after: {profits_by_ordering}')
         # print(f'prices before: {prices} ordering: {ordering}')
         prices_by_ordering = [0] * 3
         for i, order in enumerate(ordering):
@@ -369,7 +370,7 @@ def test_A_B_C__stability(table):
 
     return (True, 'Core stable')
 
-def check_stability(final_table):
+def check_core_stability(final_table):
     text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
     result_dict = {}
     for partition in text_name:
@@ -387,20 +388,68 @@ def check_stability(final_table):
             result_dict[partition] = 'Error: Invalid partition name'
     return result_dict
 
+def test_AB_C_individually_stable(table):
+    A_current = table[tdict['ABC']][cdict['A']]
+    B_current = table[tdict['ABC']][cdict['B']]
+    C_current = table[tdict['ABC']][cdict['C']]
+    
+    # Rule 1
+    if (table['ABC'][cdict['A']] >= A_current and
+        table['ABC'][cdict['B']] >= B_current and
+        table['ABC'][cdict['C']] > C_current):
+        return False
+    
+    # Rule 2
+    if (table['AC_B'][cdict['A']] > A_current and
+        table['AC_B'][cdict['C']] >= C_current):
+        return False
+    
+    # Rule 3
+    if (table['A_BC'][cdict['B']] > B_current and
+        table['A_BC'][cdict['C']] >= C_current):
+        return False
+    
+    return True
+
+def test_AB_C_individually_stable(table):
+    A_current = table[tdict['ABC']][cdict['A']]
+    B_current = table[tdict['ABC']][cdict['B']]
+    C_current = table[tdict['ABC']][cdict['C']]
+    
+    # Rule 1
+    if (table['ABC'][cdict['A']] >= A_current and
+        table['ABC'][cdict['B']] >= B_current and
+        table['ABC'][cdict['C']] > C_current):
+        return False
+    
+    # Rule 2
+    if (table['AC_B'][cdict['A']] > A_current and
+        table['AC_B'][cdict['C']] >= C_current):
+        return False
+    
+    # Rule 3
+    if (table['A_BC'][cdict['B']] > B_current and
+        table['A_BC'][cdict['C']] >= C_current):
+        return False
+    
+    return True
+
 def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
+    print('justin: createTableFromCoalition() called')
     results_array = []
     accuracies_as_table = [coalition.ABC, coalition.AB_C, coalition.AC_B, coalition.A_BC, coalition.A_B_C_]
 
     for i, partition in enumerate(accuracies_as_table):
         p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
         results_array.append((p_new, profits, ordering, j))
+    print('justin: before get_fine_table')
     reordered_profits, reordered_prices = get_final_table(results_array)
-    print('hello')
+    print('justin: after get_fine_table')
     np.set_printoptions(precision=8, suppress=True)
     print(f'prices: {reordered_prices}\n profits: {reordered_profits}')
     # For no competition, check stability with pure accuracy of each model
-    profit_stability_dict = check_stability(reordered_profits)
-    accuracy_stability_dict = check_stability(accuracies_as_table)
+    profit_stability_dict = check_core_stability(reordered_profits)
+    accuracy_stability_dict = check_core_stability(accuracies_as_table)
 
     return accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict
 
@@ -416,6 +465,61 @@ def calculate_equilibrium_profits(A1, A2, A3, theta_max):
     W3 = ((A1 - A2) ** 2 * (A2 - A3) * theta_max) / (36 * (A1 - A3) ** 2)
     return W1, W2, W3
 
+def model_degredation_best_response(A_max):
+    """
+    This function implements the best response algorithm for the model degradation game.
+
+    Args:
+      A_max: The maximum possible model performance for each client
+
+    Returns:
+      A: The best response strategy for each client.
+    """
+
+    # Initialize the strategy profile.
+    A = np.copy(A_max)
+
+    # Iterate until convergence.
+    while True:
+        # Create a copy of the strategy profile for comparison.
+        A_old = np.copy(A)
+
+        # Update the strategy profile.
+        for n in range(len(A)):
+            print(f"n: {n} | Complete strategy {A}")
+            # Find the best response for client n.
+            print(f"Player {n+1}: Current strategy = {A[n]}")
+            if A[n] > np.max([A[i] for i in range(len(A)) if i != n]):
+                # Client has best performing model
+                print('best performing')
+                A[n] = A_max[n]
+                print(f"Player {n+1}: Updated strategy = {A[n]}")
+            elif np.min([A[i] for i in range(len(A)) if i != n]) < A[n] < np.max([A[i] for i in range(len(A)) if i != n]):
+                # Client has 2nd best performing model
+                print(f'2nd best performing , left side: {round(np.max([A[i] for i in range(len(A)) if i != n]) - A[n], 3)}, right side: {round(A[n] - np.min([A[i] for i in range(len(A)) if i != n]), 3)}')
+                if np.max([A[i] for i in range(len(A)) if i != n]) - A[n] >= A[n] - np.min([A[i] for i in range(len(A)) if i != n]):
+                    A[n] = A_max[n]
+                    print(f"Player {n+1}: Updated strategy = {A[n]}")
+                else:
+                    A[n] = 0
+                    print(f"Player {n+1}: Updated strategy = {A[n]}")
+            elif A[n] < np.min([A[i] for i in range(len(A)) if i != n]):
+                print('worst performing')
+                # Client has worst performing model
+                if np.max([A[i] for i in range(len(A)) if i != n]) - np.min([A[i] for i in range(len(A)) if i != n]) >= np.min([A[i] for i in range(len(A)) if i != n]) - A[n]:
+                    A[n] = 0
+                    print(f"Player {n+1}: Updated strategy = {A[n]}")
+                else:
+                    A[n] = A_max[n]
+                    print(f"Player {n+1}: Updated strategy = {A[n]}")
+
+        # Check for convergence.
+        if np.allclose(A, A_old):
+            print(f'Final strategy {A}')
+            break
+
+    return A
+
 if __name__ == '__main__':
     args = get_args()
     custom_array = []
@@ -425,6 +529,8 @@ if __name__ == '__main__':
     theta_max = 10000
     mean = 5000
     sd = 234
+    print('justin: running model degradation for ABC:', [x for (_, x) in quantity_coalition.AC_B])
+    model_degredation_best_response([x for (_, x) in quantity_coalition.AC_B])
     if is_uniform:
         mean = 1
         sd = 1
@@ -459,11 +565,11 @@ if __name__ == '__main__':
     print(f'Final profit table for non-iid case:\n {final_non_iid_table}')
 
     print('--- IID Quantity stability ---')
-    custom_stability_dict = check_stability(final_custom_table)
+    custom_stability_dict = check_core_stability(final_custom_table)
     for key, value in custom_stability_dict.items():
         print(f"{key}: {value}")
     print('--- Non-IID Label stability ---')
-    non_idd_stability_dict = check_stability(final_non_iid_table)
+    non_idd_stability_dict = check_core_stability(final_non_iid_table)
     for key, value in non_idd_stability_dict.items():
         print(f"{key}: {value}")
     # quantity_arrays = [ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity]
@@ -471,10 +577,10 @@ if __name__ == '__main__':
 
     print('--- IID Accuracy Testing ---')
     quantity_arrays = np.array([[x[1] for x in row] for row in quantity_arrays])
-    for key, value in check_stability(quantity_arrays).items():
+    for key, value in check_core_stability(quantity_arrays).items():
         print(f"{key}: {value}")
     dirichlet_arrays = np.array([[x[1] for x in row] for row in dirichlet_arrays])
     print('--- Non IID Accuracy Testing ---')
-    for key, value in check_stability(dirichlet_arrays).items():
+    for key, value in check_core_stability(dirichlet_arrays).items():
         print(f"{key}: {value}")
 
