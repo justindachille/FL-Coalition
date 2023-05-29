@@ -388,28 +388,9 @@ def check_core_stability(final_table):
             result_dict[partition] = 'Error: Invalid partition name'
     return result_dict
 
-def test_AB_C_individually_stable(table):
-    A_current = table[tdict['ABC']][cdict['A']]
-    B_current = table[tdict['ABC']][cdict['B']]
-    C_current = table[tdict['ABC']][cdict['C']]
-    
-    # Rule 1
-    if (table['ABC'][cdict['A']] >= A_current and
-        table['ABC'][cdict['B']] >= B_current and
-        table['ABC'][cdict['C']] > C_current):
-        return False
-    
-    # Rule 2
-    if (table['AC_B'][cdict['A']] > A_current and
-        table['AC_B'][cdict['C']] >= C_current):
-        return False
-    
-    # Rule 3
-    if (table['A_BC'][cdict['B']] > B_current and
-        table['A_BC'][cdict['C']] >= C_current):
-        return False
-    
-    return True
+def test_ABC_individually_stable(table):
+    # TODO(justin): Implement
+    return False
 
 def test_AB_C_individually_stable(table):
     A_current = table[tdict['ABC']][cdict['A']]
@@ -417,22 +398,149 @@ def test_AB_C_individually_stable(table):
     C_current = table[tdict['ABC']][cdict['C']]
     
     # Rule 1
-    if (table['ABC'][cdict['A']] >= A_current and
-        table['ABC'][cdict['B']] >= B_current and
-        table['ABC'][cdict['C']] > C_current):
-        return False
+    if (table[tdict['ABC']][cdict['A']] >= A_current and
+        table[tdict['ABC']][cdict['B']] >= B_current and
+        table[tdict['ABC']][cdict['C']] > C_current):
+        return (False, 'Not stable due to ABC')
     
     # Rule 2
-    if (table['AC_B'][cdict['A']] > A_current and
-        table['AC_B'][cdict['C']] >= C_current):
-        return False
+    if (table[tdict['AC_B']][cdict['A']] > A_current and
+        table[tdict['AC_B']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to AC_B')
     
     # Rule 3
-    if (table['A_BC'][cdict['B']] > B_current and
-        table['A_BC'][cdict['C']] >= C_current):
-        return False
+    if (table[tdict['A_BC']][cdict['B']] > B_current and
+        table[tdict['A_BC']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to A_BC')
     
-    return True
+    return (True, 'Individually stable')
+
+def test_AB_C_individually_stable(table):
+    A_current = table[tdict['AB_C']][cdict['A']]
+    B_current = table[tdict['AB_C']][cdict['B']]
+    C_current = table[tdict['AB_C']][cdict['C']]
+    
+    # Rule 1
+    if (table[tdict['ABC']][cdict['A']] >= A_current and
+        table[tdict['ABC']][cdict['B']] >= B_current and
+        table[tdict['ABC']][cdict['C']] > C_current):
+        return (False, 'Not stable due to ABC')
+    
+    # Rule 2
+    if (table[tdict['AC_B']][cdict['A']] > A_current and
+        table[tdict['AC_B']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to AC_B')
+    
+    # Rule 3
+    if (table[tdict['A_BC']][cdict['B']] > B_current and
+        table[tdict['A_BC']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to A_BC')
+    
+    return (True, 'Individually stable')
+
+def test_A_BC_individually_stable(table):
+    A_current = table[tdict['A_BC']][cdict['A']]
+    B_current = table[tdict['A_BC']][cdict['B']]
+    C_current = table[tdict['A_BC']][cdict['C']]
+    
+    # Rule 1: A prefers ABC, B weakly prefers ABC, C weakly prefers ABC
+    if (table[tdict['ABC']][cdict['A']] > A_current and
+        table[tdict['ABC']][cdict['B']] >= B_current and
+        table[tdict['ABC']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to ABC')
+    
+    # Rule 2: C prefers AC, A weakly prefers AC
+    if (table[tdict['AC_B']][cdict['A']] >= A_current and
+        table[tdict['AC_B']][cdict['C']] > C_current):
+        return (False, 'Not stable due to AC_B')
+    
+    # Rule 3: B prefers AB, A weakly prefers AB
+    if (table[tdict['AB_C']][cdict['B']] > B_current and
+        table[tdict['AB_C']][cdict['A']] >= A_current):
+        return (False, 'Not stable due to AB_C')
+    
+    return (True, 'Individually stable')
+
+
+def test_AC_B_individually_stable(table):
+    A_current = table[tdict['AC_B']][cdict['A']]
+    B_current = table[tdict['AC_B']][cdict['B']]
+    C_current = table[tdict['AC_B']][cdict['C']]
+    
+    # Rule 1: B prefers ABC, A weakly prefers ABC, C weakly prefers ABC
+    if (table[tdict['ABC']][cdict['A']] >= A_current and
+        table[tdict['ABC']][cdict['B']] > B_current and
+        table[tdict['ABC']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to ABC')
+    
+    # Rule 2: C prefers BC, B weakly prefers BC
+    if (table[tdict['A_BC']][cdict['C']] > C_current and
+        table[tdict['A_BC']][cdict['B']] >= B_current):
+        return (False, 'Not stable due to A_BC')
+    
+    # Rule 3: A prefers AB, B weakly prefers AB
+    if (table[tdict['AB_C']][cdict['A']] > A_current and
+        table[tdict['AB_C']][cdict['B']] >= B_current):
+        return (False, 'Not stable due to AB_C')
+    
+    return (True, 'Individually stable')
+
+
+def test_A_B_C__individually_stable(table):
+    A_current = table[tdict['A_B_C_']][cdict['A']]
+    B_current = table[tdict['A_B_C_']][cdict['B']]
+    C_current = table[tdict['A_B_C_']][cdict['C']]
+    
+    # Rule 1: A prefers AB, B weakly prefers AB
+    if (table[tdict['AB_C']][cdict['A']] > A_current and
+        table[tdict['AB_C']][cdict['B']] >= B_current):
+        return (False, 'Not stable due to AB_C')
+    
+    # Rule 2: A prefers AC, C weakly prefers AC
+    if (table[tdict['AC_B']][cdict['A']] > A_current and
+        table[tdict['AC_B']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to AC_B')
+    
+    # Rule 3: B prefers AB, A weakly prefers AB
+    if (table[tdict['AB_C']][cdict['B']] > B_current and
+        table[tdict['AB_C']][cdict['A']] >= A_current):
+        return (False, 'Not stable due to AB_C')
+    
+    # Rule 4: B prefers BC, C weakly prefers BC
+    if (table[tdict['A_BC']][cdict['B']] > B_current and
+        table[tdict['A_BC']][cdict['C']] >= C_current):
+        return (False, 'Not stable due to A_BC')
+    
+    # Rule 5: C prefers AC, A weakly prefers AC
+    if (table[tdict['AC_B']][cdict['C']] > C_current and
+        table[tdict['AC_B']][cdict['A']] >= A_current):
+        return (False, 'Not stable due to AC_B')
+    
+    # Rule 6: C prefers BC, B weakly prefers BC
+    if (table[tdict['A_BC']][cdict['C']] > C_current and
+        table[tdict['A_BC']][cdict['B']] >= B_current):
+        return (False, 'Not stable due to A_BC')
+    
+    return (True, 'Individually stable')
+
+
+def check_individual_stability(final_table):
+    text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
+    result_dict = {}
+    for partition in text_name:
+        if partition == 'ABC':
+            result_dict[partition] = f'stable ABC?: {test_ABC_individually_stable(final_table)}'
+        elif partition == 'AB_C':
+            result_dict[partition] = f'stable AB_C?: {test_AB_C_individually_stable(final_table)}'
+        elif partition == 'AC_B':
+            result_dict[partition] = f'stable AC_B?: {test_AC_B_individually_stable(final_table)}'
+        elif partition == 'A_BC':
+            result_dict[partition] = f'stable A_BC?: {test_A_BC_individually_stable(final_table)}'
+        elif partition == 'A_B_C_':
+            result_dict[partition] = f'stable A_B_C_?: {test_A_B_C__individually_stable(final_table)}'
+        else:
+            result_dict[partition] = 'Error: Invalid partition name'
+    return result_dict
 
 def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
     print('justin: createTableFromCoalition() called')
@@ -564,12 +672,20 @@ if __name__ == '__main__':
     print(f'Final profit table for iid case:\n {final_custom_table}')
     print(f'Final profit table for non-iid case:\n {final_non_iid_table}')
 
-    print('--- IID Quantity stability ---')
+    print('--- IID Quantity Core stability ---')
     custom_stability_dict = check_core_stability(final_custom_table)
     for key, value in custom_stability_dict.items():
         print(f"{key}: {value}")
-    print('--- Non-IID Label stability ---')
+    print('--- IID Quantity Individually stability ---')
+    custom_stability_dict = check_individual_stability(final_custom_table)
+    for key, value in custom_stability_dict.items():
+        print(f"{key}: {value}")
+    print('--- Non-IID Label Core stability ---')
     non_idd_stability_dict = check_core_stability(final_non_iid_table)
+    for key, value in non_idd_stability_dict.items():
+        print(f"{key}: {value}")
+    print('--- Non-IID Label Individual stability ---')
+    non_idd_stability_dict = check_individual_stability(final_non_iid_table)
     for key, value in non_idd_stability_dict.items():
         print(f"{key}: {value}")
     # quantity_arrays = [ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity]
