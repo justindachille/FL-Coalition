@@ -11,6 +11,7 @@ from scipy.stats import truncnorm
 
 from scipy.optimize import basinhopping
 import dill as pickle
+from decimal import Decimal
 
 class Coalition:
     def __init__(self, C_size, ABC, AB_C, AC_B, A_BC, A_B_C_, beta, partition='custom-quantity'):
@@ -389,30 +390,18 @@ def check_core_stability(final_table):
     return result_dict
 
 def test_ABC_individually_stable(table):
-    # TODO(justin): Implement
-    return False
-
-def test_AB_C_individually_stable(table):
     A_current = table[tdict['ABC']][cdict['A']]
     B_current = table[tdict['ABC']][cdict['B']]
     C_current = table[tdict['ABC']][cdict['C']]
-    
-    # Rule 1
-    if (table[tdict['ABC']][cdict['A']] >= A_current and
-        table[tdict['ABC']][cdict['B']] >= B_current and
-        table[tdict['ABC']][cdict['C']] > C_current):
-        return (False, 'Not stable due to ABC')
-    
-    # Rule 2
-    if (table[tdict['AC_B']][cdict['A']] > A_current and
-        table[tdict['AC_B']][cdict['C']] >= C_current):
-        return (False, 'Not stable due to AC_B')
-    
-    # Rule 3
-    if (table[tdict['A_BC']][cdict['B']] > B_current and
-        table[tdict['A_BC']][cdict['C']] >= C_current):
-        return (False, 'Not stable due to A_BC')
-    
+
+    if table[tdict['A_B_C_']][cdict['A']] > A_current:
+        return (False, 'Not stable due to A in A_B_C_')
+
+    if table[tdict['A_B_C_']][cdict['B']] > B_current:
+        return (False, 'Not stable due to B in A_B_C_')
+
+    if table[tdict['A_B_C_']][cdict['C']] > C_current:
+        return (False, 'Not stable due to C in A_B_C_')
     return (True, 'Individually stable')
 
 def test_AB_C_individually_stable(table):
@@ -436,6 +425,14 @@ def test_AB_C_individually_stable(table):
         table[tdict['A_BC']][cdict['C']] >= C_current):
         return (False, 'Not stable due to A_BC')
     
+    # Rule 4: A prefers A over AB
+    if table[tdict['A_B_C_']][cdict['A']] > A_current:
+        return (False, 'Not stable due to A in A_B_C_')
+
+    # Rule 5: B prefers B over AB
+    if table[tdict['A_B_C_']][cdict['B']] > B_current:
+        return (False, 'Not stable due to B in A_B_C_')
+
     return (True, 'Individually stable')
 
 def test_A_BC_individually_stable(table):
@@ -459,8 +456,16 @@ def test_A_BC_individually_stable(table):
         table[tdict['AB_C']][cdict['A']] >= A_current):
         return (False, 'Not stable due to AB_C')
     
-    return (True, 'Individually stable')
+    # Rule 4: C prefers C over BC
+    if table[tdict['A_B_C_']][cdict['B']] > B_current:
+        return (False, 'Not stable due to B in A_B_C_')
+    
+    # Rule 5: B prefers B over BC
+    if table[tdict['A_B_C_']][cdict['C']] > C_current:
+        return (False, 'Not stable due to C in A_B_C_')
 
+    
+    return (True, 'Individually stable')
 
 def test_AC_B_individually_stable(table):
     A_current = table[tdict['AC_B']][cdict['A']]
@@ -482,9 +487,16 @@ def test_AC_B_individually_stable(table):
     if (table[tdict['AB_C']][cdict['A']] > A_current and
         table[tdict['AB_C']][cdict['B']] >= B_current):
         return (False, 'Not stable due to AB_C')
+
+    # Rule 4: A prefers C over AC
+    if table[tdict['A_B_C_']][cdict['A']] > A_current:
+        return (False, 'Not stable due to A in A_B_C_')
+
+    # Rule 5: C prefers C over AC
+    if table[tdict['A_B_C_']][cdict['C']] > C_current:
+        return (False, 'Not stable due to C in A_B_C_')
     
     return (True, 'Individually stable')
-
 
 def test_A_B_C__individually_stable(table):
     A_current = table[tdict['A_B_C_']][cdict['A']]
@@ -523,7 +535,6 @@ def test_A_B_C__individually_stable(table):
     
     return (True, 'Individually stable')
 
-
 def check_individual_stability(final_table):
     text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
     result_dict = {}
@@ -543,23 +554,40 @@ def check_individual_stability(final_table):
     return result_dict
 
 def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
+    np.set_printoptions(precision=8, suppress=True)
     print('justin: createTableFromCoalition() called')
+    
     results_array = []
     accuracies_as_table = [coalition.ABC, coalition.AB_C, coalition.AC_B, coalition.A_BC, coalition.A_B_C_]
-
     for i, partition in enumerate(accuracies_as_table):
         p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
         results_array.append((p_new, profits, ordering, j))
-    print('justin: before get_fine_table')
+
     reordered_profits, reordered_prices = get_final_table(results_array)
-    print('justin: after get_fine_table')
-    np.set_printoptions(precision=8, suppress=True)
     print(f'prices: {reordered_prices}\n profits: {reordered_profits}')
     # For no competition, check stability with pure accuracy of each model
-    profit_stability_dict = check_core_stability(reordered_profits)
-    accuracy_stability_dict = check_core_stability(accuracies_as_table)
+    core_profit_stability_dict = check_core_stability(reordered_profits)
+    core_accuracy_stability_dict = check_core_stability(accuracies_as_table)
+    individual_profit_stability_dict = check_individual_stability(reordered_profits)
+    individual_accuracy_stability_dict = check_individual_stability(accuracies_as_table)
+    base_accuracies_array = [core_profit_stability_dict, core_accuracy_stability_dict, individual_profit_stability_dict, individual_accuracy_stability_dict]
 
-    return accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict
+    degredaded_results_array = []
+    degredaded_accuracies_as_table = [model_degredation_best_response(x) for x in accuracies_as_table]
+    for i, partition in enumerate(degredaded_accuracies_as_table):
+        p_new, profits, ordering, j = optimize(i, partition, mean, sd, theta_max, is_uniform, is_squared)
+        degredaded_results_array.append((p_new, profits, ordering, j))
+
+    degredaded_reordered_profits, degredaded_reordered_prices = get_final_table(degredaded_results_array)
+    print(f'degredaded_prices: {degredaded_reordered_prices}\n degredaded_profits: {degredaded_reordered_profits}')
+    # For no competition, check stability with pure accuracy of each model
+    degredaded_core_profit_stability_dict = check_core_stability(degredaded_reordered_profits)
+    degredaded_core_accuracy_stability_dict = check_core_stability(degredaded_accuracies_as_table)
+    degredaded_individual_profit_stability_dict = check_core_stability(degredaded_reordered_profits)
+    degredaded_individual_accuracy_stability_dict = check_core_stability(degredaded_accuracies_as_table)
+    degraded_accuracies_array = [degredaded_core_profit_stability_dict, degredaded_core_accuracy_stability_dict, degredaded_individual_profit_stability_dict, degredaded_individual_accuracy_stability_dict]
+
+    return accuracies_as_table, degredaded_accuracies_as_table, reordered_profits, reordered_prices, degredaded_reordered_profits, degredaded_reordered_prices, base_accuracies_array, degraded_accuracies_array
 
 def calculate_equilibrium_price(A1, A2, A3, theta_max):
     p1_star = ((A1 - A2) * (3 * A1 + A2 - 4 * A3) * theta_max) / (6 * (A1 - A3))
@@ -594,32 +622,24 @@ def model_degredation_best_response(A_max):
 
         # Update the strategy profile.
         for n in range(len(A)):
-            print(f"n: {n} | Complete strategy {A}")
             # Find the best response for client n.
-            print(f"Player {n+1}: Current strategy = {A[n]}")
             if A[n] > np.max([A[i] for i in range(len(A)) if i != n]):
                 # Client has best performing model
-                print('best performing')
+                # print('best performing')
                 A[n] = A_max[n]
-                print(f"Player {n+1}: Updated strategy = {A[n]}")
+                # print(f"Player {n+1}: Updated strategy = {A[n]}")
             elif np.min([A[i] for i in range(len(A)) if i != n]) < A[n] < np.max([A[i] for i in range(len(A)) if i != n]):
                 # Client has 2nd best performing model
-                print(f'2nd best performing , left side: {round(np.max([A[i] for i in range(len(A)) if i != n]) - A[n], 3)}, right side: {round(A[n] - np.min([A[i] for i in range(len(A)) if i != n]), 3)}')
-                if np.max([A[i] for i in range(len(A)) if i != n]) - A[n] >= A[n] - np.min([A[i] for i in range(len(A)) if i != n]):
-                    A[n] = A_max[n]
-                    print(f"Player {n+1}: Updated strategy = {A[n]}")
-                else:
-                    A[n] = 0
-                    print(f"Player {n+1}: Updated strategy = {A[n]}")
+                # print(f'2nd best performing , left side: {round(np.max([A[i] for i in range(len(A)) if i != n]) - A[n], 3)}, right side: {round(A[n] - np.min([A[i] for i in range(len(A)) if i != n]), 3)}')
+                A[n] = min(A_max[n], float(0.5) * (np.sum([A[i] for i in range(len(A)) if i != n])))
+                # print(f"Player {n+1}: Updated strategy = {A[n]}")
             elif A[n] < np.min([A[i] for i in range(len(A)) if i != n]):
-                print('worst performing')
+                # print('worst performing')
                 # Client has worst performing model
-                if np.max([A[i] for i in range(len(A)) if i != n]) - np.min([A[i] for i in range(len(A)) if i != n]) >= np.min([A[i] for i in range(len(A)) if i != n]) - A[n]:
-                    A[n] = 0
-                    print(f"Player {n+1}: Updated strategy = {A[n]}")
-                else:
-                    A[n] = A_max[n]
-                    print(f"Player {n+1}: Updated strategy = {A[n]}")
+                min_val = np.min([A[i] for i in range(len(A)) if i != n])
+                max_val = np.max([A[i] for i in range(len(A)) if i != n])
+                A[n] = np.minimum(A_max[n], float(2)*min_val-max_val)
+                # print(f"Player {n+1}: Updated strategy = {A[n]}")
 
         # Check for convergence.
         if np.allclose(A, A_old):
@@ -638,7 +658,20 @@ if __name__ == '__main__':
     mean = 5000
     sd = 234
     print('justin: running model degradation for ABC:', [x for (_, x) in quantity_coalition.AC_B])
-    model_degredation_best_response([x for (_, x) in quantity_coalition.AC_B])
+    # model_degredation_best_response([0.6, 0.7, 0.8])
+
+    quantity_coalition.ABC = model_degredation_best_response([x for (_, x) in quantity_coalition.ABC])
+    quantity_coalition.AB_C = model_degredation_best_response([x for (_, x) in quantity_coalition.AB_C])
+    quantity_coalition.AC_B = model_degredation_best_response([x for (_, x) in quantity_coalition.AC_B])
+    quantity_coalition.A_BC = model_degredation_best_response([x for (_, x) in quantity_coalition.A_BC])
+    quantity_coalition.A_B_C_ = model_degredation_best_response([x for (_, x) in quantity_coalition.A_B_C_])
+
+    dirichlet_coalition.ABC = model_degredation_best_response([x for (_, x) in dirichlet_coalition.ABC])
+    dirichlet_coalition.AB_C = model_degredation_best_response([x for (_, x) in dirichlet_coalition.AB_C])
+    dirichlet_coalition.AC_B = model_degredation_best_response([x for (_, x) in dirichlet_coalition.AC_B])
+    dirichlet_coalition.A_BC = model_degredation_best_response([x for (_, x) in dirichlet_coalition.A_BC])
+    dirichlet_coalition.A_B_C_ = model_degredation_best_response([x for (_, x) in dirichlet_coalition.A_B_C_])
+    # print('model_degredation:', [quantity_coalition.ABC, quantity_coalition.AB_C, quantity_coalition.AC_B, quantity_coalition.A_BC, quantity_coalition.A_B_C_])
     if is_uniform:
         mean = 1
         sd = 1

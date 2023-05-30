@@ -197,6 +197,25 @@ def fix_solo_accuracies(coalition):
         coalition.A_B_C_[1] = SOLO_QUANTITY_B
     return coalition
 
+def generate_table_text(base_accuracies_array, category="Competitive"):
+    coalitions = []
+    for key, value in base_accuracies_array.items():
+        if 'True' in value:
+            if key == 'A_BC':
+                coalitions.append(r'$\{B,C\}, \{A\}$')
+            elif key == 'AB_C':
+                coalitions.append(r'$\{A,B\}, \{C\}$')
+            elif key == 'AC_B':
+                coalitions.append(r'$\{A,C\}, \{B\}$')
+            elif key == 'A_B_C_':
+                coalitions.append(r'$\{A\}, \{B\}, \{C\}$')
+            else:  # key is ABC
+                coalitions.append(r'$\{A,B,C\}$')
+    
+    coalitions_str = ', '.join(coalitions)
+    result_str = r'\item ' + category + ': ' + coalitions_str
+    return result_str + "\n"
+
 def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=True, is_squared=True, mean=1, sd=1):
     table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
     uniform_str = "True" if is_uniform else "False"
@@ -205,14 +224,7 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
         beta_string = str(coalition.beta).replace('.', '')
         filename = f'{coalition.partition}_beta-{beta_string}_csize-{coalition.C_size}_thetamax-{theta_max}_uniform-{uniform_str}_mean-{mean}_sd-{sd}_squared-{squared_str}.txt'
 
-    accuracies_as_table, reordered_profits, reordered_prices, profit_stability_dict, accuracy_stability_dict = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
-    table_data = [
-        (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.2f}\\%", f"{coalition.ABC[1]*100:.2f}\\%", f"{coalition.ABC[2]*100:.2f}\\%"),
-        (r"$\{A,B\}, \{C\}$", f"{coalition.AB_C[0]*100:.2f}\\%", f"{coalition.AB_C[1]*100:.2f}\\%", f"{coalition.AB_C[2]*100:.2f}\\%"),
-        (r"$\{A,C\}, \{B\}$", f"{coalition.AC_B[0]*100:.2f}\\%", f"{coalition.AC_B[1]*100:.2f}\\%", f"{coalition.AC_B[2]*100:.2f}\\%"),
-        (r"$\{B,C\}, \{A\}$", f"{coalition.A_BC[0]*100:.2f}\\%", f"{coalition.A_BC[1]*100:.2f}\\%", f"{coalition.A_BC[2]*100:.2f}\\%"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.2f}\\%", f"{coalition.A_B_C_[1]*100:.2f}\\%", f"{coalition.A_B_C_[2]*100:.2f}\\%")
-    ]
+    accuracies_as_table, degredaded_accuracies_as_table, reordered_profits, reordered_prices, degredaded_reordered_profits, degredaded_reordered_prices, base_accuracies_array, degraded_accuracies_array = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
     partition_str = "Non-IID Label Dirichlet" if coalition.partition == "noniid-labeldir" else "IID"
     table = (r"\subsection{Scenario " + str(i+1) + "}\n\n"
              r"\textbf{Simulation Setup}:" + "\n"
@@ -229,15 +241,22 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
         table += r"SD: {" + str(sd) + "}\n\n"
     else:
         table += "\n"
-
+    table += "\\subsection{Scenario 1: Without Degredation}\n"
     table += r"\textbf{Numerical results}:" + "\n\n"
+
     table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
     table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    table_data = [
+        (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.2f}\\%", f"{coalition.ABC[1]*100:.2f}\\%", f"{coalition.ABC[2]*100:.2f}\\%"),
+        (r"$\{A,B\}, \{C\}$", f"{coalition.AB_C[0]*100:.2f}\\%", f"{coalition.AB_C[1]*100:.2f}\\%", f"{coalition.AB_C[2]*100:.2f}\\%"),
+        (r"$\{A,C\}, \{B\}$", f"{coalition.AC_B[0]*100:.2f}\\%", f"{coalition.AC_B[1]*100:.2f}\\%", f"{coalition.AC_B[2]*100:.2f}\\%"),
+        (r"$\{B,C\}, \{A\}$", f"{coalition.A_BC[0]*100:.2f}\\%", f"{coalition.A_BC[1]*100:.2f}\\%", f"{coalition.A_BC[2]*100:.2f}\\%"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.2f}\\%", f"{coalition.A_B_C_[1]*100:.2f}\\%", f"{coalition.A_B_C_[2]*100:.2f}\\%")
+    ]
     for row in table_data:
         table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
     table += '\\end{tabular}\n\\end{table}\n'
 
-    print(reordered_prices)
     table_header = ['Coalition structure', "Client A's price", "Client B's price", "Client C's price"]
     table_data = [
         (r"$\{A,B,C\}$", f"{reordered_prices[0][0]:.2f}", f"{reordered_prices[0][1]:.2f}", f"{reordered_prices[0][2]:.2f}"),
@@ -271,41 +290,76 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
     table += r"\textbf{Core stable coalition structures}:" + "\n"
     table += r"\begin{itemize}" + "\n"
 
-    # Competitive coalition structures
-    coalitions = []
-    for key, value in profit_stability_dict.items():
-        if 'True' in value:
-            if key == 'A_BC':
-                coalitions.append(r'$\{B,C\}, \{A\}$')
-            elif key == 'AB_C':
-                coalitions.append(r'$\{A,B\}, \{C\}$')
-            elif key == 'AC_B':
-                coalitions.append(r'$\{A,C\}, \{B\}$')
-            elif key == 'A_B_C_':
-                coalitions.append(r'$\{A\}, \{B\}, \{C\}$')
-            else:  # key is ABC
-                coalitions.append(r'$\{A,B,C\}$')
-    coalitions_str = ', '.join(coalitions)
-    result_str = r'\item Competitive: ' + coalitions_str
-    table += result_str + "\n"
+    table += generate_table_text(base_accuracies_array[0], 'Competitive')
+    table += generate_table_text(base_accuracies_array[1], 'Non-competitive')
 
-    # Non-competitive coalition structures
-    coalitions = []
-    for key, value in accuracy_stability_dict.items():
-        if 'True' in value:
-            if key == 'A_BC':
-                coalitions.append(r'$\{B,C\}, \{A\}$')
-            elif key == 'AB_C':
-                coalitions.append(r'$\{A,B\}, \{C\}$')
-            elif key == 'AC_B':
-                coalitions.append(r'$\{A,C\}, \{B\}$')
-            elif key == 'A_B_C_':
-                coalitions.append(r'$\{A\}, \{B\}, \{C\}$')
-            else:  # key is ABC
-                coalitions.append(r'$\{A,B,C\}$')
-    coalitions_str = ', '.join(coalitions)
-    result_str = r'\item Non-competitive: ' + coalitions_str
-    table += result_str + "\n"
+    table += r"\end{itemize}" + "\n"
+
+    table += r"\textbf{Individual stable coalition structures}:" + "\n"
+    table += r"\begin{itemize}" + "\n"
+
+    table += generate_table_text(base_accuracies_array[2], 'Competitive')
+    table += generate_table_text(base_accuracies_array[3], 'Non-competitive')
+
+    table += r"\end{itemize}" + "\n"
+
+    table += "\\subsection{Scenario 2: With Degredation}\n"
+
+    table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
+    table_data = [
+        (r"$\{A,B,C\}$", f"{degredaded_accuracies_as_table[0][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[0][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[0][2]*100:.2f}\\%"),
+        (r"$\{A,B\}, \{C\}$", f"{degredaded_accuracies_as_table[1][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[1][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[1][2]*100:.2f}\\%"),
+        (r"$\{A,C\}, \{B\}$", f"{degredaded_accuracies_as_table[2][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[2][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[2][2]*100:.2f}\\%"),
+        (r"$\{B,C\}, \{A\}$", f"{degredaded_accuracies_as_table[3][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[3][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[3][2]*100:.2f}\\%"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_accuracies_as_table[4][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[4][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[4][2]*100:.2f}\\%")
+    ]
+    table += '\n\n'
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Accuracy results for the 'degredated' scenario.}\n\\label{accuracy-results-degredated}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    for row in table_data:
+        table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
+    table += '\\end{tabular}\n\\end{table}\n'
+
+    table_header = ['Coalition structure', "Client A's price", "Client B's price", "Client C's price"]
+    table_data = [
+        (r"$\{A,B,C\}$", f"{degredaded_reordered_prices[0][0]:.2f}", f"{degredaded_reordered_prices[0][1]:.2f}", f"{degredaded_reordered_prices[0][2]:.2f}"),
+        (r"$\{A,B\}, \{C\}$", f"{degredaded_reordered_prices[1][0]:.2f}", f"{degredaded_reordered_prices[1][1]:.2f}", f"{degredaded_reordered_prices[1][2]:.2f}"),
+        (r"$\{A,C\}, \{B\}$", f"{degredaded_reordered_prices[2][0]:.2f}", f"{degredaded_reordered_prices[2][1]:.2f}", f"{degredaded_reordered_prices[2][2]:.2f}"),
+        (r"$\{B,C\}, \{A\}$", f"{degredaded_reordered_prices[3][0]:.2f}", f"{degredaded_reordered_prices[3][1]:.2f}", f"{degredaded_reordered_prices[3][2]:.2f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_reordered_prices[4][0]:.2f}", f"{degredaded_reordered_prices[4][1]:.2f}", f"{degredaded_reordered_prices[4][2]:.2f}")
+    ]
+    table += '\n\n'
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Price results.}\n\\label{price-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    for row in table_data:
+        table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
+    table += '\\end{tabular}\n\\end{table}\n'
+
+    table_header = ['Coalition structure', "Client A's profit", "Client B's profit", "Client C's profit"]
+    table_data = [
+        (r"$\{A,B,C\}$", f"{degredaded_reordered_profits[0][0]:.2f}", f"{degredaded_reordered_profits[0][1]:.2f}", f"{degredaded_reordered_profits[0][2]:.2f}"),
+        (r"$\{A,B\}, \{C\}$", f"{degredaded_reordered_profits[1][0]:.2f}", f"{degredaded_reordered_profits[1][1]:.2f}", f"{degredaded_reordered_profits[1][2]:.2f}"),
+        (r"$\{A,C\}, \{B\}$", f"{degredaded_reordered_profits[2][0]:.2f}", f"{degredaded_reordered_profits[2][1]:.2f}", f"{degredaded_reordered_profits[2][2]:.2f}"),
+        (r"$\{B,C\}, \{A\}$", f"{degredaded_reordered_profits[3][0]:.2f}", f"{degredaded_reordered_profits[3][1]:.2f}", f"{degredaded_reordered_profits[3][2]:.2f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_reordered_profits[4][0]:.2f}", f"{degredaded_reordered_profits[4][1]:.2f}", f"{degredaded_reordered_profits[4][2]:.2f}")
+    ]
+    table += '\n\n'
+    table += "\\begin{table}[h]\n\\centering\n\\caption{Profit results.}\n\\label{profit-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
+    table += ' & '.join(table_header) + '\\\\ \\hline\n'
+    for row in table_data:
+        table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
+    table += '\\end{tabular}\n\\end{table}\n'
+
+    table += r"\textbf{Core stable coalition structures}:" + "\n"
+    table += r"\begin{itemize}" + "\n"
+    table += generate_table_text(degraded_accuracies_array[0], 'Competitive')
+    table += generate_table_text(degraded_accuracies_array[1], 'Non-competitive')
+    table += r"\end{itemize}" + "\n"
+
+    table += r"\textbf{Individual stable coalition structures}:" + "\n"
+    table += r"\begin{itemize}" + "\n"
+    table += generate_table_text(degraded_accuracies_array[2], 'Competitive')
+    table += generate_table_text(degraded_accuracies_array[3], 'Non-competitive')
 
     table += r"\end{itemize}" + "\n"
 

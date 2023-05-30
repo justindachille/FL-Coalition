@@ -1,0 +1,124 @@
+\subsection{Scenario 6}
+
+\textbf{Simulation Setup}:
+Data Scenario: Non-IID Label Dirichlet
+C Dataset Size: {8000}
+Theta Max: {10000}
+Is Squared: {True}
+Is Uniform: {False}
+Dirichlet Beta Parameter: {0.01}
+Mean: {5000}
+SD: {2000}
+
+\subsection{Scenario 1: Without Degredation}
+\textbf{Numerical results}:
+
+\begin{table}[h]
+\centering
+\caption{Training results.}
+\label{training-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
+$\{A,B,C\}$ & 86.89\% & 86.84\% & 86.84\%\\ \hline
+$\{A,B\}, \{C\}$ & 84.11\% & 84.21\% & 83.82\%\\ \hline
+$\{A,C\}, \{B\}$ & 84.27\% & 84.16\% & 84.16\%\\ \hline
+$\{B,C\}, \{A\}$ & 82.89\% & 82.89\% & 82.89\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 61.96\% & 60.83\% & 57.90\%\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Price results.}
+\label{price-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 2992.96 & 0.00 & 0.00\\ \hline
+$\{A,B\}, \{C\}$ & 1.80 & 7.93 & 0.85\\ \hline
+$\{A,C\}, \{B\}$ & 2815.19 & 0.00 & 0.00\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 0.00 & 0.00\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 64.91 & 14.23 & 6.66\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Profit results.}
+\label{profit-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
+$\{A,B,C\}$ & 2095.71 & 0.00 & 0.00\\ \hline
+$\{A,B\}, \{C\}$ & 0.39 & 5.98 & 0.00\\ \hline
+$\{A,C\}, \{B\}$ & 1971.23 & 0.00 & 0.00\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 0.00 & 0.00\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 48.87 & 3.04 & 0.01\\ \hline
+\end{tabular}
+\end{table}
+\textbf{Core stable coalition structures}:
+\begin{itemize}
+\item Competitive: $\{A\}, \{B\}, \{C\}$
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}
+\textbf{Individual stable coalition structures}:
+\begin{itemize}
+\item Competitive: $\{A\}, \{B\}, \{C\}$
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}
+\subsection{Scenario 2: With Degredation}
+
+
+\begin{table}[h]
+\centering
+\caption{Accuracy results for the 'degredated' scenario.}
+\label{accuracy-results-degredated}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
+$\{A,B,C\}$ & 86.89\% & 86.84\% & 86.84\%\\ \hline
+$\{A,B\}, \{C\}$ & 84.02\% & 84.21\% & 83.82\%\\ \hline
+$\{A,C\}, \{B\}$ & 84.27\% & 84.16\% & 84.16\%\\ \hline
+$\{B,C\}, \{A\}$ & 82.89\% & 82.89\% & 82.89\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 61.96\% & 59.93\% & 57.90\%\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Price results.}
+\label{price-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
+$\{A,B,C\}$ & 2992.96 & 0.00 & 0.00\\ \hline
+$\{A,B\}, \{C\}$ & 2.30 & 14.58 & 1.02\\ \hline
+$\{A,C\}, \{B\}$ & 2815.19 & 0.00 & 0.00\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 0.00 & 0.00\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 109.80 & 17.03 & 7.56\\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Profit results.}
+\label{profit-results}
+\begin{tabular}{|c|c|c|c|}\hline
+Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
+$\{A,B,C\}$ & 2095.71 & 0.00 & 0.00\\ \hline
+$\{A,B\}, \{C\}$ & 0.46 & 10.76 & 0.00\\ \hline
+$\{A,C\}, \{B\}$ & 1971.23 & 0.00 & 0.00\\ \hline
+$\{B,C\}, \{A\}$ & 0.00 & 0.00 & 0.00\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 80.93 & 3.43 & 0.03\\ \hline
+\end{tabular}
+\end{table}
+\textbf{Core stable coalition structures}:
+\begin{itemize}
+\item Competitive: $\{A\}, \{B\}, \{C\}$
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}
+\textbf{Individual stable coalition structures}:
+\begin{itemize}
+\item Competitive: $\{A\}, \{B\}, \{C\}$
+\item Non-competitive: $\{A,B,C\}$
+\end{itemize}
