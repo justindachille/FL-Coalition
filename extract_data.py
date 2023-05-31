@@ -18,13 +18,14 @@ LOGS_FT_PATH = './logs_ft/'
 PARAMETER_PATTERN = r"(?=.*C_size=(\d+))(?=.*abc='([^']+)')(?=.*beta=([\d.]+))(?=.*\spartition='([^']+)')"
 
 BETA_MAP = {
+    "0001": "0.001",
     "001": "0.01",
     "01": "0.1",
     "10": "1.0",
     "100": "10.0",
     "1000": "100.0",
 }
-debug = False
+debug = True
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -188,13 +189,20 @@ def fix_solo_accuracies(coalition):
         SOLO_QUANTITY_C = .7091
     else:
         SOLO_QUANTITY_C = coalition.A_B_C_[2]
-    # TODO: Add case for noniid
     if coalition.partition == 'custom-quantity':
         coalition.A_BC[0] = SOLO_QUANTITY_A
         coalition.AC_B[1] = SOLO_QUANTITY_B
         coalition.AB_C[2] = SOLO_QUANTITY_C
         coalition.A_B_C_[0] = SOLO_QUANTITY_A
         coalition.A_B_C_[1] = SOLO_QUANTITY_B
+    elif coalition.partition == 'noniid-labeldir':
+        SOLO_QUANTITY_A = coalition.A_B_C_[0]
+        SOLO_QUANTITY_B = coalition.A_B_C_[1]
+        SOLO_QUANTITY_C = coalition.A_B_C_[2]
+        coalition.A_BC[0] = SOLO_QUANTITY_A
+        coalition.AC_B[1] = SOLO_QUANTITY_B
+        coalition.AB_C[2] = SOLO_QUANTITY_C
+
     return coalition
 
 def generate_table_text(base_accuracies_array, category="Competitive"):
