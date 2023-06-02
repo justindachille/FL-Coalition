@@ -1,4 +1,4 @@
-\subsection{Scenario 3}
+\subsection{Scenario 2}
 
 \textbf{Simulation Setup}:
 Data Scenario: IID

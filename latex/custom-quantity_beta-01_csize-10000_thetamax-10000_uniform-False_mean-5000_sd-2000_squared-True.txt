@@ -1,4 +1,4 @@
-\subsection{Scenario 10}
+\subsection{Scenario 9}
 
 \textbf{Simulation Setup}:
 Data Scenario: IID
@@ -18,10 +18,10 @@ SD: {2000}
 \label{training-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
-$\{A,B,C\}$ & 88.74\% & 88.73\% & 88.85\%\\ \hline
+$\{A,B,C\}$ & 88.86\% & 88.86\% & 88.86\%\\ \hline
 $\{A,B\}, \{C\}$ & 80.21\% & 80.33\% & 69.37\%\\ \hline
 $\{A,C\}, \{B\}$ & 87.06\% & 61.16\% & 86.68\%\\ \hline
-$\{B,C\}, \{A\}$ & 50.04\% & 88.20\% & 88.20\%\\ \hline
+$\{B,C\}, \{A\}$ & 50.04\% & 88.30\% & 88.30\%\\ \hline
 $\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 69.37\%\\ \hline
 \end{tabular}
 \end{table}
@@ -33,7 +33,7 @@ $\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 69.37\%\\ \hline
 \label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.22 & 0.09 & 7.89\\ \hline
+$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
 $\{A,B\}, \{C\}$ & 2.81 & 9.62 & 1.40\\ \hline
 $\{A,C\}, \{B\}$ & 32.93 & 4.77 & 9.57\\ \hline
 $\{B,C\}, \{A\}$ & 992.65 & 0.00 & 0.00\\ \hline
@@ -48,7 +48,7 @@ $\{A\}, \{B\}, \{C\}$ & 36.23 & 80.77 & 480.49\\ \hline
 \label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
-$\{A,B,C\}$ & 0.04 & 0.00 & 5.58\\ \hline
+$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
 $\{A,B\}, \{C\}$ & 0.64 & 7.42 & 0.00\\ \hline
 $\{A,C\}, \{B\}$ & 25.39 & 0.00 & 2.17\\ \hline
 $\{B,C\}, \{A\}$ & 695.07 & 0.00 & 0.00\\ \hline
@@ -74,10 +74,10 @@ $\{A\}, \{B\}, \{C\}$ & 0.15 & 16.46 & 355.69\\ \hline
 \label{accuracy-results-degredated}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
-$\{A,B,C\}$ & 88.74\% & 88.63\% & 88.85\%\\ \hline
+$\{A,B,C\}$ & 88.86\% & 88.86\% & 88.86\%\\ \hline
 $\{A,B\}, \{C\}$ & 74.85\% & 80.33\% & 69.37\%\\ \hline
 $\{A,C\}, \{B\}$ & 87.06\% & 61.16\% & 74.11\%\\ \hline
-$\{B,C\}, \{A\}$ & 50.04\% & 88.20\% & 88.20\%\\ \hline
+$\{B,C\}, \{A\}$ & 50.04\% & 88.30\% & 88.30\%\\ \hline
 $\{A\}, \{B\}, \{C\}$ & 50.04\% & 59.70\% & 69.37\%\\ \hline
 \end{tabular}
 \end{table}
@@ -89,7 +89,7 @@ $\{A\}, \{B\}, \{C\}$ & 50.04\% & 59.70\% & 69.37\%\\ \hline
 \label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 1.37 & 0.61 & 8.68\\ \hline
+$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
 $\{A,B\}, \{C\}$ & 57.28 & 376.48 & 25.37\\ \hline
 $\{A,C\}, \{B\}$ & 918.54 & 58.49 & 132.80\\ \hline
 $\{B,C\}, \{A\}$ & 992.65 & 0.00 & 0.00\\ \hline
@@ -104,7 +104,7 @@ $\{A\}, \{B\}, \{C\}$ & 35.24 & 79.96 & 549.43\\ \hline
 \label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
-$\{A,B,C\}$ & 0.28 & 0.00 & 6.41\\ \hline
+$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
 $\{A,B\}, \{C\}$ & 11.51 & 277.22 & 0.12\\ \hline
 $\{A,C\}, \{B\}$ & 674.68 & 0.29 & 26.51\\ \hline
 $\{B,C\}, \{A\}$ & 695.07 & 0.00 & 0.00\\ \hline
