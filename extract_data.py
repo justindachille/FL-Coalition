@@ -205,24 +205,37 @@ def fix_solo_accuracies(coalition):
 
     return coalition
 
-def generate_table_text(base_accuracies_array, category="Competitive"):
+def generate_table_text(base_accuracies_array, category="Competitive", surpluses=None):
     coalitions = []
     for key, value in base_accuracies_array.items():
+        i = None
         if 'True' in value:
             if key == 'A_BC':
-                coalitions.append(r'$\{B,C\}, \{A\}$')
+                i = 3
+                coalition_str = r'($\{B,C\}, \{A\}$'
             elif key == 'AB_C':
-                coalitions.append(r'$\{A,B\}, \{C\}$')
+                i = 1
+                coalition_str = r'($\{A,B\}, \{C\}$'
             elif key == 'AC_B':
-                coalitions.append(r'$\{A,C\}, \{B\}$')
+                i = 2
+                coalition_str = r'($\{A,C\}, \{B\}$'
             elif key == 'A_B_C_':
-                coalitions.append(r'$\{A\}, \{B\}, \{C\}$')
+                i = 4
+                coalition_str = r'($\{A\}, \{B\}, \{C\}$'
             else:  # key is ABC
-                coalitions.append(r'$\{A,B,C\}$')
+                i = 0
+                coalition_str = r'($\{A,B,C\}$'
+            
+            if surpluses is not None and i is not None:
+                coalition_str += f", customer_surplus: {surpluses[0][i]}, social_welfare: {surpluses[1][i]}"
+            
+            coalition_str += ")"
+            coalitions.append(coalition_str)
     
     coalitions_str = ', '.join(coalitions)
     result_str = r'\item ' + category + ': ' + coalitions_str
     return result_str + "\n"
+
 
 def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=True, is_squared=True, mean=1, sd=1):
     table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
@@ -232,7 +245,8 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
         beta_string = str(coalition.beta).replace('.', '')
         filename = f'{coalition.partition}_beta-{beta_string}_csize-{coalition.C_size}_thetamax-{theta_max}_uniform-{uniform_str}_mean-{mean}_sd-{sd}_squared-{squared_str}.txt'
 
-    accuracies_as_table, degredaded_accuracies_as_table, reordered_profits, reordered_prices, degredaded_reordered_profits, degredaded_reordered_prices, base_accuracies_array, degraded_accuracies_array = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
+    accuracies_as_table, degredaded_accuracies_as_table, reordered_profits, reordered_prices, degredaded_reordered_profits, degredaded_reordered_prices, base_accuracies_array, degraded_accuracies_array, customer_surpluses, social_welfares, degraded_customer_surpluses, degraded_social_welfares = createTableFromCoalition(coalition, theta_max, is_uniform=is_uniform, is_squared=is_squared, mean=mean, sd=sd)
+    surpluses = (customer_surpluses, social_welfares, degraded_customer_surpluses, degraded_social_welfares)
     partition_str = "Non-IID Label Dirichlet" if coalition.partition == "noniid-labeldir" else "IID"
     table = (r"\subsection{Scenario " + str(i+1) + "}\n\n"
              r"\textbf{Simulation Setup}:" + "\n"
@@ -298,7 +312,7 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
     table += r"\textbf{Core stable coalition structures}:" + "\n"
     table += r"\begin{itemize}" + "\n"
 
-    table += generate_table_text(base_accuracies_array[0], 'Competitive')
+    table += generate_table_text(base_accuracies_array[0], 'Competitive', surpluses=surpluses[:2])
     table += generate_table_text(base_accuracies_array[1], 'Non-competitive')
 
     table += r"\end{itemize}" + "\n"
@@ -306,7 +320,7 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
     table += r"\textbf{Individual stable coalition structures}:" + "\n"
     table += r"\begin{itemize}" + "\n"
 
-    table += generate_table_text(base_accuracies_array[2], 'Competitive')
+    table += generate_table_text(base_accuracies_array[2], 'Competitive', surpluses=surpluses[:2])
     table += generate_table_text(base_accuracies_array[3], 'Non-competitive')
 
     table += r"\end{itemize}" + "\n"
@@ -360,13 +374,13 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
 
     table += r"\textbf{Core stable coalition structures}:" + "\n"
     table += r"\begin{itemize}" + "\n"
-    table += generate_table_text(degraded_accuracies_array[0], 'Competitive')
+    table += generate_table_text(degraded_accuracies_array[0], 'Competitive', surpluses=surpluses[2:4])
     table += generate_table_text(degraded_accuracies_array[1], 'Non-competitive')
     table += r"\end{itemize}" + "\n"
 
     table += r"\textbf{Individual stable coalition structures}:" + "\n"
     table += r"\begin{itemize}" + "\n"
-    table += generate_table_text(degraded_accuracies_array[2], 'Competitive')
+    table += generate_table_text(degraded_accuracies_array[2], 'Competitive', surpluses=surpluses[2:4])
     table += generate_table_text(degraded_accuracies_array[3], 'Non-competitive')
 
     table += r"\end{itemize}" + "\n"
@@ -395,11 +409,11 @@ if __name__ == '__main__':
         print('After parsing FT logs:')
         for k, v in coalition_str_dict.items():
             print(k, v)
-    THETA_MAX = 10000
+    THETA_MAX = 100
     IS_UNIFORM = False
     IS_SQUARED = True
-    MEAN = 5000
-    SD = 2000
+    MEAN = 50
+    SD = 5
     for i, coalition in enumerate(coalitions):
         generate_coalition_table(
             i,

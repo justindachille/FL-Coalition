@@ -58,13 +58,13 @@ $\{A\}, \{B\}, \{C\}$ & 8.11 & 0.09 & 213.33\\ \hline
 \end{table}
 \textbf{Core stable coalition structures}:
 \begin{itemize}
-\item Competitive: $\{A\}, \{B\}, \{C\}$
-\item Non-competitive: $\{A,B,C\}$
+\item Competitive: ($\{A\}, \{B\}, \{C\}$, customer_surpluses: 21252871.630691588, social_welfares: 21253093.153956015)
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \textbf{Individual stable coalition structures}:
 \begin{itemize}
-\item Competitive: $\{A\}, \{B\}, \{C\}$
-\item Non-competitive: $\{A,B,C\}$
+\item Competitive: ($\{A\}, \{B\}, \{C\}$, customer_surpluses: 21252871.630691588, social_welfares: 21253093.153956015)
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \subsection{Scenario 2: With Degredation}
 
@@ -91,7 +91,7 @@ $\{A\}, \{B\}, \{C\}$ & 60.16\% & 54.88\% & 65.44\%\\ \hline
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
 $\{A,B,C\}$ & 0.49 & 3.09 & 0.22\\ \hline
-$\{A,B\}, \{C\}$ & 561.99 & 83.92 & 37.10\\ \hline
+$\{A,B\}, \{C\}$ & 561.99 & 83.92 & 37.09\\ \hline
 $\{A,C\}, \{B\}$ & 0.00 & 1226.82 & 0.00\\ \hline
 $\{B,C\}, \{A\}$ & 51.97 & 117.92 & 811.26\\ \hline
 $\{A\}, \{B\}, \{C\}$ & 44.31 & 19.61 & 293.34\\ \hline
@@ -115,10 +115,10 @@ $\{A\}, \{B\}, \{C\}$ & 8.90 & 0.09 & 215.93\\ \hline
 \textbf{Core stable coalition structures}:
 \begin{itemize}
 \item Competitive: 
-\item Non-competitive: $\{A,B,C\}$
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \textbf{Individual stable coalition structures}:
 \begin{itemize}
 \item Competitive: 
-\item Non-competitive: $\{A,B,C\}$
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}

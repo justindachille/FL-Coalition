@@ -58,13 +58,13 @@ $\{A\}, \{B\}, \{C\}$ & 48.87 & 3.04 & 0.01\\ \hline
 \end{table}
 \textbf{Core stable coalition structures}:
 \begin{itemize}
-\item Competitive: $\{A\}, \{B\}, \{C\}$
-\item Non-competitive: $\{A,B,C\}$
+\item Competitive: ($\{A\}, \{B\}, \{C\}$, customer_surpluses: 21786575.625495616, social_welfares: 21786627.548299883)
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \textbf{Individual stable coalition structures}:
 \begin{itemize}
-\item Competitive: $\{A\}, \{B\}, \{C\}$
-\item Non-competitive: $\{A,B,C\}$
+\item Competitive: ($\{A\}, \{B\}, \{C\}$, customer_surpluses: 21786575.625495616, social_welfares: 21786627.548299883)
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \subsection{Scenario 2: With Degredation}
 
@@ -114,11 +114,11 @@ $\{A\}, \{B\}, \{C\}$ & 80.93 & 3.43 & 0.03\\ \hline
 \end{table}
 \textbf{Core stable coalition structures}:
 \begin{itemize}
-\item Competitive: $\{A,C\}, \{B\}$
-\item Non-competitive: $\{A,B,C\}$
+\item Competitive: ($\{A,C\}, \{B\}$, customer_surpluses: 26039855.377882846, social_welfares: 26040473.94376766)
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \textbf{Individual stable coalition structures}:
 \begin{itemize}
-\item Competitive: $\{A,C\}, \{B\}$
-\item Non-competitive: $\{A,B,C\}$
+\item Competitive: ($\{A,C\}, \{B\}$, customer_surpluses: 26039855.377882846, social_welfares: 26040473.94376766)
+\item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}

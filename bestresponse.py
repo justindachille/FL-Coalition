@@ -8,8 +8,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import minimize
 from scipy.stats import truncnorm
-
+from scipy.integrate import quad
 from scipy.optimize import basinhopping
+
 import dill as pickle
 from decimal import Decimal
 
@@ -142,6 +143,27 @@ def update_price(i, p, A, mean, sd, theta_max, is_uniform, is_squared):
     elif i == 2:
         res = basinhopping(lambda x: W2Obj([p[0], p[1], x], A, mean, sd, theta_max, is_uniform, is_squared), x0=p[2], minimizer_kwargs={'method': 'BFGS'})
         return [p[0], p[1], res.x[0]]
+
+# Calculate customer surplus
+def calculate_customer_surplus(A, p, mean, sd, theta_max, is_uniform, is_squared=False):
+    # Customer distribution
+    def h(theta):
+        return N(theta, mean=mean, sd=sd, theta_max=theta_max, is_uniform=is_uniform)
+
+    a1 = sigma(0, 1, p, A, is_squared)
+    b1 = theta_max
+    integral1 = quad(lambda theta: (theta * A[0] - p[0]) * h(theta), a1, b1)[0]
+
+    a2 = sigma(1, 2, p, A, is_squared)
+    b2 = sigma(0, 1, p, A, is_squared)
+    integral2 = quad(lambda theta: (theta * A[1] - p[1]) * h(theta), a2, b2)[0]
+
+    a3 = 0
+    b3 = sigma(1, 2, p, A, is_squared)
+    integral3 = quad(lambda theta: (theta * A[2] - p[2]) * h(theta), a3, b3)[0]
+
+    CP = integral1 + integral2 + integral3
+    return CP
 
 text_name = ['ABC', 'AB_C', 'AC_B', 'A_BC', 'A_B_C_']
 quantity_arrays = [ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity]
@@ -553,6 +575,18 @@ def check_individual_stability(final_table):
             result_dict[partition] = 'Error: Invalid partition name'
     return result_dict
 
+def get_customer_surpluses_and_welfare(accuracies_as_table, reordered_prices, reordered_profits, mean, sd, theta_max, is_uniform, is_squared):
+    customer_surpluses = []
+    social_welfares = []
+
+    for i in range(len(accuracies_as_table)):
+        surplus = calculate_customer_surplus(accuracies_as_table[i], reordered_prices[i], mean, sd, theta_max, is_uniform, is_squared)
+        social_welfare = reordered_profits[i][0] + reordered_profits[i][1] + reordered_profits[i][2] + surplus
+        customer_surpluses += [surplus]
+        social_welfares += [social_welfare]
+    
+    return customer_surpluses, social_welfares
+
 def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=True, mean=1, sd=1):
     np.set_printoptions(precision=8, suppress=True)
     print('justin: createTableFromCoalition() called')
@@ -571,7 +605,8 @@ def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=T
     individual_profit_stability_dict = check_individual_stability(reordered_profits)
     individual_accuracy_stability_dict = check_individual_stability(accuracies_as_table)
     base_accuracies_array = [core_profit_stability_dict, core_accuracy_stability_dict, individual_profit_stability_dict, individual_accuracy_stability_dict]
-
+    customer_surpluses, social_welfares = get_customer_surpluses_and_welfare(accuracies_as_table, reordered_prices, reordered_profits, mean, sd, theta_max, is_uniform, is_squared)
+    
     degredaded_results_array = []
     degredaded_accuracies_as_table = [model_degredation_best_response(x) for x in accuracies_as_table]
     for i, partition in enumerate(degredaded_accuracies_as_table):
@@ -586,8 +621,9 @@ def createTableFromCoalition(coalition, theta_max, is_uniform=True, is_squared=T
     degredaded_individual_profit_stability_dict = check_core_stability(degredaded_reordered_profits)
     degredaded_individual_accuracy_stability_dict = check_core_stability(degredaded_accuracies_as_table)
     degraded_accuracies_array = [degredaded_core_profit_stability_dict, degredaded_core_accuracy_stability_dict, degredaded_individual_profit_stability_dict, degredaded_individual_accuracy_stability_dict]
+    degraded_customer_surpluses, degraded_social_welfares = get_customer_surpluses_and_welfare(degredaded_accuracies_as_table, degredaded_reordered_prices, degredaded_reordered_profits, mean, sd, theta_max, is_uniform, is_squared)
 
-    return accuracies_as_table, degredaded_accuracies_as_table, reordered_profits, reordered_prices, degredaded_reordered_profits, degredaded_reordered_prices, base_accuracies_array, degraded_accuracies_array
+    return accuracies_as_table, degredaded_accuracies_as_table, reordered_profits, reordered_prices, degredaded_reordered_profits, degredaded_reordered_prices, base_accuracies_array, degraded_accuracies_array, customer_surpluses, social_welfares, degraded_customer_surpluses, degraded_social_welfares
 
 def calculate_equilibrium_price(A1, A2, A3, theta_max):
     p1_star = ((A1 - A2) * (3 * A1 + A2 - 4 * A3) * theta_max) / (6 * (A1 - A3))
@@ -699,7 +735,7 @@ if __name__ == '__main__':
 
     np.set_printoptions(precision=8, suppress=True)
 
-    final_custom_table, _ = get_final_table(custom_array)
+    final_custom_table, price_table = get_final_table(custom_array)
     final_non_iid_table, _ = get_final_table(non_iid_array)
 
     print(f'Final profit table for iid case:\n {final_custom_table}')
