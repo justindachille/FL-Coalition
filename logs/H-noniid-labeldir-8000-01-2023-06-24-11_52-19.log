@@ -1,0 +1,222 @@
+06-24 11:52 INFO     cuda:0
+06-24 11:52 INFO     args: Namespace(model='resnet', dataset='cifar10', net_config=None, partition='noniid-labeldir', batch_size=64, lr=0.01, epochs=200, ft_epochs=10, n_parties=10, alg='fedavg', use_projection_head=False, out_dim=256, loss='contrastive', temperature=0.5, comm_round=50, init_seed=0, dropout_p=0.0, datadir='./data/', reg=1e-05, logdir='./logs/', modeldir='./models/', beta=0.1, device='cuda:0', log_file_name='H-noniid-labeldir-8000-01-2023-06-24-11_52-19', optimizer='adam', mu=1, noise=0, noise_type='level', rho=0, sample=1, abc='H', C_size=8000)
+06-24 11:52 INFO     ####################################################################################################
+06-24 11:52 INFO     Partitioning data
+06-24 11:52 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+06-24 11:52 INFO     Initializing nets
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     using complex net
+06-24 11:52 INFO     in comm round:0
+06-24 11:52 INFO     Training network 7
+06-24 11:52 INFO     n_training: 82
+06-24 11:52 INFO     n_test: 313
+06-24 11:58 INFO     Epoch: 0 Loss: 2.719732 Best Valid seen: 0.102600 Valid: 0.102600
+06-24 12:04 INFO     Epoch: 1 Loss: 2.934859 Best Valid seen: 0.186900 Valid: 0.186900
+06-24 12:10 INFO     Epoch: 2 Loss: 2.874567 Best Valid seen: 0.186900 Valid: 0.139600
+06-24 12:16 INFO     Epoch: 3 Loss: 2.479572 Best Valid seen: 0.187300 Valid: 0.187300
+06-24 12:22 INFO     Epoch: 4 Loss: 2.380475 Best Valid seen: 0.204800 Valid: 0.204800
+06-24 12:28 INFO     Epoch: 5 Loss: 2.342985 Best Valid seen: 0.219100 Valid: 0.219100
+06-24 12:34 INFO     Epoch: 6 Loss: 2.283265 Best Valid seen: 0.243800 Valid: 0.243800
+06-24 12:40 INFO     Epoch: 7 Loss: 2.179930 Best Valid seen: 0.263500 Valid: 0.263500
+06-24 12:46 INFO     Epoch: 8 Loss: 2.061964 Best Valid seen: 0.283800 Valid: 0.283800
+06-24 12:52 INFO     Epoch: 9 Loss: 2.246180 Best Valid seen: 0.292700 Valid: 0.292700
+06-24 12:58 INFO     Epoch: 10 Loss: 2.189544 Best Valid seen: 0.294800 Valid: 0.294800
+06-24 13:04 INFO     Epoch: 11 Loss: 2.158408 Best Valid seen: 0.294800 Valid: 0.263800
+06-24 13:10 INFO     Epoch: 12 Loss: 2.074085 Best Valid seen: 0.303000 Valid: 0.303000
+06-24 13:16 INFO     Epoch: 13 Loss: 2.149246 Best Valid seen: 0.303000 Valid: 0.291800
+06-24 13:23 INFO     Epoch: 14 Loss: 2.098465 Best Valid seen: 0.303000 Valid: 0.298400
+06-24 13:29 INFO     Epoch: 15 Loss: 2.080806 Best Valid seen: 0.306500 Valid: 0.306500
+06-24 13:35 INFO     Epoch: 16 Loss: 1.988385 Best Valid seen: 0.307800 Valid: 0.307800
+06-24 13:41 INFO     Epoch: 17 Loss: 1.996241 Best Valid seen: 0.307800 Valid: 0.298800
+06-24 13:47 INFO     Epoch: 18 Loss: 1.965273 Best Valid seen: 0.327900 Valid: 0.327900
+06-24 13:53 INFO     Epoch: 19 Loss: 1.886569 Best Valid seen: 0.341500 Valid: 0.341500
+06-24 13:59 INFO     Epoch: 20 Loss: 1.908194 Best Valid seen: 0.341500 Valid: 0.324100
+06-24 14:05 INFO     Epoch: 21 Loss: 1.851435 Best Valid seen: 0.341500 Valid: 0.340300
+06-24 14:11 INFO     Epoch: 22 Loss: 1.837548 Best Valid seen: 0.341500 Valid: 0.337700
+06-24 14:17 INFO     Epoch: 23 Loss: 1.820368 Best Valid seen: 0.357700 Valid: 0.357700
+06-24 14:23 INFO     Epoch: 24 Loss: 1.783500 Best Valid seen: 0.361800 Valid: 0.361800
+06-24 14:29 INFO     Epoch: 25 Loss: 1.775151 Best Valid seen: 0.374500 Valid: 0.374500
+06-24 14:35 INFO     Epoch: 26 Loss: 1.758125 Best Valid seen: 0.374500 Valid: 0.354300
+06-24 14:41 INFO     Epoch: 27 Loss: 1.714675 Best Valid seen: 0.374500 Valid: 0.365500
+06-24 14:47 INFO     Epoch: 28 Loss: 1.695825 Best Valid seen: 0.374500 Valid: 0.372700
+06-24 14:53 INFO     Epoch: 29 Loss: 1.704929 Best Valid seen: 0.374500 Valid: 0.364100
+06-24 14:59 INFO     Epoch: 30 Loss: 1.729350 Best Valid seen: 0.379000 Valid: 0.379000
+06-24 15:05 INFO     Epoch: 31 Loss: 1.697944 Best Valid seen: 0.379000 Valid: 0.371300
+06-24 15:12 INFO     Epoch: 32 Loss: 1.690483 Best Valid seen: 0.386000 Valid: 0.386000
+06-24 15:18 INFO     Epoch: 33 Loss: 1.695005 Best Valid seen: 0.386000 Valid: 0.375500
+06-24 15:24 INFO     Epoch: 34 Loss: 1.687486 Best Valid seen: 0.386000 Valid: 0.384700
+06-24 15:30 INFO     Epoch: 35 Loss: 1.683874 Best Valid seen: 0.399200 Valid: 0.399200
+06-24 15:36 INFO     Epoch: 36 Loss: 1.688903 Best Valid seen: 0.399200 Valid: 0.393800
+06-24 15:42 INFO     Epoch: 37 Loss: 1.666203 Best Valid seen: 0.399200 Valid: 0.379300
+06-24 15:48 INFO     Epoch: 38 Loss: 1.693766 Best Valid seen: 0.399200 Valid: 0.392000
+06-24 15:54 INFO     Epoch: 39 Loss: 1.681663 Best Valid seen: 0.400800 Valid: 0.400800
+06-24 16:00 INFO     Epoch: 40 Loss: 1.690907 Best Valid seen: 0.400800 Valid: 0.386900
+06-24 16:06 INFO     Epoch: 41 Loss: 1.672133 Best Valid seen: 0.400800 Valid: 0.395200
+06-24 16:12 INFO     Epoch: 42 Loss: 1.659873 Best Valid seen: 0.400800 Valid: 0.392600
+06-24 16:18 INFO     Epoch: 43 Loss: 1.671538 Best Valid seen: 0.403000 Valid: 0.403000
+06-24 16:24 INFO     Epoch: 44 Loss: 1.651262 Best Valid seen: 0.413000 Valid: 0.413000
+06-24 16:30 INFO     Epoch: 45 Loss: 1.637117 Best Valid seen: 0.413000 Valid: 0.408600
+06-24 16:36 INFO     Epoch: 46 Loss: 1.676364 Best Valid seen: 0.414300 Valid: 0.414300
+06-24 16:42 INFO     Epoch: 47 Loss: 1.654892 Best Valid seen: 0.418000 Valid: 0.418000
+06-24 16:48 INFO     Epoch: 48 Loss: 1.642112 Best Valid seen: 0.418000 Valid: 0.405500
+06-24 16:54 INFO     Epoch: 49 Loss: 1.627325 Best Valid seen: 0.422400 Valid: 0.422400
+06-24 17:00 INFO     Epoch: 50 Loss: 1.638905 Best Valid seen: 0.422400 Valid: 0.410400
+06-24 17:06 INFO     Epoch: 51 Loss: 1.633616 Best Valid seen: 0.422400 Valid: 0.413000
+06-24 17:12 INFO     Epoch: 52 Loss: 1.624777 Best Valid seen: 0.422400 Valid: 0.418300
+06-24 17:18 INFO     Epoch: 53 Loss: 1.623352 Best Valid seen: 0.422400 Valid: 0.406400
+06-24 17:24 INFO     Epoch: 54 Loss: 1.620220 Best Valid seen: 0.422400 Valid: 0.399600
+06-24 17:30 INFO     Epoch: 55 Loss: 1.618386 Best Valid seen: 0.422400 Valid: 0.407800
+06-24 17:36 INFO     Epoch: 56 Loss: 1.615247 Best Valid seen: 0.422400 Valid: 0.414900
+06-24 17:42 INFO     Epoch: 57 Loss: 1.618660 Best Valid seen: 0.428900 Valid: 0.428900
+06-24 17:48 INFO     Epoch: 58 Loss: 1.576891 Best Valid seen: 0.428900 Valid: 0.422600
+06-24 17:54 INFO     Epoch: 59 Loss: 1.592546 Best Valid seen: 0.428900 Valid: 0.419800
+06-24 18:00 INFO     Epoch: 60 Loss: 1.592756 Best Valid seen: 0.428900 Valid: 0.423600
+06-24 18:06 INFO     Epoch: 61 Loss: 1.591193 Best Valid seen: 0.428900 Valid: 0.418400
+06-24 18:12 INFO     Epoch: 62 Loss: 1.593681 Best Valid seen: 0.428900 Valid: 0.422400
+06-24 18:18 INFO     Epoch: 63 Loss: 1.569739 Best Valid seen: 0.435500 Valid: 0.435500
+06-24 18:24 INFO     Epoch: 64 Loss: 1.575390 Best Valid seen: 0.439500 Valid: 0.439500
+06-24 18:30 INFO     Epoch: 65 Loss: 1.556248 Best Valid seen: 0.439500 Valid: 0.423200
+06-24 18:36 INFO     Epoch: 66 Loss: 1.571962 Best Valid seen: 0.442200 Valid: 0.442200
+06-24 18:42 INFO     Epoch: 67 Loss: 1.533557 Best Valid seen: 0.444800 Valid: 0.444800
+06-24 18:48 INFO     Epoch: 68 Loss: 1.530014 Best Valid seen: 0.444800 Valid: 0.444600
+06-24 18:54 INFO     Epoch: 69 Loss: 1.543692 Best Valid seen: 0.444800 Valid: 0.429100
+06-24 19:00 INFO     Epoch: 70 Loss: 1.553399 Best Valid seen: 0.444800 Valid: 0.443400
+06-24 19:06 INFO     Epoch: 71 Loss: 1.549978 Best Valid seen: 0.450800 Valid: 0.450800
+06-24 19:12 INFO     Epoch: 72 Loss: 1.521997 Best Valid seen: 0.454500 Valid: 0.454500
+06-24 19:18 INFO     Epoch: 73 Loss: 1.529510 Best Valid seen: 0.454500 Valid: 0.448000
+06-24 19:24 INFO     Epoch: 74 Loss: 1.537470 Best Valid seen: 0.459300 Valid: 0.459300
+06-24 19:30 INFO     Epoch: 75 Loss: 1.501933 Best Valid seen: 0.459300 Valid: 0.451000
+06-24 19:36 INFO     Epoch: 76 Loss: 1.524214 Best Valid seen: 0.459300 Valid: 0.451000
+06-24 19:42 INFO     Epoch: 77 Loss: 1.501511 Best Valid seen: 0.459300 Valid: 0.452200
+06-24 19:48 INFO     Epoch: 78 Loss: 1.519928 Best Valid seen: 0.459300 Valid: 0.449300
+06-24 19:54 INFO     Epoch: 79 Loss: 1.524294 Best Valid seen: 0.459300 Valid: 0.454600
+06-24 20:00 INFO     Epoch: 80 Loss: 1.491738 Best Valid seen: 0.459300 Valid: 0.456100
+06-24 20:06 INFO     Epoch: 81 Loss: 1.524710 Best Valid seen: 0.461700 Valid: 0.461700
+06-24 20:12 INFO     Epoch: 82 Loss: 1.497765 Best Valid seen: 0.461700 Valid: 0.447400
+06-24 20:18 INFO     Epoch: 83 Loss: 1.480648 Best Valid seen: 0.461700 Valid: 0.448400
+06-24 20:24 INFO     Epoch: 84 Loss: 1.503906 Best Valid seen: 0.463100 Valid: 0.463100
+06-24 20:30 INFO     Epoch: 85 Loss: 1.487509 Best Valid seen: 0.463100 Valid: 0.459900
+06-24 20:36 INFO     Epoch: 86 Loss: 1.471265 Best Valid seen: 0.463800 Valid: 0.463800
+06-24 20:42 INFO     Epoch: 87 Loss: 1.489040 Best Valid seen: 0.468200 Valid: 0.468200
+06-24 20:48 INFO     Epoch: 88 Loss: 1.476687 Best Valid seen: 0.468200 Valid: 0.464000
+06-24 20:54 INFO     Epoch: 89 Loss: 1.455308 Best Valid seen: 0.468200 Valid: 0.460300
+06-24 21:00 INFO     Epoch: 90 Loss: 1.468433 Best Valid seen: 0.468900 Valid: 0.468900
+06-24 21:06 INFO     Epoch: 91 Loss: 1.456193 Best Valid seen: 0.472000 Valid: 0.472000
+06-24 21:12 INFO     Epoch: 92 Loss: 1.462974 Best Valid seen: 0.472000 Valid: 0.466000
+06-24 21:18 INFO     Epoch: 93 Loss: 1.449414 Best Valid seen: 0.472000 Valid: 0.458900
+06-24 21:24 INFO     Epoch: 94 Loss: 1.457025 Best Valid seen: 0.473200 Valid: 0.473200
+06-24 21:30 INFO     Epoch: 95 Loss: 1.435647 Best Valid seen: 0.473200 Valid: 0.462200
+06-24 21:36 INFO     Epoch: 96 Loss: 1.447888 Best Valid seen: 0.480500 Valid: 0.480500
+06-24 21:42 INFO     Epoch: 97 Loss: 1.448709 Best Valid seen: 0.480500 Valid: 0.479700
+06-24 21:48 INFO     Epoch: 98 Loss: 1.445623 Best Valid seen: 0.480500 Valid: 0.472400
+06-24 21:55 INFO     Epoch: 99 Loss: 1.438643 Best Valid seen: 0.480500 Valid: 0.471800
+06-24 22:01 INFO     Epoch: 100 Loss: 1.420743 Best Valid seen: 0.480500 Valid: 0.470300
+06-24 22:07 INFO     Epoch: 101 Loss: 1.411946 Best Valid seen: 0.480500 Valid: 0.473200
+06-24 22:13 INFO     Epoch: 102 Loss: 1.419943 Best Valid seen: 0.480500 Valid: 0.477300
+06-24 22:19 INFO     Epoch: 103 Loss: 1.429128 Best Valid seen: 0.480500 Valid: 0.474100
+06-24 22:25 INFO     Epoch: 104 Loss: 1.437170 Best Valid seen: 0.484300 Valid: 0.484300
+06-24 22:31 INFO     Epoch: 105 Loss: 1.422779 Best Valid seen: 0.484300 Valid: 0.478300
+06-24 22:37 INFO     Epoch: 106 Loss: 1.419717 Best Valid seen: 0.484300 Valid: 0.478600
+06-24 22:43 INFO     Epoch: 107 Loss: 1.453395 Best Valid seen: 0.485200 Valid: 0.485200
+06-24 22:49 INFO     Epoch: 108 Loss: 1.422363 Best Valid seen: 0.497200 Valid: 0.497200
+06-24 22:55 INFO     Epoch: 109 Loss: 1.438475 Best Valid seen: 0.497200 Valid: 0.491300
+06-24 23:01 INFO     Epoch: 110 Loss: 1.426106 Best Valid seen: 0.497200 Valid: 0.486500
+06-24 23:07 INFO     Epoch: 111 Loss: 1.447629 Best Valid seen: 0.497200 Valid: 0.479700
+06-24 23:13 INFO     Epoch: 112 Loss: 1.395581 Best Valid seen: 0.497200 Valid: 0.484700
+06-24 23:19 INFO     Epoch: 113 Loss: 1.429159 Best Valid seen: 0.497200 Valid: 0.488400
+06-24 23:26 INFO     Epoch: 114 Loss: 1.402792 Best Valid seen: 0.497200 Valid: 0.493900
+06-24 23:32 INFO     Epoch: 115 Loss: 1.395460 Best Valid seen: 0.497200 Valid: 0.485800
+06-24 23:38 INFO     Epoch: 116 Loss: 1.420413 Best Valid seen: 0.497200 Valid: 0.492000
+06-24 23:44 INFO     Epoch: 117 Loss: 1.413492 Best Valid seen: 0.497200 Valid: 0.493600
+06-24 23:51 INFO     Epoch: 118 Loss: 1.414785 Best Valid seen: 0.497200 Valid: 0.491800
+06-24 23:57 INFO     Epoch: 119 Loss: 1.421858 Best Valid seen: 0.497200 Valid: 0.488200
+06-25 00:03 INFO     Epoch: 120 Loss: 1.409709 Best Valid seen: 0.497200 Valid: 0.492100
+06-25 00:09 INFO     Epoch: 121 Loss: 1.416389 Best Valid seen: 0.498900 Valid: 0.498900
+06-25 00:15 INFO     Epoch: 122 Loss: 1.449717 Best Valid seen: 0.498900 Valid: 0.495800
+06-25 00:22 INFO     Epoch: 123 Loss: 1.414494 Best Valid seen: 0.498900 Valid: 0.481300
+06-25 00:28 INFO     Epoch: 124 Loss: 1.406385 Best Valid seen: 0.501200 Valid: 0.501200
+06-25 00:34 INFO     Epoch: 125 Loss: 1.416442 Best Valid seen: 0.501200 Valid: 0.492400
+06-25 00:40 INFO     Epoch: 126 Loss: 1.432864 Best Valid seen: 0.501200 Valid: 0.494000
+06-25 00:46 INFO     Epoch: 127 Loss: 1.392341 Best Valid seen: 0.501200 Valid: 0.499700
+06-25 00:53 INFO     Epoch: 128 Loss: 1.393941 Best Valid seen: 0.501200 Valid: 0.497000
+06-25 00:59 INFO     Epoch: 129 Loss: 1.377707 Best Valid seen: 0.506000 Valid: 0.506000
+06-25 01:05 INFO     Epoch: 130 Loss: 1.423496 Best Valid seen: 0.506000 Valid: 0.497400
+06-25 01:11 INFO     Epoch: 131 Loss: 1.423611 Best Valid seen: 0.506000 Valid: 0.495400
+06-25 01:17 INFO     Epoch: 132 Loss: 1.393910 Best Valid seen: 0.506000 Valid: 0.494100
+06-25 01:23 INFO     Epoch: 133 Loss: 1.437075 Best Valid seen: 0.506000 Valid: 0.492300
+06-25 01:30 INFO     Epoch: 134 Loss: 1.401417 Best Valid seen: 0.507200 Valid: 0.507200
+06-25 01:36 INFO     Epoch: 135 Loss: 1.392387 Best Valid seen: 0.507200 Valid: 0.494700
+06-25 01:42 INFO     Epoch: 136 Loss: 1.437755 Best Valid seen: 0.507200 Valid: 0.486800
+06-25 01:48 INFO     Epoch: 137 Loss: 1.388063 Best Valid seen: 0.507200 Valid: 0.502500
+06-25 01:54 INFO     Epoch: 138 Loss: 1.394072 Best Valid seen: 0.507200 Valid: 0.490600
+06-25 02:00 INFO     Epoch: 139 Loss: 1.490624 Best Valid seen: 0.507200 Valid: 0.494100
+06-25 02:07 INFO     Epoch: 140 Loss: 1.467578 Best Valid seen: 0.507200 Valid: 0.501500
+06-25 02:13 INFO     Epoch: 141 Loss: 1.416190 Best Valid seen: 0.507200 Valid: 0.491100
+06-25 02:19 INFO     Epoch: 142 Loss: 1.380525 Best Valid seen: 0.509600 Valid: 0.509600
+06-25 02:25 INFO     Epoch: 143 Loss: 1.426657 Best Valid seen: 0.509600 Valid: 0.507700
+06-25 02:31 INFO     Epoch: 144 Loss: 1.422841 Best Valid seen: 0.509600 Valid: 0.500300
+06-25 02:37 INFO     Epoch: 145 Loss: 1.397831 Best Valid seen: 0.509600 Valid: 0.499000
+06-25 02:43 INFO     Epoch: 146 Loss: 1.385960 Best Valid seen: 0.509600 Valid: 0.502500
+06-25 02:50 INFO     Epoch: 147 Loss: 1.424336 Best Valid seen: 0.509600 Valid: 0.495800
+06-25 02:56 INFO     Epoch: 148 Loss: 1.426886 Best Valid seen: 0.509600 Valid: 0.499800
+06-25 03:02 INFO     Epoch: 149 Loss: 1.371336 Best Valid seen: 0.509600 Valid: 0.499200
+06-25 03:08 INFO     Epoch: 150 Loss: 1.412187 Best Valid seen: 0.509600 Valid: 0.500100
+06-25 03:14 INFO     Epoch: 151 Loss: 1.456621 Best Valid seen: 0.509600 Valid: 0.507000
+06-25 03:21 INFO     Epoch: 152 Loss: 1.448967 Best Valid seen: 0.514900 Valid: 0.514900
+06-25 03:27 INFO     Epoch: 153 Loss: 1.348029 Best Valid seen: 0.514900 Valid: 0.491500
+06-25 03:33 INFO     Epoch: 154 Loss: 1.337348 Best Valid seen: 0.520700 Valid: 0.520700
+06-25 03:39 INFO     Epoch: 155 Loss: 1.357594 Best Valid seen: 0.520700 Valid: 0.515400
+06-25 03:45 INFO     Epoch: 156 Loss: 1.364800 Best Valid seen: 0.520700 Valid: 0.511200
+06-25 03:52 INFO     Epoch: 157 Loss: 1.375551 Best Valid seen: 0.520700 Valid: 0.503100
+06-25 03:58 INFO     Epoch: 158 Loss: 1.408166 Best Valid seen: 0.520700 Valid: 0.515000
+06-25 04:04 INFO     Epoch: 159 Loss: 1.451097 Best Valid seen: 0.520700 Valid: 0.508700
+06-25 04:10 INFO     Epoch: 160 Loss: 1.397839 Best Valid seen: 0.520800 Valid: 0.520800
+06-25 04:17 INFO     Epoch: 161 Loss: 1.377406 Best Valid seen: 0.520800 Valid: 0.518200
+06-25 04:23 INFO     Epoch: 162 Loss: 1.378945 Best Valid seen: 0.520800 Valid: 0.508000
+06-25 04:29 INFO     Epoch: 163 Loss: 1.395759 Best Valid seen: 0.520800 Valid: 0.520400
+06-25 04:35 INFO     Epoch: 164 Loss: 1.342081 Best Valid seen: 0.520800 Valid: 0.509800
+06-25 04:42 INFO     Epoch: 165 Loss: 1.352403 Best Valid seen: 0.520800 Valid: 0.498500
+06-25 04:48 INFO     Epoch: 166 Loss: 1.347839 Best Valid seen: 0.520800 Valid: 0.510600
+06-25 04:54 INFO     Epoch: 167 Loss: 1.372118 Best Valid seen: 0.520800 Valid: 0.503500
+06-25 05:00 INFO     Epoch: 168 Loss: 1.377241 Best Valid seen: 0.520800 Valid: 0.509400
+06-25 05:06 INFO     Epoch: 169 Loss: 1.393772 Best Valid seen: 0.520800 Valid: 0.505200
+06-25 05:12 INFO     Epoch: 170 Loss: 1.363607 Best Valid seen: 0.520800 Valid: 0.507200
+06-25 05:19 INFO     Epoch: 171 Loss: 1.410933 Best Valid seen: 0.520800 Valid: 0.514700
+06-25 05:25 INFO     Epoch: 172 Loss: 1.388687 Best Valid seen: 0.520800 Valid: 0.505000
+06-25 05:31 INFO     Epoch: 173 Loss: 1.344882 Best Valid seen: 0.520800 Valid: 0.520100
+06-25 05:37 INFO     Epoch: 174 Loss: 1.358551 Best Valid seen: 0.520800 Valid: 0.515400
+06-25 05:43 INFO     Epoch: 175 Loss: 1.343956 Best Valid seen: 0.520800 Valid: 0.512600
+06-25 05:49 INFO     Epoch: 176 Loss: 1.350399 Best Valid seen: 0.520800 Valid: 0.513800
+06-25 05:56 INFO     Epoch: 177 Loss: 1.344716 Best Valid seen: 0.520800 Valid: 0.506700
+06-25 06:02 INFO     Epoch: 178 Loss: 1.328122 Best Valid seen: 0.520800 Valid: 0.511700
+06-25 06:08 INFO     Epoch: 179 Loss: 1.357743 Best Valid seen: 0.520800 Valid: 0.514100
+06-25 06:14 INFO     Epoch: 180 Loss: 1.401536 Best Valid seen: 0.520800 Valid: 0.513500
+06-25 06:20 INFO     Epoch: 181 Loss: 1.368799 Best Valid seen: 0.520800 Valid: 0.516700
+06-25 06:27 INFO     Epoch: 182 Loss: 1.391530 Best Valid seen: 0.520800 Valid: 0.516200
+06-25 06:33 INFO     Epoch: 183 Loss: 1.383970 Best Valid seen: 0.522200 Valid: 0.522200
+06-25 06:39 INFO     Epoch: 184 Loss: 1.429711 Best Valid seen: 0.522200 Valid: 0.518200
+06-25 06:45 INFO     Epoch: 185 Loss: 1.370251 Best Valid seen: 0.522200 Valid: 0.517400
+06-25 06:51 INFO     Epoch: 186 Loss: 1.360596 Best Valid seen: 0.522200 Valid: 0.518100
+06-25 06:57 INFO     Epoch: 187 Loss: 1.359946 Best Valid seen: 0.523000 Valid: 0.523000
+06-25 07:04 INFO     Epoch: 188 Loss: 1.376255 Best Valid seen: 0.523000 Valid: 0.522900
+06-25 07:10 INFO     Epoch: 189 Loss: 1.434389 Best Valid seen: 0.523000 Valid: 0.519400
+06-25 07:16 INFO     Epoch: 190 Loss: 1.310463 Best Valid seen: 0.523000 Valid: 0.518900
+06-25 07:22 INFO     Epoch: 191 Loss: 1.392267 Best Valid seen: 0.526300 Valid: 0.526300
+06-25 07:28 INFO     Epoch: 192 Loss: 1.604120 Best Valid seen: 0.526300 Valid: 0.513500
+06-25 07:34 INFO     Epoch: 193 Loss: 1.403703 Best Valid seen: 0.526300 Valid: 0.476200
+06-25 07:40 INFO     Epoch: 194 Loss: 1.518043 Best Valid seen: 0.526300 Valid: 0.460100
+06-25 07:47 INFO     Epoch: 195 Loss: 1.746172 Best Valid seen: 0.526300 Valid: 0.444400
+06-25 07:53 INFO     Epoch: 196 Loss: 1.798328 Best Valid seen: 0.526300 Valid: 0.440800
+06-25 07:59 INFO     Epoch: 197 Loss: 1.787981 Best Valid seen: 0.526300 Valid: 0.426100
+06-25 08:05 INFO     Epoch: 198 Loss: 1.790365 Best Valid seen: 0.526300 Valid: 0.395000
+06-25 08:11 INFO     Epoch: 199 Loss: 1.846793 Best Valid seen: 0.526300 Valid: 0.405100
+06-25 08:11 INFO     New best score: 0.5263 found with params lr=0.001, optimizer=sgd, batch_size=64

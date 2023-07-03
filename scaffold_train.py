@@ -363,13 +363,12 @@ def local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, arg
     nets_list = list(nets.values())
     return nets_list, loss_total
 
-#[4000, 12000, 33000]
 def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split=[3000, 3000, 3000], beta=0.4):
     if dataset == 'cifar10':
         X_train, y_train, X_test, y_test = load_cifar10_data(datadir)
     n_train = y_train.shape[0]
     if partition == "noniid-labeldir":
-        clients_split = [3000, 3000, 3000]
+        clients_split = [3000] * args.n_parties
         min_size = 0
         min_require_size = 10
         K = 10
@@ -394,7 +393,7 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
             idx_batch = [[] for _ in range(n_parties)]
             for k in range(K):
                 idx_k = np.where(y_train == k)[0]
-                # print(f'count of k: {k} is {np.count_nonzero(y_train == k)}')
+                print(f'count of k: {k} is {np.count_nonzero(y_train == k)}')
                 np.random.shuffle(idx_k)
                 proportions = np.random.dirichlet(np.repeat(beta, n_parties))
                 # Balance
@@ -411,7 +410,10 @@ def partition_data(dataset, datadir, logdir, partition, n_parties, clients_split
             # print('net', net_dataidx_map.values())
 
     elif partition == "custom-quantity":
-        clients_split = [1000, 3000, args.C_size]
+        if args.n_parties == 3:
+            clients_split = [1000, 3000, args.C_size]
+        if args.n_parties == 10:
+            clients_split = [2000] * 10
         min_size = 0
         K = 10
         N = y_train.shape[0]
@@ -482,10 +484,13 @@ def train_single(net_id, net, train_dataloader, test_dataloader, arg_optimizer, 
 if __name__ == '__main__':
     args = get_args()
     beta_string = str(args.beta).replace('.', '')
+    args.abc = args.abc.upper()
     if len(args.abc) == 1:
         args.epochs = 200
     mkdirs(args.logdir)
     mkdirs(args.modeldir)
+    mkdirs('./pickle')
+    args.logdir = args.logdir.replace("'", "")
     device = torch.device(args.device)
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
@@ -494,6 +499,7 @@ if __name__ == '__main__':
     if args.log_file_name is None:
         args.log_file_name = f'{args.abc.upper()}-{args.partition}-{args.C_size}-{beta_string}-{datetime.datetime.now().strftime("%Y-%m-%d-%H_%M-%S")}' 
     log_path=f'{args.log_file_name}.log'
+    print(f'path and logdir {log_path} and {args.logdir}')
     logging.basicConfig(
         filename=os.path.join(args.logdir, log_path),
         format='%(asctime)s %(levelname)-8s %(message)s',
@@ -580,18 +586,23 @@ if __name__ == '__main__':
 
                 net_setup = args.abc.lower()
 
-                if net_setup == 'a':
-                    selected = selected[0]
-                elif net_setup == 'b':
-                    selected = selected[1]
-                elif net_setup == 'c':
-                    selected = selected[2]
-                elif net_setup == 'ab':
-                    selected = selected[0:2]
-                elif net_setup == 'bc':
-                    selected = selected[1:3]
-                elif net_setup == 'ac':
-                    selected = [selected[0], selected[2]]
+                def select_items(net_setup, selected):
+                    # Define a dictionary where the keys are the characters and the values are the corresponding indices
+                    index_dict = {char: index for index, char in enumerate('abcdefghijklmnopqrstuvwxyz')}
+                    
+                    # Check if it's a single character
+                    if len(net_setup) == 1:
+                        index = index_dict[net_setup]
+                        return selected[index]
+
+                    # If it's not a single character, return the corresponding elements
+                    else:
+                        indices = [index_dict[char] for char in net_setup]
+                        return [selected[index] for index in indices]
+
+                selected = select_items(net_setup, selected)
+                print(f'new selected: {selected}')
+
                 if len(args.abc) == 1:
                     # Single client
                     net_id = selected
@@ -617,15 +628,15 @@ if __name__ == '__main__':
                                 noise_level = args.noise / (args.n_parties - 1) * net_id
                                 train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, batch_size, 32, dataidxs, noise_level)
                             train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, batch_size, 32)
-                            int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-                            with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
-                                pickle.dump((net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
+                            int_to_str = {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', 6: 'g', 7: 'h', 8: 'i', 9: 'j'}
+                            # with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
+                                # pickle.dump((net_id, net, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                 if len(args.abc) == 1:
                     break
                 for net_id, net in nets.items():
                     if net_id in selected:
                         print('net_id:', net_id)
-                        int_to_str = {0: 'a', 1: 'b', 2: 'c'}
+                        int_to_str = {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', 6: 'g', 7: 'h', 8: 'i', 9: 'j'}
 
                 global_para = global_model.state_dict()
                 for idx in selected:
@@ -660,6 +671,8 @@ if __name__ == '__main__':
                 training_loss += [loss_total]
                 logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
                 logger.info('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
+                print(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)))
+                print('best valid so far' + str(max(valid_accuracy)) + ' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
             if len(args.abc) == 1:
                 continue
             if max(valid_accuracy) > best_valid_acc:
@@ -676,122 +689,11 @@ if __name__ == '__main__':
                         train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
                     train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
                     if net_id in selected:
-                        int_to_str = {0: 'a', 1: 'b', 2: 'c'}
+                        int_to_str = {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', 6: 'g', 7: 'h', 8: 'i', 9: 'j'}
                         print('creating pickle with net_id:', net_id)
                         print(f'{args.partition}_{args.alg}_{args.abc.lower()}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle')
-                        with open(f'{args.partition}_{args.alg}_{args.abc.lower()}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
+                        with open(f'./pickle/{args.partition}_{args.alg}_{args.abc.lower()}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
                             pickle.dump((net_id, net, global_model, train_dl_local, test_dl_global, current_params, lr, optimizer, batch_size), handle, protocol=pickle.HIGHEST_PROTOCOL)
                     
                 # with open(f'TrainingInfo{args.partition}_{args.alg}_{args.abc}_{int_to_str[net_id]}_{args.C_size}_{beta_string}.pickle', 'wb') as handle:
                     # pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
-    elif args.alg == 'scaffold':
-        logger.info("Initializing nets")
-        nets, local_model_meta_data, layer_type = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
-        global_models, global_model_meta_data, global_layer_type = init_nets(args.net_config, 0, 1, args)
-        global_model = global_models[0]
-
-        c_nets, _, _ = init_nets(args.net_config, args.dropout_p, args.n_parties, args)
-        c_globals, _, _ = init_nets(args.net_config, 0, 1, args)
-        c_global = c_globals[0]
-        c_global_para = c_global.state_dict()
-        for net_id, net in c_nets.items():
-            net.load_state_dict(c_global_para)
-
-        global_para = global_model.state_dict()
-
-        for round in range(args.comm_round):
-            communication_round += [round]
-
-            logger.info("in comm round:" + str(round))
-
-            arr = np.arange(args.n_parties)
-            selected = arr[:int(args.n_parties * args.sample)]
-
-            net_setup = args.abc.lower()
-
-            if net_setup == 'a':
-                selected = selected[0]
-            elif net_setup == 'b':
-                selected = selected[1]
-            elif net_setup == 'c':
-                selected = selected[2]
-            elif net_setup == 'ab':
-                selected = selected[0:2]
-            elif net_setup == 'bc':
-                selected = selected[1:3]
-            elif net_setup == 'ac':
-                selected = [selected[0], selected[2]]
-            if len(args.abc) == 1:
-                # Single client
-                net_id = selected
-                dataidxs = net_dataidx_map[net_id]
-                if args.noise_type == 'space':
-                    train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, args.n_parties-1)
-                else:
-                    noise_level = args.noise / (args.n_parties - 1) * net_id
-                    train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
-                train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
-                train_single(net_id, nets[net_id], train_dl_local, test_dl_global, device="cpu")
-                break
-            global_para = global_model.state_dict()
-            for idx in selected:
-                nets[idx].load_state_dict(global_para)
-
-            _, loss_total = local_train_net_scaffold(nets, selected, global_model, c_nets, c_global, args, net_dataidx_map, test_dl = test_dl_global, device=device)
-            # local_train_net(nets, args, net_dataidx_map, local_split=False, device=device)
-
-            # update global model
-            total_data_points = sum([len(net_dataidx_map[r]) for r in selected])
-            fed_avg_freqs = [len(net_dataidx_map[r]) / total_data_points for r in selected]
-
-            for idx in range(len(selected)):
-                net_para = nets[selected[idx]].cpu().state_dict()
-                if idx == 0:
-                    for key in net_para:
-                        global_para[key] = net_para[key] * fed_avg_freqs[idx]
-                else:
-                    for key in net_para:
-                        global_para[key] += net_para[key] * fed_avg_freqs[idx]
-            global_model.load_state_dict(global_para)
-
-            logger.info('global n_training: %d' % len(train_dl_global))
-            logger.info('global n_test: %d' % len(test_dl_global))
-
-            global_model.to(device)
-            train_acc = compute_accuracy(global_model, train_dl_global, device=device)
-            test_acc, conf_matrix = compute_accuracy(global_model, test_dl_global, get_confusion_matrix=True, device=device)
-            valid_accuracy += [test_acc]
-            training_loss += [loss_total]
-
-            logger.info('>> Global Model Train accuracy: %f' % train_acc)
-            logger.info('>> Global Model Test accuracy: %f' % test_acc)
-            logger.info(' -- comm_round' + ' '.join(map(str, communication_round)) + ': valid : ' + ' '.join(map(str, valid_accuracy)) + ': loss : ' + ' '.join(map(str, training_loss)))
-            if test_acc > best_valid_acc:
-                best_valid_acc = test_acc
-                epochs_since_improvement = 0
-            else:
-                epochs_since_improvement += 1
-
-            # If validation accuracy hasn't improved in 5 epochs, stop training
-            if epochs_since_improvement >= 5:
-                logger.info("Validation accuracy hasn't improved in 5 epochs. Stopping training.")
-                break
-        for net_id, net in nets.items():
-            dataidxs = net_dataidx_map[net_id]
-
-            if args.noise_type == 'space':
-                train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level, net_id, args.n_parties-1)
-            else:
-                noise_level = args.noise / (args.n_parties - 1) * net_id
-                train_dl_local, test_dl_local, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32, dataidxs, noise_level)
-            train_dl_global, test_dl_global, _, _ = get_dataloader(args.dataset, args.datadir, args.batch_size, 32)
-            if net_id in selected:
-                int_to_str = {0: 'a', 1: 'b', 2: 'c'}
-                with open(f'{args.abc}_{int_to_str[net_id]}.pickle', 'wb') as handle:
-                    pickle.dump((net_id, net, train_dl_local, test_dl_local, args.ft_epochs, args.lr, args.optimizer, args.mu), handle, protocol=pickle.HIGHEST_PROTOCOL)
-            
-            # train_net_fedprox_ft(net_id, net, train_dl_local, test_dl_global, args.ft_epochs, args.lr, args.optimizer, args.mu)
-
-        with open(f'{args.alg}beta{args.beta}.pickle', 'wb') as handle:
-            pickle.dump((communication_round, valid_accuracy, training_loss), handle, protocol=pickle.HIGHEST_PROTOCOL)
-

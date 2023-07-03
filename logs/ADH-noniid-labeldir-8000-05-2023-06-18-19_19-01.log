@@ -1,0 +1,20 @@
+06-18 19:19 INFO     cuda:0
+06-18 19:19 INFO     args: Namespace(model='resnet', dataset='cifar10', net_config=None, partition='noniid-labeldir', batch_size=64, lr=0.01, epochs=10, ft_epochs=10, n_parties=10, alg='fedavg', use_projection_head=False, out_dim=256, loss='contrastive', temperature=0.5, comm_round=50, init_seed=0, dropout_p=0.0, datadir='./data/', reg=1e-05, logdir='./logs/', modeldir='./models/', beta=0.5, device='cuda:0', log_file_name='ADH-noniid-labeldir-8000-05-2023-06-18-19_19-01', optimizer='adam', mu=1, noise=0, noise_type='level', rho=0, sample=1, abc='ADH', C_size=8000)
+06-18 19:19 INFO     ####################################################################################################
+06-18 19:19 INFO     Partitioning data
+06-18 19:19 INFO     Testing lr=0.001, optimizer=sgd, batch_size=64
+06-18 19:19 INFO     Initializing nets
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     using complex net
+06-18 19:19 INFO     in comm round:0
+06-18 19:19 INFO     Training network 0. n_training: 3863
+06-18 19:19 INFO     Training network 0
