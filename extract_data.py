@@ -182,7 +182,40 @@ def parse_ft_logs(coalitions):
                 #     print('after:', coalitions[key])
     return coalitions
 
+def modify_coalition_accuracies(coalition_to_modify, coalition_source):
+    coalition_to_modify.ABC = coalition_source.ABC
+    coalition_to_modify.AB_C = coalition_source.AB_C
+    coalition_to_modify.AC_B = coalition_source.AC_B
+    coalition_to_modify.A_BC = coalition_source.A_BC
+    coalition_to_modify.A_B_C_ = coalition_source.A_B_C_
+
 def fix_solo_accuracies(coalition):
+    # These were manually run very early on when logs not working properly, so manually set these two cases
+    SOLO_QUANTITY_A = .5004
+    SOLO_QUANTITY_B = .6116
+    SOLO_QUANTITY_C = .7091
+    ABC_Quantity = [.8803, .8821, .8817]
+    AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
+    AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
+    A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]
+    A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
+    quantity_coalition = Coalition(8000, ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity, 0.1)
+    if coalition.C_size == 8000 and coalition.beta == '0.1' and coalition.partition == 'custom-quantity':
+        modify_coalition_accuracies(coalition, quantity_coalition)
+
+    SOLO_DIRICHLET_A = .6085
+    SOLO_DIRICHLET_B = .6394
+    SOLO_DIRICHLET_C = .5932
+    ABC_Dirichlet = [.8681, .8668, .8655]
+    AB_C_Dirichlet = [.8440, .8453, SOLO_DIRICHLET_C]
+    AC_B_Dirichlet = [0.8301, SOLO_DIRICHLET_B, .8359]
+    A_BC_Dirichlet = [SOLO_DIRICHLET_A, .8347, .8320]
+    A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
+    dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
+
+    if coalition.C_size == 8000 and coalition.beta == '0.1' and coalition.partition == 'noniid-labeldir': 
+        modify_coalition_accuracies(coalition, dirichlet_coalition)
+
     SOLO_QUANTITY_A = .5004
     SOLO_QUANTITY_B = .6116
     if coalition.C_size == 8000:
@@ -199,6 +232,7 @@ def fix_solo_accuracies(coalition):
         SOLO_QUANTITY_A = coalition.A_B_C_[0]
         SOLO_QUANTITY_B = coalition.A_B_C_[1]
         SOLO_QUANTITY_C = coalition.A_B_C_[2]
+        print(f'coalition: {coalition}')
         coalition.A_BC[0] = SOLO_QUANTITY_A
         coalition.AC_B[1] = SOLO_QUANTITY_B
         coalition.AB_C[2] = SOLO_QUANTITY_C
@@ -409,62 +443,19 @@ if __name__ == '__main__':
         print('After parsing FT logs:')
         for k, v in coalition_str_dict.items():
             print(k, v)
-    theta_max_values = [10000]
-    mean_values = [5000]
-    sd_values = [500]
+    THETA_MAX = 10000
+    MEAN = 5000
+    SD = 500
     IS_UNIFORM = False
     IS_SQUARED = True
 
-    for theta_max in theta_max_values:
-        for mean in mean_values:
-            for sd in sd_values:
-                # for i, coalition in enumerate(coalitions):
-                if theta_max == 10 and mean_values == 25:
-                    continue
-                #     generate_coalition_table(
-                #         i,
-                #         coalitions[coalition],
-                #         theta_max=theta_max,
-                #         is_uniform=IS_UNIFORM,
-                #         is_squared=IS_SQUARED,
-                #         mean=mean,
-                #         sd=sd,
-                #     )
-                # SOLO_QUANTITY_A = .5004
-                # SOLO_QUANTITY_B = .6116
-                # SOLO_QUANTITY_C = .7091
-                # ABC_Quantity = [.8803, .8821, .8817]
-                # AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
-                # AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
-                # A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]
-                # A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
-                # print('price:', calculate_equilibrium_price(SOLO_QUANTITY_C, SOLO_QUANTITY_B, SOLO_QUANTITY_A, 10000))
-                # print('profits:', calculate_equilibrium_profits(SOLO_QUANTITY_C, SOLO_QUANTITY_B, SOLO_QUANTITY_A, 10000))
-                # quantity_coalition = Coalition(8000, ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity, 0.1)
-                # generate_coalition_table(10, 
-                #                         quantity_coalition,
-                #                         theta_max = theta_max,
-                #                         is_uniform=IS_UNIFORM,
-                #                         is_squared=IS_SQUARED,
-                #                         mean=mean,
-                #                         sd=sd,)
-                # sys.exit()
-                # Non-iid
-                SOLO_DIRICHLET_A = .6085
-                SOLO_DIRICHLET_B = .6394
-                SOLO_DIRICHLET_C = .5932
-                ABC_Dirichlet = [.8681, .8668, .8655]
-                AB_C_Dirichlet = [.8440, .8453, SOLO_DIRICHLET_C]
-                AC_B_Dirichlet = [0.8301, SOLO_DIRICHLET_B, .8359]
-                A_BC_Dirichlet = [SOLO_DIRICHLET_A, .8347, .8320]
-                A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
-
-                dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
-
-                generate_coalition_table(10, 
-                                        dirichlet_coalition, 
-                                        theta_max = theta_max,
-                                        is_uniform=IS_UNIFORM,
-                                        is_squared=IS_SQUARED,
-                                        mean=mean,
-                                        sd=sd,)
+    for i, coalition in enumerate(coalitions):
+        generate_coalition_table(
+            i,
+            coalitions[coalition],
+            theta_max=THETA_MAX,
+            is_uniform=IS_UNIFORM,
+            is_squared=IS_SQUARED,
+            mean=MEAN,
+            sd=SD,
+        )
