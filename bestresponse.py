@@ -220,7 +220,7 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
         steps+=1
         for i in range(3):
             p_new = update_price(float(i), p_new, scores, mean, sd, theta_max, is_uniform, is_squared)
-        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-8) or steps>maxsteps:
+        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-8) or steps>=maxsteps:
             print(f'steps: {steps}')
             break
 
