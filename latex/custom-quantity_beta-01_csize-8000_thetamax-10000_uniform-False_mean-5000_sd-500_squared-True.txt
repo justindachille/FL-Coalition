@@ -1,13 +1,13 @@
-\subsection{Scenario 1}
+\subsection{Scenario 7}
 
 \textbf{Simulation Setup}:
 Data Scenario: IID
-C Dataset Size: {2000}
-Theta Max: {100}
+C Dataset Size: {8000}
+Theta Max: {10000}
 Is Squared: {True}
 Is Uniform: {False}
-Mean: {50}
-SD: {5}
+Mean: {5000}
+SD: {500}
 
 \subsection{Scenario 1: Without Degredation}
 \textbf{Numerical results}:
@@ -18,11 +18,11 @@ SD: {5}
 \label{training-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
-$\{A,B,C\}$ & 83.91\% & 83.91\% & 83.91\%\\ \hline
-$\{A,B\}, \{C\}$ & 79.83\% & 80.21\% & 56.99\%\\ \hline
-$\{A,C\}, \{B\}$ & 76.84\% & 61.16\% & 76.35\%\\ \hline
-$\{B,C\}, \{A\}$ & 50.04\% & 82.60\% & 82.36\%\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 56.99\%\\ \hline
+$\{A,B,C\}$ & 88.03000\% & 88.21000\% & 88.17000\%\\ \hline
+$\{A,B\}, \{C\}$ & 79.76000\% & 80.07000\% & 70.91000\%\\ \hline
+$\{A,C\}, \{B\}$ & 85.50000\% & 61.16000\% & 86.08000\%\\ \hline
+$\{B,C\}, \{A\}$ & 50.04000\% & 87.32000\% & 87.62000\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 50.04000\% & 61.16000\% & 70.91000\%\\ \hline
 \end{tabular}
 \end{table}
 
@@ -33,11 +33,11 @@ $\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 56.99\%\\ \hline
 \label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
-$\{A,B\}, \{C\}$ & 0.01 & 0.27 & 0.01\\ \hline
-$\{A,C\}, \{B\}$ & 0.33 & 0.01 & 0.02\\ \hline
-$\{B,C\}, \{A\}$ & 0.00 & 0.18 & 0.01\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.03 & 2.14 & 0.07\\ \hline
+$\{A,B,C\}$ & 0.05839 & 3.08894 & 0.13133\\ \hline
+$\{A,B\}, \{C\}$ & 1.16485 & 21.92068 & 0.56888\\ \hline
+$\{A,C\}, \{B\}$ & 2.36267 & 1.16323 & 44.04960\\ \hline
+$\{B,C\}, \{A\}$ & 0.62977 & 1.26970 & 23.25270\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 4.91858 & 14.56913 & 554.96678\\ \hline
 \end{tabular}
 \end{table}
 
@@ -48,21 +48,21 @@ $\{A\}, \{B\}, \{C\}$ & 0.03 & 2.14 & 0.07\\ \hline
 \label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
-$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
-$\{A,B\}, \{C\}$ & 0.00 & 0.26 & 0.00\\ \hline
-$\{A,C\}, \{B\}$ & 0.31 & 0.00 & 0.00\\ \hline
-$\{B,C\}, \{A\}$ & 0.00 & 0.17 & 0.00\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.00 & 2.02 & 0.00\\ \hline
+$\{A,B,C\}$ & 0.00000 & 2.92501 & 0.00617\\ \hline
+$\{A,B\}, \{C\}$ & 0.05996 & 20.77156 & 0.00000\\ \hline
+$\{A,C\}, \{B\}$ & 0.12209 & 0.00000 & 41.74179\\ \hline
+$\{B,C\}, \{A\}$ & 0.00000 & 0.06611 & 22.03584\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 0.00000 & 0.56778 & 524.96298\\ \hline
 \end{tabular}
 \end{table}
 \textbf{Core stable coalition structures}:
 \begin{itemize}
-\item Competitive: ($\{A\}, \{B\}, \{C\}$, customer_surpluse: 1868.875627148432, social_welfare: 1870.9002955055585)
+\item Competitive: 
 \item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \textbf{Individual stable coalition structures}:
 \begin{itemize}
-\item Competitive: ($\{A\}, \{B\}, \{C\}$, customer_surpluse: 1868.875627148432, social_welfare: 1870.9002955055585)
+\item Competitive: 
 \item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \subsection{Scenario 2: With Degredation}
@@ -74,11 +74,11 @@ $\{A\}, \{B\}, \{C\}$ & 0.00 & 2.02 & 0.00\\ \hline
 \label{accuracy-results-degredated}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's accuracy & Client B's accuracy & Client C's accuracy\\ \hline
-$\{A,B,C\}$ & 83.91\% & 83.91\% & 83.91\%\\ \hline
-$\{A,B\}, \{C\}$ & 68.60\% & 80.21\% & 56.99\%\\ \hline
-$\{A,C\}, \{B\}$ & 76.84\% & 61.16\% & 69.00\%\\ \hline
-$\{B,C\}, \{A\}$ & 50.04\% & 82.60\% & 66.32\%\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 55.60\%\\ \hline
+$\{A,B,C\}$ & 88.03000\% & 88.21000\% & 88.12000\%\\ \hline
+$\{A,B\}, \{C\}$ & 75.49000\% & 80.07000\% & 70.91000\%\\ \hline
+$\{A,C\}, \{B\}$ & 73.62000\% & 61.16000\% & 86.08000\%\\ \hline
+$\{B,C\}, \{A\}$ & 50.04000\% & 68.83000\% & 87.62000\%\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 50.04000\% & 60.47500\% & 70.91000\%\\ \hline
 \end{tabular}
 \end{table}
 
@@ -89,11 +89,11 @@ $\{A\}, \{B\}, \{C\}$ & 50.04\% & 61.16\% & 55.60\%\\ \hline
 \label{price-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's price & Client B's price & Client C's price\\ \hline
-$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
-$\{A,B\}, \{C\}$ & 0.18 & 7.43 & 0.06\\ \hline
-$\{A,C\}, \{B\}$ & 4.92 & 0.04 & 0.12\\ \hline
-$\{B,C\}, \{A\}$ & 0.08 & 10.42 & 0.24\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.02 & 2.80 & 0.07\\ \hline
+$\{A,B,C\}$ & 0.06560 & 6.84340 & 0.18367\\ \hline
+$\{A,B\}, \{C\}$ & 7.97263 & 306.97606 & 2.67736\\ \hline
+$\{A,C\}, \{B\}$ & 20.94630 & 6.87525 & 856.12441\\ \hline
+$\{B,C\}, \{A\}$ & 9.33972 & 29.09210 & 1263.04832\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 4.72514 & 14.40432 & 589.83856\\ \hline
 \end{tabular}
 \end{table}
 
@@ -104,20 +104,20 @@ $\{A\}, \{B\}, \{C\}$ & 0.02 & 2.80 & 0.07\\ \hline
 \label{profit-results}
 \begin{tabular}{|c|c|c|c|}\hline
 Coalition structure & Client A's profit & Client B's profit & Client C's profit\\ \hline
-$\{A,B,C\}$ & 0.00 & 0.00 & 0.00\\ \hline
-$\{A,B\}, \{C\}$ & 0.01 & 7.03 & 0.00\\ \hline
-$\{A,C\}, \{B\}$ & 4.66 & 0.00 & 0.00\\ \hline
-$\{B,C\}, \{A\}$ & 0.00 & 9.86 & 0.01\\ \hline
-$\{A\}, \{B\}, \{C\}$ & 0.00 & 2.64 & 0.00\\ \hline
+$\{A,B,C\}$ & 0.00000 & 6.47366 & 0.00726\\ \hline
+$\{A,B\}, \{C\}$ & 0.30956 & 290.37439 & 0.00000\\ \hline
+$\{A,C\}, \{B\}$ & 0.79793 & 0.00000 & 809.74521\\ \hline
+$\{B,C\}, \{A\}$ & 0.00000 & 1.08793 & 1194.51386\\ \hline
+$\{A\}, \{B\}, \{C\}$ & 0.00000 & 0.54841 & 557.88333\\ \hline
 \end{tabular}
 \end{table}
 \textbf{Core stable coalition structures}:
 \begin{itemize}
-\item Competitive: ($\{B,C\}, \{A\}$, customer_surpluse: 1866.6398575858593, social_welfare: 1876.5043996546362)
+\item Competitive: 
 \item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}
 \textbf{Individual stable coalition structures}:
 \begin{itemize}
-\item Competitive: ($\{B,C\}, \{A\}$, customer_surpluse: 1866.6398575858593, social_welfare: 1876.5043996546362)
+\item Competitive: 
 \item Non-competitive: ($\{A,B,C\}$)
 \end{itemize}

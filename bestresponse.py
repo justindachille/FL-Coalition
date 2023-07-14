@@ -71,7 +71,7 @@ def sigma(m, n, p, A, is_squared):
         return (p[m] - p[n]) / (A[m] - A[n])
     
 
-def H(theta, mean, sd, theta_max, is_uniform=False):
+def H(theta, mean, sd, theta_max, is_uniform=True):
     if theta < 0:
         return 0
     if theta >= theta_max:
