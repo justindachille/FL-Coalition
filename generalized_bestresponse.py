@@ -4,6 +4,7 @@ import numpy as np
 import copy
 import time
 from scipy.optimize import basinhopping
+import pandas as pd
 
 
 def market_share(p, A, theta_max, mean, sd, is_squared):
@@ -40,17 +41,24 @@ def W_n(n, p, A, theta_max, mean, sd, is_squared):
     # time.sleep(.02)
     return market_share_result[n] * p[n]
 
+price_history = []
+quality_history = []
+
 def price_competition(p_ini, A, theta_max, mean, sd, is_squared, tol=1e-5):
+    global price_history, quality_history
     A_max = copy.deepcopy(A)
     N = len(p_ini)
     p = p_ini.copy()
+    niter = 0
     print(f"Initial Price: {p}")
+    price_history = [[] for _ in range(N)]
+    quality_history = [[] for _ in range(N)]
     while True:
         p_new = p.copy()
         print(f'start price: {p_new}')
         for n in range(N):
             best_result = None
-            for quality in np.linspace(0, A_max[n], num=15, endpoint=True):  # Modify the num parameter to adjust the granularity of the grid search
+            for quality in np.linspace(max(0, A[n]-0.05), min(A_max[n], A[n]+0.05), num=10, endpoint=True):  # Modify the num parameter to adjust the granularity of the grid search
                 A_temp = A.copy()
                 A_temp[n] = quality
                 result = basinhopping(lambda x: -W_n(n, np.hstack([p[:n], x, p[n+1:]]), A_temp, theta_max, mean, sd, is_squared), p[n], minimizer_kwargs={'method': 'BFGS'})
@@ -61,9 +69,12 @@ def price_competition(p_ini, A, theta_max, mean, sd, is_squared, tol=1e-5):
             p_new[n] = best_result.x[0]
             A[n] = best_quality
             print(f'Updated quality of product for client {n}: {A[n]}')
-        print(f"New Price: {p_new}")
-        if np.linalg.norm(p_new - p) < tol:
+            price_history[n].append(p_new[n])
+            quality_history[n].append(A[n]) 
+        print(f"New Price: {p_new} niter {niter}")
+        if np.linalg.norm(p_new - p) < tol or niter >= 450:
             break
+        niter += 1
         p = p_new.copy()
     return p, A
 
@@ -91,5 +102,25 @@ def run_competition():
         print(f"  Initial price: {p_ini[i]}")
         print(f"  Final price: {p_final[i]}")
         print(f"  Final market share: {M_final[i]}")
-  
+
+def create_tables():
+    global price_history, quality_history
+    price_df = pd.DataFrame(price_history).T  # transpose to get clients as columns
+    price_df.columns = [f"Client {i+1}" for i in range(price_df.shape[1])]
+    price_df.index.name = "Round"
+
+    quality_df = pd.DataFrame(quality_history).T  # transpose to get clients as columns
+    quality_df.columns = [f"Client {i+1}" for i in range(quality_df.shape[1])]
+    quality_df.index.name = "Round"
+
+    return price_df, quality_df
+
+
 run_competition()
+price_df, quality_df = create_tables()
+
+print("Price history:")
+print(price_df)
+print("\nQuality history:")
+print(quality_df)
+
