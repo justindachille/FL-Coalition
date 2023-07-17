@@ -182,7 +182,40 @@ def parse_ft_logs(coalitions):
                 #     print('after:', coalitions[key])
     return coalitions
 
+def modify_coalition_accuracies(coalition_to_modify, coalition_source):
+    coalition_to_modify.ABC = coalition_source.ABC
+    coalition_to_modify.AB_C = coalition_source.AB_C
+    coalition_to_modify.AC_B = coalition_source.AC_B
+    coalition_to_modify.A_BC = coalition_source.A_BC
+    coalition_to_modify.A_B_C_ = coalition_source.A_B_C_
+
 def fix_solo_accuracies(coalition):
+    # These were manually run very early on when logs not working properly, so manually set these two cases
+    SOLO_QUANTITY_A = .5004
+    SOLO_QUANTITY_B = .6116
+    SOLO_QUANTITY_C = .7091
+    ABC_Quantity = [.8803, .8821, .8817]
+    AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
+    AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
+    A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]
+    A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
+    quantity_coalition = Coalition(8000, ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity, 0.1)
+    if coalition.C_size == 8000 and coalition.beta == '0.1' and coalition.partition == 'custom-quantity':
+        modify_coalition_accuracies(coalition, quantity_coalition)
+
+    SOLO_DIRICHLET_A = .6085
+    SOLO_DIRICHLET_B = .6394
+    SOLO_DIRICHLET_C = .5932
+    ABC_Dirichlet = [.8681, .8668, .8655]
+    AB_C_Dirichlet = [.8440, .8453, SOLO_DIRICHLET_C]
+    AC_B_Dirichlet = [0.8301, SOLO_DIRICHLET_B, .8359]
+    A_BC_Dirichlet = [SOLO_DIRICHLET_A, .8347, .8320]
+    A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
+    dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
+
+    if coalition.C_size == 8000 and coalition.beta == '0.1' and coalition.partition == 'noniid-labeldir': 
+        modify_coalition_accuracies(coalition, dirichlet_coalition)
+
     SOLO_QUANTITY_A = .5004
     SOLO_QUANTITY_B = .6116
     if coalition.C_size == 8000:
@@ -199,6 +232,7 @@ def fix_solo_accuracies(coalition):
         SOLO_QUANTITY_A = coalition.A_B_C_[0]
         SOLO_QUANTITY_B = coalition.A_B_C_[1]
         SOLO_QUANTITY_C = coalition.A_B_C_[2]
+        print(f'coalition: {coalition}')
         coalition.A_BC[0] = SOLO_QUANTITY_A
         coalition.AC_B[1] = SOLO_QUANTITY_B
         coalition.AB_C[2] = SOLO_QUANTITY_C
@@ -269,11 +303,11 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
     table += "\\begin{table}[h]\n\\centering\n\\caption{Training results.}\n\\label{training-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
     table += ' & '.join(table_header) + '\\\\ \\hline\n'
     table_data = [
-        (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.2f}\\%", f"{coalition.ABC[1]*100:.2f}\\%", f"{coalition.ABC[2]*100:.2f}\\%"),
-        (r"$\{A,B\}, \{C\}$", f"{coalition.AB_C[0]*100:.2f}\\%", f"{coalition.AB_C[1]*100:.2f}\\%", f"{coalition.AB_C[2]*100:.2f}\\%"),
-        (r"$\{A,C\}, \{B\}$", f"{coalition.AC_B[0]*100:.2f}\\%", f"{coalition.AC_B[1]*100:.2f}\\%", f"{coalition.AC_B[2]*100:.2f}\\%"),
-        (r"$\{B,C\}, \{A\}$", f"{coalition.A_BC[0]*100:.2f}\\%", f"{coalition.A_BC[1]*100:.2f}\\%", f"{coalition.A_BC[2]*100:.2f}\\%"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.2f}\\%", f"{coalition.A_B_C_[1]*100:.2f}\\%", f"{coalition.A_B_C_[2]*100:.2f}\\%")
+        (r"$\{A,B,C\}$", f"{coalition.ABC[0]*100:.5f}\\%", f"{coalition.ABC[1]*100:.5f}\\%", f"{coalition.ABC[2]*100:.5f}\\%"),
+        (r"$\{A,B\}, \{C\}$", f"{coalition.AB_C[0]*100:.5f}\\%", f"{coalition.AB_C[1]*100:.5f}\\%", f"{coalition.AB_C[2]*100:.5f}\\%"),
+        (r"$\{A,C\}, \{B\}$", f"{coalition.AC_B[0]*100:.5f}\\%", f"{coalition.AC_B[1]*100:.5f}\\%", f"{coalition.AC_B[2]*100:.5f}\\%"),
+        (r"$\{B,C\}, \{A\}$", f"{coalition.A_BC[0]*100:.5f}\\%", f"{coalition.A_BC[1]*100:.5f}\\%", f"{coalition.A_BC[2]*100:.5f}\\%"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{coalition.A_B_C_[0]*100:.5f}\\%", f"{coalition.A_B_C_[1]*100:.5f}\\%", f"{coalition.A_B_C_[2]*100:.5f}\\%")
     ]
     for row in table_data:
         table += ' & '.join([str(cell) for cell in row]) + '\\\\ \\hline\n'
@@ -281,11 +315,11 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
 
     table_header = ['Coalition structure', "Client A's price", "Client B's price", "Client C's price"]
     table_data = [
-        (r"$\{A,B,C\}$", f"{reordered_prices[0][0]:.2f}", f"{reordered_prices[0][1]:.2f}", f"{reordered_prices[0][2]:.2f}"),
-        (r"$\{A,B\}, \{C\}$", f"{reordered_prices[1][0]:.2f}", f"{reordered_prices[1][1]:.2f}", f"{reordered_prices[1][2]:.2f}"),
-        (r"$\{A,C\}, \{B\}$", f"{reordered_prices[2][0]:.2f}", f"{reordered_prices[2][1]:.2f}", f"{reordered_prices[2][2]:.2f}"),
-        (r"$\{B,C\}, \{A\}$", f"{reordered_prices[3][0]:.2f}", f"{reordered_prices[3][1]:.2f}", f"{reordered_prices[3][2]:.2f}"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_prices[4][0]:.2f}", f"{reordered_prices[4][1]:.2f}", f"{reordered_prices[4][2]:.2f}")
+        (r"$\{A,B,C\}$", f"{reordered_prices[0][0]:.5f}", f"{reordered_prices[0][1]:.5f}", f"{reordered_prices[0][2]:.5f}"),
+        (r"$\{A,B\}, \{C\}$", f"{reordered_prices[1][0]:.5f}", f"{reordered_prices[1][1]:.5f}", f"{reordered_prices[1][2]:.5f}"),
+        (r"$\{A,C\}, \{B\}$", f"{reordered_prices[2][0]:.5f}", f"{reordered_prices[2][1]:.5f}", f"{reordered_prices[2][2]:.5f}"),
+        (r"$\{B,C\}, \{A\}$", f"{reordered_prices[3][0]:.5f}", f"{reordered_prices[3][1]:.5f}", f"{reordered_prices[3][2]:.5f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_prices[4][0]:.5f}", f"{reordered_prices[4][1]:.5f}", f"{reordered_prices[4][2]:.5f}")
     ]
     table += '\n\n'
     table += "\\begin{table}[h]\n\\centering\n\\caption{Price results.}\n\\label{price-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
@@ -296,11 +330,11 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
 
     table_header = ['Coalition structure', "Client A's profit", "Client B's profit", "Client C's profit"]
     table_data = [
-        (r"$\{A,B,C\}$", f"{reordered_profits[0][0]:.2f}", f"{reordered_profits[0][1]:.2f}", f"{reordered_profits[0][2]:.2f}"),
-        (r"$\{A,B\}, \{C\}$", f"{reordered_profits[1][0]:.2f}", f"{reordered_profits[1][1]:.2f}", f"{reordered_profits[1][2]:.2f}"),
-        (r"$\{A,C\}, \{B\}$", f"{reordered_profits[2][0]:.2f}", f"{reordered_profits[2][1]:.2f}", f"{reordered_profits[2][2]:.2f}"),
-        (r"$\{B,C\}, \{A\}$", f"{reordered_profits[3][0]:.2f}", f"{reordered_profits[3][1]:.2f}", f"{reordered_profits[3][2]:.2f}"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_profits[4][0]:.2f}", f"{reordered_profits[4][1]:.2f}", f"{reordered_profits[4][2]:.2f}")
+        (r"$\{A,B,C\}$", f"{reordered_profits[0][0]:.5f}", f"{reordered_profits[0][1]:.5f}", f"{reordered_profits[0][2]:.5f}"),
+        (r"$\{A,B\}, \{C\}$", f"{reordered_profits[1][0]:.5f}", f"{reordered_profits[1][1]:.5f}", f"{reordered_profits[1][2]:.5f}"),
+        (r"$\{A,C\}, \{B\}$", f"{reordered_profits[2][0]:.5f}", f"{reordered_profits[2][1]:.5f}", f"{reordered_profits[2][2]:.5f}"),
+        (r"$\{B,C\}, \{A\}$", f"{reordered_profits[3][0]:.5f}", f"{reordered_profits[3][1]:.5f}", f"{reordered_profits[3][2]:.5f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{reordered_profits[4][0]:.5f}", f"{reordered_profits[4][1]:.5f}", f"{reordered_profits[4][2]:.5f}")
     ]
     table += '\n\n'
     table += "\\begin{table}[h]\n\\centering\n\\caption{Profit results.}\n\\label{profit-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
@@ -329,11 +363,11 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
 
     table_header = ['Coalition structure', "Client A's accuracy", "Client B's accuracy", "Client C's accuracy"]
     table_data = [
-        (r"$\{A,B,C\}$", f"{degredaded_accuracies_as_table[0][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[0][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[0][2]*100:.2f}\\%"),
-        (r"$\{A,B\}, \{C\}$", f"{degredaded_accuracies_as_table[1][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[1][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[1][2]*100:.2f}\\%"),
-        (r"$\{A,C\}, \{B\}$", f"{degredaded_accuracies_as_table[2][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[2][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[2][2]*100:.2f}\\%"),
-        (r"$\{B,C\}, \{A\}$", f"{degredaded_accuracies_as_table[3][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[3][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[3][2]*100:.2f}\\%"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_accuracies_as_table[4][0]*100:.2f}\\%", f"{degredaded_accuracies_as_table[4][1]*100:.2f}\\%", f"{degredaded_accuracies_as_table[4][2]*100:.2f}\\%")
+        (r"$\{A,B,C\}$", f"{degredaded_accuracies_as_table[0][0]*100:.5f}\\%", f"{degredaded_accuracies_as_table[0][1]*100:.5f}\\%", f"{degredaded_accuracies_as_table[0][2]*100:.5f}\\%"),
+        (r"$\{A,B\}, \{C\}$", f"{degredaded_accuracies_as_table[1][0]*100:.5f}\\%", f"{degredaded_accuracies_as_table[1][1]*100:.5f}\\%", f"{degredaded_accuracies_as_table[1][2]*100:.5f}\\%"),
+        (r"$\{A,C\}, \{B\}$", f"{degredaded_accuracies_as_table[2][0]*100:.5f}\\%", f"{degredaded_accuracies_as_table[2][1]*100:.5f}\\%", f"{degredaded_accuracies_as_table[2][2]*100:.5f}\\%"),
+        (r"$\{B,C\}, \{A\}$", f"{degredaded_accuracies_as_table[3][0]*100:.5f}\\%", f"{degredaded_accuracies_as_table[3][1]*100:.5f}\\%", f"{degredaded_accuracies_as_table[3][2]*100:.5f}\\%"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_accuracies_as_table[4][0]*100:.5f}\\%", f"{degredaded_accuracies_as_table[4][1]*100:.5f}\\%", f"{degredaded_accuracies_as_table[4][2]*100:.5f}\\%")
     ]
     table += '\n\n'
     table += "\\begin{table}[h]\n\\centering\n\\caption{Accuracy results for the 'degredated' scenario.}\n\\label{accuracy-results-degredated}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
@@ -344,11 +378,11 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
 
     table_header = ['Coalition structure', "Client A's price", "Client B's price", "Client C's price"]
     table_data = [
-        (r"$\{A,B,C\}$", f"{degredaded_reordered_prices[0][0]:.2f}", f"{degredaded_reordered_prices[0][1]:.2f}", f"{degredaded_reordered_prices[0][2]:.2f}"),
-        (r"$\{A,B\}, \{C\}$", f"{degredaded_reordered_prices[1][0]:.2f}", f"{degredaded_reordered_prices[1][1]:.2f}", f"{degredaded_reordered_prices[1][2]:.2f}"),
-        (r"$\{A,C\}, \{B\}$", f"{degredaded_reordered_prices[2][0]:.2f}", f"{degredaded_reordered_prices[2][1]:.2f}", f"{degredaded_reordered_prices[2][2]:.2f}"),
-        (r"$\{B,C\}, \{A\}$", f"{degredaded_reordered_prices[3][0]:.2f}", f"{degredaded_reordered_prices[3][1]:.2f}", f"{degredaded_reordered_prices[3][2]:.2f}"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_reordered_prices[4][0]:.2f}", f"{degredaded_reordered_prices[4][1]:.2f}", f"{degredaded_reordered_prices[4][2]:.2f}")
+        (r"$\{A,B,C\}$", f"{degredaded_reordered_prices[0][0]:.5f}", f"{degredaded_reordered_prices[0][1]:.5f}", f"{degredaded_reordered_prices[0][2]:.5f}"),
+        (r"$\{A,B\}, \{C\}$", f"{degredaded_reordered_prices[1][0]:.5f}", f"{degredaded_reordered_prices[1][1]:.5f}", f"{degredaded_reordered_prices[1][2]:.5f}"),
+        (r"$\{A,C\}, \{B\}$", f"{degredaded_reordered_prices[2][0]:.5f}", f"{degredaded_reordered_prices[2][1]:.5f}", f"{degredaded_reordered_prices[2][2]:.5f}"),
+        (r"$\{B,C\}, \{A\}$", f"{degredaded_reordered_prices[3][0]:.5f}", f"{degredaded_reordered_prices[3][1]:.5f}", f"{degredaded_reordered_prices[3][2]:.5f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_reordered_prices[4][0]:.5f}", f"{degredaded_reordered_prices[4][1]:.5f}", f"{degredaded_reordered_prices[4][2]:.5f}")
     ]
     table += '\n\n'
     table += "\\begin{table}[h]\n\\centering\n\\caption{Price results.}\n\\label{price-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
@@ -359,11 +393,11 @@ def generate_coalition_table(i, coalition, theta_max, filename=None, is_uniform=
 
     table_header = ['Coalition structure', "Client A's profit", "Client B's profit", "Client C's profit"]
     table_data = [
-        (r"$\{A,B,C\}$", f"{degredaded_reordered_profits[0][0]:.2f}", f"{degredaded_reordered_profits[0][1]:.2f}", f"{degredaded_reordered_profits[0][2]:.2f}"),
-        (r"$\{A,B\}, \{C\}$", f"{degredaded_reordered_profits[1][0]:.2f}", f"{degredaded_reordered_profits[1][1]:.2f}", f"{degredaded_reordered_profits[1][2]:.2f}"),
-        (r"$\{A,C\}, \{B\}$", f"{degredaded_reordered_profits[2][0]:.2f}", f"{degredaded_reordered_profits[2][1]:.2f}", f"{degredaded_reordered_profits[2][2]:.2f}"),
-        (r"$\{B,C\}, \{A\}$", f"{degredaded_reordered_profits[3][0]:.2f}", f"{degredaded_reordered_profits[3][1]:.2f}", f"{degredaded_reordered_profits[3][2]:.2f}"),
-        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_reordered_profits[4][0]:.2f}", f"{degredaded_reordered_profits[4][1]:.2f}", f"{degredaded_reordered_profits[4][2]:.2f}")
+        (r"$\{A,B,C\}$", f"{degredaded_reordered_profits[0][0]:.5f}", f"{degredaded_reordered_profits[0][1]:.5f}", f"{degredaded_reordered_profits[0][2]:.5f}"),
+        (r"$\{A,B\}, \{C\}$", f"{degredaded_reordered_profits[1][0]:.5f}", f"{degredaded_reordered_profits[1][1]:.5f}", f"{degredaded_reordered_profits[1][2]:.5f}"),
+        (r"$\{A,C\}, \{B\}$", f"{degredaded_reordered_profits[2][0]:.5f}", f"{degredaded_reordered_profits[2][1]:.5f}", f"{degredaded_reordered_profits[2][2]:.5f}"),
+        (r"$\{B,C\}, \{A\}$", f"{degredaded_reordered_profits[3][0]:.5f}", f"{degredaded_reordered_profits[3][1]:.5f}", f"{degredaded_reordered_profits[3][2]:.5f}"),
+        (r"$\{A\}, \{B\}, \{C\}$", f"{degredaded_reordered_profits[4][0]:.5f}", f"{degredaded_reordered_profits[4][1]:.5f}", f"{degredaded_reordered_profits[4][2]:.5f}")
     ]
     table += '\n\n'
     table += "\\begin{table}[h]\n\\centering\n\\caption{Profit results.}\n\\label{profit-results}\n\\begin{tabular}{|c|c|c|c|}\\hline\n"
@@ -409,56 +443,19 @@ if __name__ == '__main__':
         print('After parsing FT logs:')
         for k, v in coalition_str_dict.items():
             print(k, v)
-    THETA_MAX = 100
+    THETA_MAX = 10000
+    MEAN = 5000
+    SD = 500
     IS_UNIFORM = False
     IS_SQUARED = True
-    MEAN = 50
-    SD = 5
+
     for i, coalition in enumerate(coalitions):
         generate_coalition_table(
             i,
             coalitions[coalition],
-            theta_max = THETA_MAX,
+            theta_max=THETA_MAX,
             is_uniform=IS_UNIFORM,
             is_squared=IS_SQUARED,
             mean=MEAN,
-            sd=SD,)
-
-    SOLO_QUANTITY_A = .5004
-    SOLO_QUANTITY_B = .6116
-    SOLO_QUANTITY_C = .7091
-    ABC_Quantity = [.8803, .8821, .8817]
-    AB_C_Quantity = [.7976, .8007, SOLO_QUANTITY_C]
-    AC_B_Quantity = [0.8550, SOLO_QUANTITY_B, .8608]
-    A_BC_Quantity = [SOLO_QUANTITY_A, .8732, .8762]
-    A_B_C_Quantity = [SOLO_QUANTITY_A, SOLO_QUANTITY_B, SOLO_QUANTITY_C]
-    print('price:', calculate_equilibrium_price(SOLO_QUANTITY_C, SOLO_QUANTITY_B, SOLO_QUANTITY_A, 10000))
-    print('profits:', calculate_equilibrium_profits(SOLO_QUANTITY_C, SOLO_QUANTITY_B, SOLO_QUANTITY_A, 10000))
-    quantity_coalition = Coalition(8000, ABC_Quantity, AB_C_Quantity, AC_B_Quantity, A_BC_Quantity, A_B_C_Quantity, 0.1)
-    generate_coalition_table(10, 
-                            quantity_coalition,
-                            theta_max = THETA_MAX,
-                            is_uniform=IS_UNIFORM,
-                            is_squared=IS_SQUARED,
-                            mean=MEAN,
-                            sd=SD,)
-    sys.exit()
-    # Non-iid
-    SOLO_DIRICHLET_A = .6085
-    SOLO_DIRICHLET_B = .6394
-    SOLO_DIRICHLET_C = .5932
-    ABC_Dirichlet = [.8681, .8668, .8655]
-    AB_C_Dirichlet = [.8440, .8453, SOLO_DIRICHLET_C]
-    AC_B_Dirichlet = [0.8301, SOLO_DIRICHLET_B, .8359]
-    A_BC_Dirichlet = [SOLO_DIRICHLET_A, .8347, .8320]
-    A_B_C_Dirichlet = [SOLO_DIRICHLET_A, SOLO_DIRICHLET_B, SOLO_DIRICHLET_C]
-
-    dirichlet_coalition = Coalition(2480, ABC_Dirichlet, AB_C_Dirichlet, AC_B_Dirichlet, A_BC_Dirichlet, A_B_C_Dirichlet, 0.1, partition='noniid-labeldir')
-
-    generate_coalition_table(10, 
-                            dirichlet_coalition, 
-                            theta_max = THETA_MAX,
-                            is_uniform=IS_UNIFORM,
-                            is_squared=IS_SQUARED,
-                            mean=MEAN,
-                            sd=SD,)
+            sd=SD,
+        )

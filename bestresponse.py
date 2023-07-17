@@ -71,7 +71,7 @@ def sigma(m, n, p, A, is_squared):
         return (p[m] - p[n]) / (A[m] - A[n])
     
 
-def N(theta, mean, sd, theta_max, is_uniform=False):
+def H(theta, mean, sd, theta_max, is_uniform=True):
     if theta < 0:
         return 0
     if theta >= theta_max:
@@ -88,7 +88,7 @@ def N(theta, mean, sd, theta_max, is_uniform=False):
 # theta_vals = np.linspace(-10, theta_max+10, 1000)
 
 # # calculate the corresponding PDF values
-# pdf_vals = [N(theta, mean, sd, theta_max, is_uniform=True) for theta in theta_vals]
+# pdf_vals = [H(theta, mean, sd, theta_max, is_uniform=True) for theta in theta_vals]
 
 # # create the plot
 # fig, ax = plt.subplots()
@@ -101,7 +101,7 @@ def W0(p, A, mean, sd, theta_max, is_uniform, is_squared):
     try:
         sigma_0_1 = sigma(0, 1, p, A, is_squared)
         sigma_0_2 = sigma(0, 2, p, A, is_squared)
-        return p[0] * (1 - N(max(sigma_0_1, sigma_0_2), mean, sd, theta_max, is_uniform))
+        return p[0] * (1 - H(max(sigma_0_1, sigma_0_2), mean, sd, theta_max, is_uniform))
 
     except ZeroDivisionError:
         return 0
@@ -110,7 +110,7 @@ def W1(p, A, mean, sd, theta_max, is_uniform, is_squared):
     try:
         sigma_0_1 = sigma(0, 1, p, A, is_squared)
         sigma_1_2 = sigma(1, 2, p, A, is_squared)
-        return p[1] * N(sigma_0_1 - sigma_1_2, mean, sd, theta_max, is_uniform)
+        return p[1] * H(sigma_0_1 - sigma_1_2, mean, sd, theta_max, is_uniform)
 
     except ZeroDivisionError:
         return 0
@@ -119,7 +119,7 @@ def W2(p, A, mean, sd, theta_max, is_uniform, is_squared):
     try:
         sigma_1_2 = sigma(1, 2, p, A, is_squared)
         sigma_0_2 = sigma(0, 2, p, A, is_squared)
-        return p[2] * N(min(sigma_1_2, sigma_0_2), mean, sd, theta_max, is_uniform)
+        return p[2] * H(min(sigma_1_2, sigma_0_2), mean, sd, theta_max, is_uniform)
 
     except ZeroDivisionError:
         return 0
@@ -148,7 +148,7 @@ def update_price(i, p, A, mean, sd, theta_max, is_uniform, is_squared):
 def calculate_customer_surplus(A, p, mean, sd, theta_max, is_uniform, is_squared=False):
     # Customer distribution
     def h(theta):
-        return N(theta, mean=mean, sd=sd, theta_max=theta_max, is_uniform=is_uniform)
+        return H(theta, mean=mean, sd=sd, theta_max=theta_max, is_uniform=is_uniform)
 
     a1 = sigma(0, 1, p, A, is_squared)
     b1 = theta_max
@@ -220,7 +220,7 @@ def optimize(j, partition, mean, sd, theta_max, is_uniform, is_squared):
         steps+=1
         for i in range(3):
             p_new = update_price(float(i), p_new, scores, mean, sd, theta_max, is_uniform, is_squared)
-        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-8) or steps>maxsteps:
+        if np.allclose(np.array(p_init), np.array(p_new), rtol=1e-8) or steps>=maxsteps:
             print(f'steps: {steps}')
             break
 
