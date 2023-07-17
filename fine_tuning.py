@@ -144,9 +144,9 @@ if __name__ == '__main__':
     torch.manual_seed(seed)
     random.seed(seed)
 
-    learning_rates = [0.001, 0.01, 0.1]
+    learning_rates = [0.001]
     optimizers = ['sgd']
-    batch_sizes = [32, 64]
+    batch_sizes = [64]
     for c in args.abc:
         c = c.lower()
         best_valid_acc = 0.0
