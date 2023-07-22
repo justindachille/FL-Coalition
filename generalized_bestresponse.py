@@ -15,7 +15,7 @@ def setup_logger():
     # Hash of the current time to create unique experiment directory
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     hash_object = hashlib.md5(timestamp.encode())
-    exp_dir = "experiment_" + hash_object.hexdigest()[:6] + "_" + timestamp
+    exp_dir = "experiment_" + "_" + timestamp + "_" + hash_object.hexdigest()[:6]
     if not os.path.exists(exp_dir):
         os.makedirs(exp_dir)
 
@@ -76,7 +76,7 @@ def price_competition(p_ini, A, theta_max, mean, sd, is_squared, tol=1e-5):
         logging.info(f'start price: {p_new}')
         for n in range(N):
             best_result = None
-            for quality in np.linspace(max(0, A[n]-SEARCH_DIFF), min(A_max[n], A[n]+SEARCH_DIFF), num=10, endpoint=True):
+            for quality in np.linspace(max(0, A[n]-SEARCH_DIFF), min(A_max[n], A[n]+SEARCH_DIFF), num=50, endpoint=True):
                 A_temp = A.copy()
                 A_temp[n] = quality
                 result = basinhopping(lambda x: -W_n(n, np.hstack([p[:n], x, p[n+1:]]), A_temp, theta_max, mean, sd, is_squared), p[n], minimizer_kwargs={'method': 'BFGS'})
@@ -89,6 +89,7 @@ def price_competition(p_ini, A, theta_max, mean, sd, is_squared, tol=1e-5):
             price_history[n].append(p_new[n])
             quality_history[n].append(A[n]) 
         logging.info(f"New Price: {p_new} niter {niter}")
+        print(f"New Price: {p_new} niter {niter}")
         if np.linalg.norm(p_new - p) < tol or niter >= 100:
             break
         niter += 1
@@ -98,9 +99,9 @@ def price_competition(p_ini, A, theta_max, mean, sd, is_squared, tol=1e-5):
 def run_competition(exp_dir):
     A = np.array([85.07, 85.18, 85.07, 85.41, 85.17, 85.71, 85.53, 85.08, 85.53, 85.68]) / 100
     p_ini = np.ones(10)
-    theta_max = 1000000
-    mean = 500000
-    sd = 5000
+    theta_max = 1000000000
+    mean = 500000000
+    sd = 50000000
     is_squared = True
 
     # Calculate the final prices
