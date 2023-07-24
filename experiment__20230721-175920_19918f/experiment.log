@@ -1,0 +1,541 @@
+INFO:root:Initial Price: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+INFO:root:start price: [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+INFO:root:Updated quality of product for client 0: 0.833338775510204
+INFO:root:Updated quality of product for client 1: 0.8344163265306124
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8343183673469388
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8378448979591837
+INFO:root:Updated quality of product for client 7: 0.8334367346938776
+INFO:root:Updated quality of product for client 8: 0.8203897959183674
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [4.54050623e-01 5.13271128e-01 4.99999994e-01 5.02575151e-01
+ 4.99999993e-01 2.57090040e+04 5.47047508e-01 4.99999977e-01
+ 5.02868457e-01 4.85527106e-01] niter 0
+INFO:root:start price: [4.54050623e-01 5.13271128e-01 4.99999994e-01 5.02575151e-01
+ 4.99999993e-01 2.57090040e+04 5.47047508e-01 4.99999977e-01
+ 5.02868457e-01 4.85527106e-01]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.833338775510204
+INFO:root:Updated quality of product for client 3: 0.8366693877551019
+INFO:root:Updated quality of product for client 4: 0.8517
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8508
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [4.95565383e-01 2.69231993e-01 2.49999982e-01 3.60550537e-01
+ 2.76356105e-01 2.57086994e+04 2.54559167e-01 2.53430528e-01
+ 2.42153310e-01 1.07102516e+04] niter 1
+INFO:root:start price: [4.95565383e-01 2.69231993e-01 2.49999982e-01 3.60550537e-01
+ 2.76356105e-01 2.57086994e+04 2.54559167e-01 2.53430528e-01
+ 2.42153310e-01 1.07102516e+04]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8344163265306124
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8517
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8508
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.26715256e-01 1.97701405e-01 1.86444435e-01 1.35313011e-01
+ 1.71253403e-01 3.10636279e+04 2.07969714e-01 1.57367557e-01
+ 2.42153310e-01 1.07101011e+04] niter 2
+INFO:root:start price: [1.26715256e-01 1.97701405e-01 1.86444435e-01 1.35313011e-01
+ 1.71253403e-01 3.10636279e+04 2.07969714e-01 1.57367557e-01
+ 2.42153310e-01 1.07101011e+04]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8517
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8508
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.26715256e-01 6.64819045e-02 7.86837712e-02 1.00633009e-01
+ 5.61464014e-02 3.10635459e+04 2.07969714e-01 7.91324778e-02
+ 2.00199056e-01 1.29409184e+04] niter 3
+INFO:root:start price: [1.26715256e-01 6.64819045e-02 7.86837712e-02 1.00633009e-01
+ 5.61464014e-02 3.10635459e+04 2.07969714e-01 7.91324778e-02
+ 2.00199056e-01 1.29409184e+04]
+INFO:root:Updated quality of product for client 0: 0.7812551020408163
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8517
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8508
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [2.31408781e-02 1.34426698e-02 3.95662316e-02 1.00633009e-01
+ 5.61464014e-02 3.21789574e+04 5.65137201e-02 4.08262828e-02
+ 2.00199056e-01 1.29409045e+04] niter 4
+INFO:root:start price: [2.31408781e-02 1.34426698e-02 3.95662316e-02 1.00633009e-01
+ 5.61464014e-02 3.21789574e+04 5.65137201e-02 4.08262828e-02
+ 2.00199056e-01 1.29409045e+04]
+INFO:root:Updated quality of product for client 0: 0.7638938775510203
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8517
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8508
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [9.60740062e-03 3.35789024e-02 2.04131346e-02 1.37632051e-02
+ 6.72132798e-03 3.21789574e+04 5.65137201e-02 3.25685218e-02
+ 5.15672342e-02 1.34055626e+04] niter 5
+INFO:root:start price: [9.60740062e-03 3.35789024e-02 2.04131346e-02 1.37632051e-02
+ 6.72132798e-03 3.21789574e+04 5.65137201e-02 3.25685218e-02
+ 5.15672342e-02 1.34055626e+04]
+INFO:root:Updated quality of product for client 0: 0.7638938775510203
+INFO:root:Updated quality of product for client 1: 0.8170326530612245
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8169367346938775
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8160734693877552
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [4.41756040e-03 1.11701806e-02 1.62842526e-02 1.37632051e-02
+ 1.67894426e-02 3.24112755e+04 1.78496352e-02 3.36067094e-03
+ 5.15672342e-02 1.34055626e+04] niter 6
+INFO:root:start price: [4.41756040e-03 1.11701806e-02 1.62842526e-02 1.37632051e-02
+ 1.67894426e-02 3.24112755e+04 1.78496352e-02 3.36067094e-03
+ 5.15672342e-02 1.34055626e+04]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.0
+INFO:root:Updated quality of product for client 2: 0.8159775510204081
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.7474102040816326
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.7466204081632654
+INFO:root:Updated quality of product for client 8: 0.6283836734693877
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [4.41756040e-03 1.11701806e-02 1.68032859e-03 4.01540865e-03
+ 9.67112382e-03 3.24112755e+04 1.78496352e-02 3.36067094e-03
+ 9.70117340e-04 1.35023321e+04] niter 7
+INFO:root:start price: [4.41756040e-03 1.11701806e-02 1.68032859e-03 4.01540865e-03
+ 9.67112382e-03 3.24112755e+04 1.78496352e-02 3.36067094e-03
+ 9.70117340e-04 1.35023321e+04]
+INFO:root:Updated quality of product for client 0: 0.7465326530612244
+INFO:root:Updated quality of product for client 1: 0.0
+INFO:root:Updated quality of product for client 2: 0.7465326530612244
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.7126469387755102
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.7118938775510204
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.68032720e-03 2.68244672e-04 1.68032778e-03 4.01540865e-03
+ 5.89748909e-04 3.24596723e+04 2.99790257e+03 3.36067094e-03
+ 9.70117340e-04 1.35023321e+04] niter 8
+INFO:root:start price: [1.68032720e-03 2.68244672e-04 1.68032778e-03 4.01540865e-03
+ 5.89748909e-04 3.24596723e+04 2.99790257e+03 3.36067094e-03
+ 9.70117340e-04 1.35023321e+04]
+INFO:root:Updated quality of product for client 0: 0.7465326530612244
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.8517
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.68032720e-03 2.68244672e-04 1.68032778e-03 9.84335418e+02
+ 1.34115113e-04 3.24596723e+04 2.99790257e+03 3.36067094e-03
+ 2.99788404e+03 1.35225067e+04] niter 9
+INFO:root:start price: [1.68032720e-03 2.68244672e-04 1.68032778e-03 9.84335418e+02
+ 1.34115113e-04 3.24596723e+04 2.99790257e+03 3.36067094e-03
+ 2.99788404e+03 1.35225067e+04]
+INFO:root:Updated quality of product for client 0: 0.0
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.0
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.68032720e-03 2.04794020e+01 1.68032778e-03 9.84335418e+02
+ 1.02400013e+03 3.24697888e+04 2.99790257e+03 3.36067094e-03
+ 4.72871275e+03 1.37724907e+04] niter 10
+INFO:root:start price: [1.68032720e-03 2.04794020e+01 1.68032778e-03 9.84335418e+02
+ 1.02400013e+03 3.24697888e+04 2.99790257e+03 3.36067094e-03
+ 4.72871275e+03 1.37724907e+04]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.6076428571428572
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.8553000000000001
+INFO:root:Updated quality of product for client 7: 0.8508
+INFO:root:Updated quality of product for client 8: 0.0
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.02132739e+01 5.64232142e+02 7.88401023e-04 1.55614764e+03
+ 1.02400013e+03 3.25947326e+04 4.02190257e+03 9.31098974e-01
+ 4.72871275e+03 1.37767443e+04] niter 11
+INFO:root:start price: [1.02132739e+01 5.64232142e+02 7.88401023e-04 1.55614764e+03
+ 1.02400013e+03 3.25947326e+04 4.02190257e+03 9.31098974e-01
+ 4.72871275e+03 1.37767443e+04]
+INFO:root:Updated quality of product for client 0: 0.0
+INFO:root:Updated quality of product for client 1: 0.0
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.02132739e+01 5.64232142e+02 4.65549482e-01 1.47378373e+03
+ 1.02400013e+03 3.25968745e+04 4.02190257e+03 1.02493110e+03
+ 3.49137803e+03 1.39731549e+04] niter 12
+INFO:root:start price: [1.02132739e+01 5.64232142e+02 4.65549482e-01 1.47378373e+03
+ 1.02400013e+03 3.25968745e+04 4.02190257e+03 1.02493110e+03
+ 3.49137803e+03 1.39731549e+04]
+INFO:root:Updated quality of product for client 0: 0.0
+INFO:root:Updated quality of product for client 1: 0.0
+INFO:root:Updated quality of product for client 2: 0.8506999999999999
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [1.02132739e+01 5.64232142e+02 7.31024887e+02 1.28944569e+03
+ 1.02400013e+03 3.26950426e+04 4.02190257e+03 1.02493110e+03
+ 3.51209133e+03 1.38708704e+04] niter 13
+INFO:root:start price: [1.02132739e+01 5.64232142e+02 7.31024887e+02 1.28944569e+03
+ 1.02400013e+03 3.26950426e+04 4.02190257e+03 1.02493110e+03
+ 3.51209133e+03 1.38708704e+04]
+INFO:root:Updated quality of product for client 0: 0.833338775510204
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  365.51149766   573.086431     731.02488687  1250.02160735
+  1024.00013412 32643.93956751  4021.90256517  1024.93109897
+  3438.14354511 13913.48822707] niter 14
+INFO:root:start price: [  365.51149766   573.086431     731.02488687  1250.02160735
+  1024.00013412 32643.93956751  4021.90256517  1024.93109897
+  3438.14354511 13913.48822707]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  286.54316764   365.51149766   731.02488687  1227.2556051
+  1024.00013412 32665.24504001  4021.90256517  1024.93109897
+  3436.65275222 13886.02813255] niter 15
+INFO:root:start price: [  286.54316764   365.51149766   731.02488687  1227.2556051
+  1024.00013412 32665.24504001  4021.90256517  1024.93109897
+  3436.65275222 13886.02813255]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  182.755984     295.24021515   731.02488687  1191.13541546
+  1024.00013412 32651.83610439  4021.90256517  1024.93109897
+  3424.21957392 13894.75493183] niter 16
+INFO:root:start price: [  182.755984     295.24021515   731.02488687  1191.13541546
+  1024.00013412 32651.83610439  4021.90256517  1024.93109897
+  3424.21957392 13894.75493183]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  147.62019744   254.27788054   731.02488687  1174.98234127
+  1024.00013412 32655.89445408  4021.90256517  1024.93109897
+  3416.12073124 13888.15738153] niter 17
+INFO:root:start price: [  147.62019744   254.27788054   731.02488687  1174.98234127
+  1024.00013412 32655.89445408  4021.90256517  1024.93109897
+  3416.12073124 13888.15738153]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  127.138844     239.77658366   731.02488687  1165.29649499
+  1024.00013412 32652.46938949  4021.90256517  1024.93109897
+  3410.15868194 13889.15189823] niter 18
+INFO:root:start price: [  127.138844     239.77658366   731.02488687  1165.29649499
+  1024.00013412 32652.46938949  4021.90256517  1024.93109897
+  3410.15868194 13889.15189823]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  119.88818967   231.28012211   731.02488687  1160.85158032
+  1024.00013412 32652.74125524  4021.90256517  1024.93109897
+  3407.69823205 13887.23492035] niter 19
+INFO:root:start price: [  119.88818967   231.28012211   731.02488687  1160.85158032
+  1024.00013412 32652.74125524  4021.90256517  1024.93109897
+  3407.69823205 13887.23492035]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  115.63998338   228.10805865   731.02488687  1158.58330955
+  1024.00013412 32652.11718045  4021.90256517  1024.93109897
+  3406.02641592 13887.13296026] niter 20
+INFO:root:start price: [  115.63998338   228.10805865   731.02488687  1158.58330955
+  1024.00013412 32652.11718045  4021.90256517  1024.93109897
+  3406.02641592 13887.13296026]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  114.05660599   226.30422369   731.02488687  1157.49078189
+  1024.00013412 32652.05929651  4021.90256517  1024.93109897
+  3405.38894801 13886.75006135] niter 21
+INFO:root:start price: [  114.05660599   226.30422369   731.02488687  1157.49078189
+  1024.00013412 32652.05929651  4021.90256517  1024.93109897
+  3405.38894801 13886.75006135]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  113.16372927   225.59119516   731.02488687  1156.97060592
+  1024.00013412 32651.88381456  4021.90256517  1024.93109897
+  3404.98771361 13886.66255362] niter 22
+INFO:root:start price: [  113.16372927   225.59119516   731.02488687  1156.97060592
+  1024.00013412 32651.88381456  4021.90256517  1024.93109897
+  3404.98771361 13886.66255362]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  112.79152803   225.20548119   731.02488687  1156.72718811
+  1024.00013412 32651.83638808  4021.90256517  1024.93109897
+  3404.84617941 13886.56128536] niter 23
+INFO:root:start price: [  112.79152803   225.20548119   731.02488687  1156.72718811
+  1024.00013412 32651.83638808  4021.90256517  1024.93109897
+  3404.84617941 13886.56128536]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  112.59406932   225.03934712   731.02488687  1156.60762064
+  1024.00013412 32651.83638808  4021.90256517  1024.93109897
+  3404.73130419 13886.53909141] niter 24
+INFO:root:start price: [  112.59406932   225.03934712   731.02488687  1156.60762064
+  1024.00013412 32651.83638808  4021.90256517  1024.93109897
+  3404.73130419 13886.53909141]
+INFO:root:Updated quality of product for client 0: 0.8506999999999999
+INFO:root:Updated quality of product for client 1: 0.8518000000000001
+INFO:root:Updated quality of product for client 2: 0.0
+INFO:root:Updated quality of product for client 3: 0.8541
+INFO:root:Updated quality of product for client 4: 0.0
+INFO:root:Updated quality of product for client 5: 0.8571
+INFO:root:Updated quality of product for client 6: 0.0
+INFO:root:Updated quality of product for client 7: 0.0
+INFO:root:Updated quality of product for client 8: 0.8553000000000001
+INFO:root:Updated quality of product for client 9: 0.8568000000000001
+INFO:root:New Price: [  112.52578529   224.95319116   731.02488687  1156.54469679
+  1024.00013412 32651.73985733  4021.90256517  1024.93109897
+  3404.70708026 13886.53909141] niter 25
+INFO:root:Final Prices: [  112.59406932   225.03934712   731.02488687  1156.60762064
+  1024.00013412 32651.83638808  4021.90256517  1024.93109897
+  3404.73130419 13886.53909141]
+INFO:root:Final Quality Levels: [0.8507 0.8518 0.     0.8541 0.     0.8571 0.     0.     0.8553 0.8568]
+INFO:root:Final Market Shares: [6.00428663e-04 1.77385872e-03 0.00000000e+00 8.58532654e-03
+            nan 6.35037103e-01 0.00000000e+00 0.00000000e+00
+ 2.98550106e-02 3.24148273e-01]
+INFO:root:Client 1:
+INFO:root:  Initial model performance score: 0.8506999999999999
+INFO:root:  Final model performance score: 0.8506999999999999
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 112.59406931602008
+INFO:root:  Final market share: 0.0006004286626653921
+INFO:root:Client 2:
+INFO:root:  Initial model performance score: 0.8518000000000001
+INFO:root:  Final model performance score: 0.8518000000000001
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 225.0393471167001
+INFO:root:  Final market share: 0.0017738587172564718
+INFO:root:Client 3:
+INFO:root:  Initial model performance score: 0.0
+INFO:root:  Final model performance score: 0.0
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 731.0248868723986
+INFO:root:  Final market share: 0.0
+INFO:root:Client 4:
+INFO:root:  Initial model performance score: 0.8541
+INFO:root:  Final model performance score: 0.8541
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 1156.6076206406472
+INFO:root:  Final market share: 0.008585326536986737
+INFO:root:Client 5:
+INFO:root:  Initial model performance score: 0.0
+INFO:root:  Final model performance score: 0.0
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 1024.000134115113
+INFO:root:  Final market share: nan
+INFO:root:Client 6:
+INFO:root:  Initial model performance score: 0.8571
+INFO:root:  Final model performance score: 0.8571
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 32651.836388078074
+INFO:root:  Final market share: 0.6350371025793559
+INFO:root:Client 7:
+INFO:root:  Initial model performance score: 0.0
+INFO:root:  Final model performance score: 0.0
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 4021.902565174389
+INFO:root:  Final market share: 0.0
+INFO:root:Client 8:
+INFO:root:  Initial model performance score: 0.0
+INFO:root:  Final model performance score: 0.0
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 1024.9310989737792
+INFO:root:  Final market share: 0.0
+INFO:root:Client 9:
+INFO:root:  Initial model performance score: 0.8553000000000001
+INFO:root:  Final model performance score: 0.8553000000000001
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 3404.7313041885054
+INFO:root:  Final market share: 0.02985501056850194
+INFO:root:Client 10:
+INFO:root:  Initial model performance score: 0.8568000000000001
+INFO:root:  Final model performance score: 0.8568000000000001
+INFO:root:  Initial price: 1.0
+INFO:root:  Final price: 13886.53909140963
+INFO:root:  Final market share: 0.32414827293523363
+INFO:root:Price history:
+INFO:root:         Client 1    Client 2    Client 3     Client 4     Client 5      Client 6     Client 7     Client 8     Client 9     Client 10
+Round                                                                                                                                 
+0        0.454051    0.513271    0.500000     0.502575     0.500000  25709.004043     0.547048     0.500000     0.502868      0.485527
+1        0.495565    0.269232    0.250000     0.360551     0.276356  25708.699383     0.254559     0.253431     0.242153  10710.251610
+2        0.126715    0.197701    0.186444     0.135313     0.171253  31063.627932     0.207970     0.157368     0.242153  10710.101084
+3        0.126715    0.066482    0.078684     0.100633     0.056146  31063.545905     0.207970     0.079132     0.200199  12940.918434
+4        0.023141    0.013443    0.039566     0.100633     0.056146  32178.957445     0.056514     0.040826     0.200199  12940.904452
+5        0.009607    0.033579    0.020413     0.013763     0.006721  32178.957445     0.056514     0.032569     0.051567  13405.562599
+6        0.004418    0.011170    0.016284     0.013763     0.016789  32411.275523     0.017850     0.003361     0.051567  13405.562599
+7        0.004418    0.011170    0.001680     0.004015     0.009671  32411.275523     0.017850     0.003361     0.000970  13502.332107
+8        0.001680    0.000268    0.001680     0.004015     0.000590  32459.672315  2997.902565     0.003361     0.000970  13502.332107
+9        0.001680    0.000268    0.001680   984.335418     0.000134  32459.672315  2997.902565     0.003361  2997.884042  13522.506743
+10       0.001680   20.479402    0.001680   984.335418  1024.000134  32469.788829  2997.902565     0.003361  4728.712747  13772.490718
+11      10.213274  564.232142    0.000788  1556.147636  1024.000134  32594.732622  4021.902565     0.931099  4728.712747  13776.744307
+12      10.213274  564.232142    0.465549  1473.783728  1024.000134  32596.874547  4021.902565  1024.931099  3491.378029  13973.154855
+13      10.213274  564.232142  731.024887  1289.445690  1024.000134  32695.042622  4021.902565  1024.931099  3512.091326  13870.870450
+14     365.511498  573.086431  731.024887  1250.021607  1024.000134  32643.939568  4021.902565  1024.931099  3438.143545  13913.488227
+15     286.543168  365.511498  731.024887  1227.255605  1024.000134  32665.245040  4021.902565  1024.931099  3436.652752  13886.028133
+16     182.755984  295.240215  731.024887  1191.135415  1024.000134  32651.836104  4021.902565  1024.931099  3424.219574  13894.754932
+17     147.620197  254.277881  731.024887  1174.982341  1024.000134  32655.894454  4021.902565  1024.931099  3416.120731  13888.157382
+18     127.138844  239.776584  731.024887  1165.296495  1024.000134  32652.469389  4021.902565  1024.931099  3410.158682  13889.151898
+19     119.888190  231.280122  731.024887  1160.851580  1024.000134  32652.741255  4021.902565  1024.931099  3407.698232  13887.234920
+20     115.639983  228.108059  731.024887  1158.583310  1024.000134  32652.117180  4021.902565  1024.931099  3406.026416  13887.132960
+21     114.056606  226.304224  731.024887  1157.490782  1024.000134  32652.059297  4021.902565  1024.931099  3405.388948  13886.750061
+22     113.163729  225.591195  731.024887  1156.970606  1024.000134  32651.883815  4021.902565  1024.931099  3404.987714  13886.662554
+23     112.791528  225.205481  731.024887  1156.727188  1024.000134  32651.836388  4021.902565  1024.931099  3404.846179  13886.561285
+24     112.594069  225.039347  731.024887  1156.607621  1024.000134  32651.836388  4021.902565  1024.931099  3404.731304  13886.539091
+25     112.525785  224.953191  731.024887  1156.544697  1024.000134  32651.739857  4021.902565  1024.931099  3404.707080  13886.539091
+INFO:root:
+Quality history:
+INFO:root:       Client 1  Client 2  Client 3  Client 4  Client 5  Client 6  Client 7  Client 8  Client 9  Client 10
+Round                                                                                                     
+0      0.833339  0.834416  0.850700  0.854100  0.834318    0.8571  0.837845  0.833437  0.820390     0.8568
+1      0.850700  0.851800  0.833339  0.836669  0.851700    0.8571  0.855300  0.850800  0.855300     0.8568
+2      0.850700  0.834416  0.850700  0.854100  0.851700    0.8571  0.855300  0.850800  0.855300     0.8568
+3      0.850700  0.851800  0.850700  0.854100  0.851700    0.8571  0.855300  0.850800  0.855300     0.8568
+4      0.781255  0.851800  0.850700  0.854100  0.851700    0.8571  0.855300  0.850800  0.855300     0.8568
+5      0.763894  0.851800  0.850700  0.854100  0.851700    0.8571  0.855300  0.850800  0.855300     0.8568
+6      0.763894  0.817033  0.850700  0.854100  0.816937    0.8571  0.855300  0.816073  0.855300     0.8568
+7      0.850700  0.000000  0.815978  0.854100  0.747410    0.8571  0.855300  0.746620  0.628384     0.8568
+8      0.746533  0.000000  0.746533  0.854100  0.712647    0.8571  0.855300  0.711894  0.855300     0.8568
+9      0.746533  0.851800  0.000000  0.854100  0.851700    0.8571  0.000000  0.000000  0.855300     0.8568
+10     0.000000  0.851800  0.000000  0.000000  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+11     0.850700  0.851800  0.607643  0.854100  0.000000    0.8571  0.855300  0.850800  0.000000     0.8568
+12     0.000000  0.000000  0.850700  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+13     0.000000  0.000000  0.850700  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+14     0.833339  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+15     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+16     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+17     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+18     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+19     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+20     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+21     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+22     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+23     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+24     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
+25     0.850700  0.851800  0.000000  0.854100  0.000000    0.8571  0.000000  0.000000  0.855300     0.8568
