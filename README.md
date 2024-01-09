@@ -1,12 +1,22 @@
-Code for the following paper:
-When Federated Learning Meets Oligppoly Competition: Stability and Model Differentiation.
-Chao Huang, Justin Dachille, and Xin Liu.
-Submitted to IEEE Transactions on Network Science and Engineering, under revision.
+# When Federated Learning Meets Oligopoly Competition: Stability and Model Differentiation
+
+Official Code for the paper "When Federated Learning Meets Oligopoly Competition: Stability and Model Differentiation" by Chao Huang, Justin Dachille, and Xin Liu. Currently under revision and submitted to IEEE Transactions on Network Science and Engineering.
 
 ## Usage
 
-This code runs as a multi-stage pipeline. First, we train all coalitions ABC, AB, AC, BC, A, B, C using `scaffold_train.py`. Then, we fine tune individual clients from coalitions ABC, AB, AC, and BC with `fine_tuning.py`. We then use `extract_data.py` to parse all log files and generate profit tables using algorithms from `bestresponse.py`.
+The codebase is structured as a multi-stage pipeline to simulate the dynamics of federated learning in an oligopoly competition scenario:
 
+1. **Training All Coalitions**: Begin by training all coalitions (ABC, AB, AC, BC, A, B, C) using the script `scaffold_train.py`. This step sets the foundation for the federated learning process under various coalition structures.
+
+2. **Fine-Tuning Individual Clients**: Once the initial training is complete, individual clients from coalitions ABC, AB, AC, and BC can be fine-tuned using `fine_tuning.py`. This stage focuses on optimizing the performance of each client within their respective coalition.
+
+3. **Data Extraction and Analysis**: Use `extract_data.py` to parse all log files generated during the training and fine-tuning stages. This script uses best response algorithms defined in `bestresponse.py` to generate profit tables.
+
+## Main Requirements
+
+- **Python**: Tested with Python 3.11.
+- **torch**: PyTorch library for neural networks.
+- **dill**: Extended version of the `pickle` module for serialization.
 
 Example training run:
 ```
