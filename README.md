@@ -64,7 +64,25 @@ python scaffold_train.py --model=resnet18 \
 | `abc` | The coalition to train, Input as ABC, AB, AC, BC, A, B, or C |
 | `C_size` |	Data points that C has if `partition` is set to `custom-quantity` |
 
-Example fine tuning run: `python fine_tuning.py --reg 0.0001 --rho 0.1 --ft_epochs 10 --partition iid --init_seed 42 --alg fedavg --logdir "./custom_logs/" --net_num 5 --train_all_layers --optimizer adam --lr 0.001 --device 'cuda:0' --C_size 10000 --beta 0.2 --abc AB` 
+Example fine tuning run: 
+
+```
+python fine_tuning.py --reg 0.0001 \
+    --rho 0.1 \
+    --ft_epochs 10 \
+    --partition iid \
+    --init_seed 42 \
+    --alg fedavg \
+    --logdir "./custom_logs/" \
+    --net_num 5 \
+    --train_all_layers \
+    --optimizer adam \
+    --lr 0.001 \
+    --device 'cuda:0' \
+    --C_size 10000 \
+    --beta 0.2 \
+    --abc AB
+```
 
 | Parameter          | Description                                                                                                                                                     | Type       | Default Value        |
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|----------------------|
