@@ -1,6 +1,6 @@
 # When Federated Learning Meets Oligopoly Competition: Stability and Model Differentiation
 
-Official Code for the paper "When Federated Learning Meets Oligopoly Competition: Stability and Model Differentiation" by Chao Huang, Justin Dachille, and Xin Liu. Currently under revision and submitted to IEEE Transactions on Network Science and Engineering.
+Official Code for the paper "When Federated Learning Meets Oligopoly Competition: Stability and Model Differentiation" by Chao Huang, Justin Dachille, and Xin Liu. Accepted to IEEE Internet of Things Journal.
 
 ## Usage
 
